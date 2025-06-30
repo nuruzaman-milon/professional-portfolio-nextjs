@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import Image from "next/image"
 import { ChevronDown, Github, Linkedin, Mail } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
@@ -56,6 +57,25 @@ export default function Hero() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
         <div className="animate-slide-up">
+          {/* Profile Image */}
+          <div className="mb-8 flex justify-center">
+            <div className="relative">
+              <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-emerald-500/30 shadow-2xl hover:scale-105 transition-transform duration-300">
+                <Image
+                  src="/images/profile-photo.jpg"
+                  alt="Alex Johnson - Full Stack Developer"
+                  width={160}
+                  height={160}
+                  className="w-full h-full object-cover"
+                  priority
+                />
+              </div>
+              {/* Animated ring around profile */}
+              <div className="absolute inset-0 rounded-full border-2 border-emerald-500/50 animate-pulse"></div>
+              <div className="absolute -inset-2 rounded-full border border-emerald-400/30 animate-ping"></div>
+            </div>
+          </div>
+
           <h1 className="text-5xl md:text-7xl font-bold text-gray-900 dark:text-white mb-6">
             Hi, I'm <span className="gradient-text">Alex Johnson</span>
           </h1>
@@ -75,11 +95,13 @@ export default function Hero() {
                   </span>
 
                   {/* Typing cursor effect */}
-                  <span className={`inline-block w-0.5 h-8 bg-emerald-500 ml-1 animate-pulse inline-block transition-all duration-600 ease-in-out ${
+                  <span
+                    className={`inline-block w-0.5 h-8 bg-emerald-500 ml-1 animate-pulse inline-block transition-all duration-600 ease-in-out ${
                       isAnimating
                         ? "opacity-0 transform -translate-y-4 scale-95"
                         : "opacity-100 transform translate-y-0 scale-100"
-                    }`}></span>
+                    }`}
+                  ></span>
                 </div>
               </div>
             </div>

@@ -1,7 +1,10 @@
-import Image from "next/image"
-import Link from "next/link"
-import { ArrowLeft, Calendar, Clock, Share2, Heart, MessageCircle } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import Image from "next/image";
+import Link from "next/link";
+import { ArrowLeft, Calendar, Clock, Heart, MessageCircle } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import ShareButton from "@/components/ShareButton";
+import type { Metadata } from "next";
+import Head from "next/head";
 
 // This would typically come from a database or CMS
 const getBlogPost = (slug: string) => {
@@ -271,175 +274,349 @@ db.posts.createIndex({ "title": "text", "content": "text" });</code></pre>
       tags: ["MongoDB", "Database", "MERN Stack", "Best Practices"],
       author: "Alex Johnson",
     },
+  };
+
+  return posts[slug as keyof typeof posts] || null;
+};
+
+// Generate metadata for SEO and social sharing
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}): Promise<Metadata> {
+  const slug = await params.slug;
+  const post = await getBlogPost(slug);
+
+  if (!post) {
+    return {
+      title: "Post Not Found",
+      description: "The requested blog post could not be found.",
+    };
   }
 
-  return posts[slug as keyof typeof posts] || null
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://alexjohnson.dev";
+  const postUrl = `${baseUrl}/blog/${params.slug}`;
+  const imageUrl = `${baseUrl}${post.image}`;
+
+  return {
+    title: `${post.title} | Alex Johnson`,
+    description: post.excerpt,
+    keywords: post.tags.join(", "),
+    authors: [{ name: post.author }],
+    openGraph: {
+      title: post.title,
+      description: post.excerpt,
+      url: postUrl,
+      siteName: "Alex Johnson - Full Stack Developer",
+      images: [
+        {
+          url: imageUrl,
+          width: 1200,
+          height: 630,
+          alt: post.title,
+          type: "image/jpeg",
+        },
+      ],
+      locale: "en_US",
+      type: "article",
+      publishedTime: post.date,
+      authors: [post.author],
+      tags: post.tags,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.excerpt,
+      images: [imageUrl],
+      creator: "@alexjohnson_dev",
+      site: "@alexjohnson_dev",
+    },
+    alternates: {
+      canonical: postUrl,
+    },
+  };
 }
 
-export default function BlogPost({ params }: { params: { slug: string } }) {
-  const post = getBlogPost(params.slug)
+// Component to inject meta tags directly into head
+function BlogPostHead({ post, slug }: { post: any; slug: string }) {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://alexjohnson.dev";
+  const postUrl = `${baseUrl}/blog/${slug}`;
+  const imageUrl = `${baseUrl}${post.image}`;
+
+  return (
+    <Head>
+      {/* Primary Meta Tags */}
+      <title>{`${post.title} | Alex Johnson`}</title>
+      <meta name="title" content={`${post.title} | Alex Johnson`} />
+      <meta name="description" content={post.excerpt} />
+      <meta name="keywords" content={post.tags.join(", ")} />
+      <meta name="author" content={post.author} />
+      <link rel="canonical" href={postUrl} />
+
+      {/* Open Graph */}
+      <meta property="og:type" content="article" />
+      <meta property="og:url" content={postUrl} />
+      <meta property="og:title" content={post.title} />
+      <meta property="og:description" content={post.excerpt} />
+      <meta property="og:image" content={imageUrl} />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
+      <meta property="og:image:alt" content={post.title} />
+      <meta
+        property="og:site_name"
+        content="Alex Johnson - Full Stack Developer"
+      />
+      <meta property="article:published_time" content={post.date} />
+      <meta property="article:author" content={post.author} />
+      <meta property="article:section" content={post.category} />
+      {post.tags.map((tag: string) => (
+        <meta key={tag} property="article:tag" content={tag} />
+      ))}
+
+      {/* Twitter */}
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:url" content={postUrl} />
+      <meta name="twitter:title" content={post.title} />
+      <meta name="twitter:description" content={post.excerpt} />
+      <meta name="twitter:image" content={imageUrl} />
+      <meta name="twitter:creator" content="@alexjohnson_dev" />
+      <meta name="twitter:site" content="@alexjohnson_dev" />
+
+      {/* Robots */}
+      <meta name="robots" content="index, follow" />
+      <meta
+        name="googlebot"
+        content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"
+      />
+
+      {/* JSON-LD Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BlogPosting",
+            headline: post.title,
+            description: post.excerpt,
+            image: imageUrl,
+            author: { "@type": "Person", name: post.author, url: baseUrl },
+            publisher: {
+              "@type": "Person",
+              name: "Alex Johnson",
+              url: baseUrl,
+            },
+            datePublished: post.date,
+            dateModified: post.date,
+            mainEntityOfPage: { "@type": "WebPage", "@id": postUrl },
+            url: postUrl,
+            keywords: post.tags.join(", "),
+            articleSection: post.category,
+          }),
+        }}
+      />
+    </Head>
+  );
+}
+
+export default async function BlogPost({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  const slug = await params.slug;
+  const post = await getBlogPost(slug);
 
   if (!post) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-gray-100 via-white to-gray-100 dark:from-slate-900 dark:via-blue-900 dark:to-slate-900 pt-20 flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">Post Not Found</h1>
+          <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+            Post Not Found
+          </h1>
           <Link href="/blog">
             <Button>Back to Blog</Button>
           </Link>
         </div>
       </div>
-    )
+    );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 pt-20">
-      <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="mb-8">
-          <Link
-            href="/blog"
-            className="inline-flex items-center text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 dark:hover:text-emerald-300 transition-colors mb-6"
-          >
-            <ArrowLeft size={20} className="mr-2" />
-            Back to Blog
-          </Link>
-        </div>
+    <>
+      <BlogPostHead post={post} slug={params.slug} />
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 pt-20">
+        <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="mb-8">
+            <Link
+              href="/blog"
+              className="inline-flex items-center text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 dark:hover:text-emerald-300 transition-colors mb-6"
+            >
+              <ArrowLeft size={20} className="mr-2" />
+              Back to Blog
+            </Link>
+          </div>
 
-        <header className="mb-12">
-          <div className="flex items-center mb-4">
-            <span className="px-3 py-1 bg-emerald-600 text-white text-sm rounded-full mr-4">{post.category}</span>
-            <div className="flex flex-wrap gap-2">
-              {post.tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="px-2 py-1 bg-gray-200 text-gray-700 dark:bg-slate-700 dark:text-gray-300 text-xs rounded"
+          <header className="mb-12">
+            <div className="flex items-center mb-4">
+              <span className="px-3 py-1 bg-emerald-600 text-white text-sm rounded-full mr-4">
+                {post.category}
+              </span>
+              <div className="flex flex-wrap gap-2">
+                {post.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="px-2 py-1 bg-gray-200 text-gray-700 dark:bg-slate-700 dark:text-gray-300 text-xs rounded"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
+              {post.title}
+            </h1>
+
+            <p className="text-xl text-gray-600 dark:text-gray-400 mb-8 leading-relaxed">
+              {post.excerpt}
+            </p>
+
+            <div className="flex items-center justify-between mb-8">
+              <div className="flex items-center space-x-6 text-gray-500 dark:text-gray-400">
+                <div className="flex items-center space-x-2">
+                  <Calendar size={16} />
+                  <span>{new Date(post.date).toLocaleDateString()}</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Clock size={16} />
+                  <span>{post.readTime}</span>
+                </div>
+                <span>By {post.author}</span>
+              </div>
+
+              <div className="flex items-center space-x-3">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="text-gray-500 hover:text-emerald-600 hover:bg-emerald-50 dark:text-gray-400 dark:hover:text-emerald-400 dark:hover:bg-emerald-900/20"
                 >
-                  {tag}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
-            {post.title}
-          </h1>
-
-          <p className="text-xl text-gray-600 dark:text-gray-400 mb-8 leading-relaxed">{post.excerpt}</p>
-
-          <div className="flex items-center justify-between mb-8">
-            <div className="flex items-center space-x-6 text-gray-500 dark:text-gray-400">
-              <div className="flex items-center space-x-2">
-                <Calendar size={16} />
-                <span>{new Date(post.date).toLocaleDateString()}</span>
+                  <Heart size={16} className="mr-1" />
+                  24
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="text-gray-500 hover:text-emerald-600 hover:bg-emerald-50 dark:text-gray-400 dark:hover:text-emerald-400 dark:hover:bg-emerald-900/20"
+                >
+                  <MessageCircle size={16} className="mr-1" />8
+                </Button>
+                <ShareButton
+                  title={post.title}
+                  url={`/blog/${params.slug}`}
+                  description={post.excerpt}
+                />
               </div>
-              <div className="flex items-center space-x-2">
-                <Clock size={16} />
-                <span>{post.readTime}</span>
-              </div>
-              <span>By {post.author}</span>
             </div>
 
-            <div className="flex items-center space-x-3">
-              <Button
-                variant="ghost"
-                size="sm"
-                className="text-gray-500 hover:text-emerald-600 hover:bg-emerald-50 dark:text-gray-400 dark:hover:text-emerald-400 dark:hover:bg-emerald-900/20"
-              >
-                <Heart size={16} className="mr-1" />
-                24
-              </Button>
-              <Button
-                variant="ghost"
-                size="sm"
-                className="text-gray-500 hover:text-emerald-600 hover:bg-emerald-50 dark:text-gray-400 dark:hover:text-emerald-400 dark:hover:bg-emerald-900/20"
-              >
-                <MessageCircle size={16} className="mr-1" />8
-              </Button>
-              <Button
-                variant="ghost"
-                size="sm"
-                className="text-gray-500 hover:text-emerald-600 hover:bg-emerald-50 dark:text-gray-400 dark:hover:text-emerald-400 dark:hover:bg-emerald-900/20"
-              >
-                <Share2 size={16} />
-              </Button>
+            <div className="relative rounded-xl overflow-hidden mb-12 shadow-lg">
+              <Image
+                src={post.image || "/placeholder.svg"}
+                alt={post.title}
+                width={800}
+                height={400}
+                className="w-full h-64 md:h-96 object-cover"
+              />
             </div>
-          </div>
+          </header>
 
-          <div className="relative rounded-xl overflow-hidden mb-12 shadow-lg">
-            <Image
-              src={post.image || "/placeholder.svg"}
-              alt={post.title}
-              width={800}
-              height={400}
-              className="w-full h-64 md:h-96 object-cover"
+          <div className="glass-effect rounded-xl p-8 md:p-12 shadow-lg">
+            <div
+              className="prose prose-lg prose-gray dark:prose-invert max-w-none
+                prose-headings:text-gray-900 dark:prose-headings:text-white
+                prose-p:text-gray-700 dark:prose-p:text-gray-300
+                prose-strong:text-gray-900 dark:prose-strong:text-white
+                prose-code:text-emerald-600 dark:prose-code:text-emerald-400
+                prose-code:bg-gray-100 dark:prose-code:bg-gray-800
+                prose-code:px-1 prose-code:py-0.5 prose-code:rounded
+                prose-pre:bg-gray-100 dark:prose-pre:bg-gray-800
+                prose-pre:border prose-pre:border-gray-200 dark:prose-pre:border-gray-700
+                prose-li:text-gray-700 dark:prose-li:text-gray-300
+                prose-a:text-emerald-600 dark:prose-a:text-emerald-400
+                prose-a:no-underline hover:prose-a:underline"
+              dangerouslySetInnerHTML={{ __html: post.content }}
             />
           </div>
-        </header>
 
-        <div className="glass-effect rounded-xl p-8 md:p-12 shadow-lg">
-          <div
-            className="prose prose-lg prose-gray dark:prose-invert max-w-none
-              prose-headings:text-gray-900 dark:prose-headings:text-white
-              prose-p:text-gray-700 dark:prose-p:text-gray-300
-              prose-strong:text-gray-900 dark:prose-strong:text-white
-              prose-code:text-emerald-600 dark:prose-code:text-emerald-400
-              prose-code:bg-gray-100 dark:prose-code:bg-gray-800
-              prose-code:px-1 prose-code:py-0.5 prose-code:rounded
-              prose-pre:bg-gray-100 dark:prose-pre:bg-gray-800
-              prose-pre:border prose-pre:border-gray-200 dark:prose-pre:border-gray-700
-              prose-li:text-gray-700 dark:prose-li:text-gray-300
-              prose-a:text-emerald-600 dark:prose-a:text-emerald-400
-              prose-a:no-underline hover:prose-a:underline"
-            dangerouslySetInnerHTML={{ __html: post.content }}
-          />
-        </div>
-
-        <div className="mt-12 p-8 glass-effect rounded-xl shadow-lg">
-          <div className="flex items-center space-x-4">
-            <div className="w-16 h-16 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg">
-              AJ
-            </div>
-            <div>
-              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Alex Johnson</h3>
-              <p className="text-gray-600 dark:text-gray-400">
-                Full Stack Developer with 2+ years of experience in MERN stack development. Passionate about sharing
-                knowledge and helping developers build better applications.
-              </p>
+          {/* Floating Share Button for Mobile */}
+          <div className="fixed bottom-6 right-6 md:hidden z-40">
+            <div className="bg-emerald-600 hover:bg-emerald-700 text-white p-3 rounded-full shadow-lg hover:scale-110 transition-all duration-300">
+              <ShareButton
+                title={post.title}
+                url={`/blog/${params.slug}`}
+                description={post.excerpt}
+              />
             </div>
           </div>
-        </div>
 
-        {/* Related Posts Section */}
-        <div className="mt-16">
-          <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-8">Related Articles</h3>
-          <div className="grid md:grid-cols-2 gap-6">
-            <Link
-              href="/blog/nodejs-performance-optimization"
-              className="group p-6 glass-effect rounded-xl hover:scale-105 transition-all duration-300 shadow-lg"
-            >
-              <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-2 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
-                Optimizing Node.js Performance for Production
-              </h4>
-              <p className="text-gray-600 dark:text-gray-400 text-sm">
-                Discover advanced techniques to optimize your Node.js applications for better performance and
-                scalability.
-              </p>
-            </Link>
-            <Link
-              href="/blog/mongodb-best-practices"
-              className="group p-6 glass-effect rounded-xl hover:scale-105 transition-all duration-300 shadow-lg"
-            >
-              <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-2 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
-                MongoDB Best Practices for MERN Stack
-              </h4>
-              <p className="text-gray-600 dark:text-gray-400 text-sm">
-                Essential MongoDB patterns and practices every MERN stack developer should know for building robust
-                applications.
-              </p>
-            </Link>
+          <div className="mt-12 p-8 glass-effect rounded-xl shadow-lg">
+            <div className="flex items-center space-x-4">
+              <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-emerald-500/30 shadow-lg">
+                <Image
+                  src="/images/profile-photo.jpg"
+                  alt="Alex Johnson"
+                  width={64}
+                  height={64}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
+                  Alex Johnson
+                </h3>
+                <p className="text-gray-600 dark:text-gray-400">
+                  Full Stack Developer with 2+ years of experience in MERN stack
+                  development. Passionate about sharing knowledge and helping
+                  developers build better applications.
+                </p>
+              </div>
+            </div>
           </div>
-        </div>
-      </article>
-    </div>
-  )
+
+          {/* Related Posts Section */}
+          <div className="mt-16">
+            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-8">
+              Related Articles
+            </h3>
+            <div className="grid md:grid-cols-2 gap-6">
+              <Link
+                href="/blog/nodejs-performance-optimization"
+                className="group p-6 glass-effect rounded-xl hover:scale-105 transition-all duration-300 shadow-lg"
+              >
+                <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-2 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
+                  Optimizing Node.js Performance for Production
+                </h4>
+                <p className="text-gray-600 dark:text-gray-400 text-sm">
+                  Discover advanced techniques to optimize your Node.js
+                  applications for better performance and scalability.
+                </p>
+              </Link>
+              <Link
+                href="/blog/mongodb-best-practices"
+                className="group p-6 glass-effect rounded-xl hover:scale-105 transition-all duration-300 shadow-lg"
+              >
+                <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-2 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
+                  MongoDB Best Practices for MERN Stack
+                </h4>
+                <p className="text-gray-600 dark:text-gray-400 text-sm">
+                  Essential MongoDB patterns and practices every MERN stack
+                  developer should know for building robust applications.
+                </p>
+              </Link>
+            </div>
+          </div>
+        </article>
+      </div>
+    </>
+  );
 }

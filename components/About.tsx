@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
+import Image from "next/image"
 import { Code, Coffee, Lightbulb, Users } from "lucide-react"
 
 export default function About() {
@@ -70,17 +71,38 @@ export default function About() {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-6">
-              {stats.map(({ icon: Icon, label, value }) => (
-                <div
-                  key={label}
-                  className="glass-effect p-6 rounded-xl text-center hover:scale-105 transition-transform duration-300"
-                >
-                  <Icon className="mx-auto mb-4 text-emerald-600 dark:text-emerald-400" size={32} />
-                  <div className="text-2xl font-bold text-gray-900 dark:text-white mb-2">{value}</div>
-                  <div className="text-gray-500 dark:text-gray-400 text-sm">{label}</div>
+            <div className="space-y-8">
+              {/* Profile Image in About Section */}
+              <div className="flex justify-center lg:justify-start">
+                <div className="relative">
+                  <div className="w-64 h-64 rounded-2xl overflow-hidden shadow-2xl hover:scale-105 transition-transform duration-300">
+                    <Image
+                      src="/images/profile-photo.jpg"
+                      alt="Alex Johnson working on code"
+                      width={256}
+                      height={256}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  {/* Decorative elements */}
+                  <div className="absolute -top-4 -right-4 w-20 h-20 bg-emerald-500/20 rounded-full blur-xl"></div>
+                  <div className="absolute -bottom-4 -left-4 w-16 h-16 bg-teal-500/20 rounded-full blur-xl"></div>
                 </div>
-              ))}
+              </div>
+
+              {/* Stats Grid */}
+              <div className="grid grid-cols-2 gap-6">
+                {stats.map(({ icon: Icon, label, value }) => (
+                  <div
+                    key={label}
+                    className="glass-effect p-6 rounded-xl text-center hover:scale-105 transition-transform duration-300"
+                  >
+                    <Icon className="mx-auto mb-4 text-emerald-600 dark:text-emerald-400" size={32} />
+                    <div className="text-2xl font-bold text-gray-900 dark:text-white mb-2">{value}</div>
+                    <div className="text-gray-500 dark:text-gray-400 text-sm">{label}</div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
