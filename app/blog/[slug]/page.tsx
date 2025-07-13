@@ -296,7 +296,7 @@ export async function generateMetadata({
   }
 
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://alexjohnson.dev";
-  const postUrl = `${baseUrl}/blog/${params.slug}`;
+  const postUrl = `${baseUrl}/blog/${slug}`;
   const imageUrl = `${baseUrl}${post.image}`;
 
   return {
@@ -422,9 +422,9 @@ function BlogPostHead({ post, slug }: { post: any; slug: string }) {
 export default async function BlogPost({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
-  const slug = await params.slug;
+  const { slug } = await params;
   const post = await getBlogPost(slug);
 
   if (!post) {
@@ -444,7 +444,7 @@ export default async function BlogPost({
 
   return (
     <>
-      <BlogPostHead post={post} slug={params.slug} />
+      <BlogPostHead post={post} slug={slug} />
       <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 pt-20">
         <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="mb-8">
@@ -513,7 +513,7 @@ export default async function BlogPost({
                 </Button>
                 <ShareButton
                   title={post.title}
-                  url={`/blog/${params.slug}`}
+                  url={`/blog/${slug}`}
                   description={post.excerpt}
                 />
               </div>
@@ -553,7 +553,7 @@ export default async function BlogPost({
             <div className="bg-emerald-600 hover:bg-emerald-700 text-white p-3 rounded-full shadow-lg hover:scale-110 transition-all duration-300">
               <ShareButton
                 title={post.title}
-                url={`/blog/${params.slug}`}
+                url={`/blog/${slug}`}
                 description={post.excerpt}
               />
             </div>
