@@ -1,31 +1,31 @@
-"use client"
+"use client";
 
-import { useEffect, useRef, useState } from "react"
-import Link from "next/link"
-import Image from "next/image"
-import { Calendar, Clock, ArrowRight } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { Calendar, Clock, ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export default function Blog() {
-  const [isVisible, setIsVisible] = useState(false)
-  const ref = useRef<HTMLElement>(null)
+  const [isVisible, setIsVisible] = useState(false);
+  const ref = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setIsVisible(true)
+          setIsVisible(true);
         }
       },
       { threshold: 0.1 },
-    )
+    );
 
     if (ref.current) {
-      observer.observe(ref.current)
+      observer.observe(ref.current);
     }
 
-    return () => observer.disconnect()
-  }, [])
+    return () => observer.disconnect();
+  }, []);
 
   const blogPosts = [
     {
@@ -61,12 +61,18 @@ export default function Blog() {
       category: "MongoDB",
       slug: "mongodb-best-practices",
     },
-  ]
+  ];
 
   return (
-    <section id="blog" ref={ref} className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-800/100">
+    <section
+      id="blogs"
+      ref={ref}
+      className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-800/100"
+    >
       <div className="max-w-7xl mx-auto">
-        <div className={`transition-all duration-1000 ${isVisible ? "animate-slide-up" : "opacity-0"}`}>
+        <div
+          className={`transition-all duration-1000 ${isVisible ? "animate-slide-up" : "opacity-0"}`}
+        >
           <h2 className="text-4xl md:text-5xl font-bold text-center text-gray-900 dark:text-white mb-16">
             Latest <span className="gradient-text">Blog Posts</span>
           </h2>
@@ -87,7 +93,9 @@ export default function Blog() {
                     className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
                   />
                   <div className="absolute top-4 left-4">
-                    <span className="px-3 py-1 bg-emerald-600 text-white text-xs rounded-full">{post.category}</span>
+                    <span className="px-3 py-1 bg-emerald-600 text-white text-xs rounded-full">
+                      {post.category}
+                    </span>
                   </div>
                 </div>
 
@@ -107,14 +115,19 @@ export default function Blog() {
                     {post.title}
                   </h3>
 
-                  <p className="text-gray-600 dark:text-gray-400 mb-4 line-clamp-3">{post.excerpt}</p>
+                  <p className="text-gray-600 dark:text-gray-400 mb-4 line-clamp-3">
+                    {post.excerpt}
+                  </p>
 
                   <Link
                     href={`/blog/${post.slug}`}
                     className="inline-flex items-center text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 dark:hover:text-emerald-300 transition-colors"
                   >
                     Read More
-                    <ArrowRight size={16} className="ml-1 group-hover:translate-x-1 transition-transform" />
+                    <ArrowRight
+                      size={16}
+                      className="ml-1 group-hover:translate-x-1 transition-transform"
+                    />
                   </Link>
                 </div>
               </article>
@@ -135,5 +148,5 @@ export default function Blog() {
         </div>
       </div>
     </section>
-  )
+  );
 }

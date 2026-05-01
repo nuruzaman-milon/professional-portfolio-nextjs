@@ -55,15 +55,15 @@ export default function Hero() {
         ></div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 mt-20 pb-10">
         <div className="animate-slide-up">
           {/* Profile Image */}
           <div className="mb-8 flex justify-center">
             <div className="relative">
               <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-emerald-500/30 shadow-2xl hover:scale-105 transition-transform duration-300">
                 <Image
-                  src="/images/profile-photo.jpg"
-                  alt="Alex Johnson - Full Stack Developer"
+                  src="/images/nuruzaman-milon-profile-photo.png"
+                  alt="Nuruzaman Milon - Full Stack Developer"
                   width={160}
                   height={160}
                   className="w-full h-full object-cover"
@@ -77,7 +77,7 @@ export default function Hero() {
           </div>
 
           <h1 className="text-5xl md:text-7xl font-bold text-gray-900 dark:text-white mb-6">
-            Hi, I'm <span className="gradient-text">Alex Johnson</span>
+            Hi, I'm <span className="gradient-text">Nuruzaman Milon</span>
           </h1>
 
           <div className="h-20 mb-8 flex items-center justify-center">
@@ -115,7 +115,7 @@ export default function Hero() {
             into digital reality with clean, efficient code.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pb-12">
             <Button
               size="lg"
               className="bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-3 rounded-full transition-all duration-300 hover:scale-105 animate-glow"
@@ -131,7 +131,7 @@ export default function Hero() {
             </Button>
           </div>
 
-          <div className="flex justify-center space-x-6">
+          <div className="flex justify-center space-x-6 pb-4">
             {[
               { icon: Github, href: "#", label: "GitHub" },
               { icon: Linkedin, href: "#", label: "LinkedIn" },
@@ -150,7 +150,7 @@ export default function Hero() {
         </div>
       </div>
 
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+      <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 animate-bounce">
         <ChevronDown className="text-gray-400 dark:text-gray-400" size={32} />
       </div>
     </section>

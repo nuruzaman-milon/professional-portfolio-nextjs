@@ -28,11 +28,11 @@ export default function Navbar() {
           "about",
           "skills",
           "projects",
-          "blog",
+          "blogs",
           "contact",
         ];
         const sectionElements = sections.map((id) =>
-          document.getElementById(id)
+          document.getElementById(id),
         );
 
         let currentSection = "home";
@@ -71,8 +71,8 @@ export default function Navbar() {
 
   // Update active section based on current pathname
   useEffect(() => {
-    if (pathname.startsWith("/blog")) {
-      setActiveSection("blog");
+    if (pathname.startsWith("/blogs")) {
+      setActiveSection("blogs");
     } else if (pathname.startsWith("/projects")) {
       setActiveSection("projects");
     } else if (pathname === "/") {
@@ -86,7 +86,7 @@ export default function Navbar() {
 
   // Scroll to top when navigating to projects or blog pages
   useEffect(() => {
-    if (pathname.startsWith("/blog") || pathname.startsWith("/projects")) {
+    if (pathname.startsWith("/blogs") || pathname.startsWith("/projects")) {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   }, [pathname]);
@@ -96,7 +96,7 @@ export default function Navbar() {
     { href: "#about", label: "About", id: "about" },
     { href: "#skills", label: "Skills", id: "skills" },
     { href: "#projects", label: "Projects", id: "projects" },
-    { href: "#blog", label: "Blog", id: "blog" },
+    { href: "#blogs", label: "Blogs", id: "blogs" },
     { href: "#contact", label: "Contact", id: "contact" },
   ];
 
@@ -106,8 +106,8 @@ export default function Navbar() {
       router.push("/projects");
       return;
     }
-    if (id === "blog" && pathname !== "/") {
-      router.push("/blog");
+    if (id === "blogs" && pathname !== "/") {
+      router.push("/blogs");
       return;
     }
 
@@ -161,8 +161,8 @@ export default function Navbar() {
                     isActive
                       ? "text-emerald-600 dark:text-emerald-400 font-semibold"
                       : scrolled
-                      ? "text-gray-700 dark:text-gray-200 hover:text-emerald-600 dark:hover:text-emerald-400"
-                      : "text-gray-600 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400"
+                        ? "text-gray-700 dark:text-gray-200 hover:text-emerald-600 dark:hover:text-emerald-400"
+                        : "text-gray-600 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400"
                   }`}
                   style={{ transitionDelay: `${index * 30}ms` }}
                 >
