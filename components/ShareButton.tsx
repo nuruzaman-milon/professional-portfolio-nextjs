@@ -1,127 +1,147 @@
-"use client"
+"use client";
 
-import { useState, useEffect, useRef } from "react"
-import { createPortal } from "react-dom"
-import { Share2, Facebook, Twitter, Linkedin, Link2, Check, X } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { useState, useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
+import {
+  Share2,
+  Facebook,
+  Twitter,
+  Linkedin,
+  Link2,
+  Check,
+  X,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 interface ShareButtonProps {
-  title: string
-  url: string
-  description?: string
+  title: string;
+  url: string;
+  description?: string;
 }
 
-export default function ShareButton({ title, url, description = "" }: ShareButtonProps) {
-  const [copied, setCopied] = useState(false)
-  const [isOpen, setIsOpen] = useState(false)
-  const [mounted, setMounted] = useState(false)
-  const [position, setPosition] = useState({ x: 0, y: 0 })
-  const buttonRef = useRef<HTMLButtonElement>(null)
-  const scrollPositionRef = useRef(0)
+export default function ShareButton({
+  title,
+  url,
+  description = "",
+}: ShareButtonProps) {
+  const [copied, setCopied] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const scrollPositionRef = useRef(0);
 
   // Get the full URL
-  const fullUrl = typeof window !== "undefined" ? `${window.location.origin}${url}` : url
-  const encodedUrl = encodeURIComponent(fullUrl)
-  const encodedTitle = encodeURIComponent(title)
-  const encodedDescription = encodeURIComponent(description)
+  const fullUrl =
+    typeof window !== "undefined" ? `${window.location.origin}${url}` : url;
+  const encodedUrl = encodeURIComponent(fullUrl);
+  const encodedTitle = encodeURIComponent(title);
+  const encodedDescription = encodeURIComponent(description);
 
   useEffect(() => {
-    setMounted(true)
-  }, [])
+    setMounted(true);
+  }, []);
 
   // Calculate position when opening
   useEffect(() => {
     if (isOpen && buttonRef.current) {
-      const rect = buttonRef.current.getBoundingClientRect()
-      const scrollY = window.scrollY
-      const scrollX = window.scrollX
+      const rect = buttonRef.current.getBoundingClientRect();
+      const scrollY = window.scrollY;
+      const scrollX = window.scrollX;
 
       // Store initial scroll position
-      scrollPositionRef.current = scrollY
+      scrollPositionRef.current = scrollY;
 
       // Calculate position relative to viewport
-      let x = rect.right - 224 // 224px is dropdown width (w-56 = 14rem = 224px)
-      let y = rect.bottom + 8
+      let x = rect.right - 224; // 224px is dropdown width (w-56 = 14rem = 224px)
+      let y = rect.bottom + 8;
 
       // Adjust if dropdown would go off screen
-      if (x < 16) x = 16 // 16px padding from left edge
-      if (x + 224 > window.innerWidth - 16) x = window.innerWidth - 224 - 16
+      if (x < 16) x = 16; // 16px padding from left edge
+      if (x + 224 > window.innerWidth - 16) x = window.innerWidth - 224 - 16;
 
       // Adjust vertical position if needed
       if (y + 400 > window.innerHeight + scrollY) {
         // Approximate dropdown height
-        y = rect.top - 8 - 400 // Position above button
+        y = rect.top - 8 - 400; // Position above button
       }
 
-      setPosition({ x: x + scrollX, y: y + scrollY })
+      setPosition({ x: x + scrollX, y: y + scrollY });
     }
-  }, [isOpen])
+  }, [isOpen]);
 
   // Close on escape key
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
-        setIsOpen(false)
+        setIsOpen(false);
       }
-    }
+    };
 
     if (isOpen) {
-      document.addEventListener("keydown", handleEscape)
-      return () => document.removeEventListener("keydown", handleEscape)
+      document.addEventListener("keydown", handleEscape);
+      return () => document.removeEventListener("keydown", handleEscape);
     }
-  }, [isOpen])
+  }, [isOpen]);
 
   // Close on outside click
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
-      if (isOpen && buttonRef.current && !buttonRef.current.contains(e.target as Node)) {
-        const dropdown = document.getElementById("share-dropdown")
+      if (
+        isOpen &&
+        buttonRef.current &&
+        !buttonRef.current.contains(e.target as Node)
+      ) {
+        const dropdown = document.getElementById("share-dropdown");
         if (dropdown && !dropdown.contains(e.target as Node)) {
-          setIsOpen(false)
+          setIsOpen(false);
         }
       }
-    }
+    };
 
     if (isOpen) {
-      document.addEventListener("mousedown", handleClickOutside)
-      return () => document.removeEventListener("mousedown", handleClickOutside)
+      document.addEventListener("mousedown", handleClickOutside);
+      return () =>
+        document.removeEventListener("mousedown", handleClickOutside);
     }
-  }, [isOpen])
+  }, [isOpen]);
 
   // Close on scroll - NEW FEATURE
   useEffect(() => {
     const handleScroll = () => {
       if (isOpen) {
-        const currentScrollY = window.scrollY
-        const scrollDifference = Math.abs(currentScrollY - scrollPositionRef.current)
+        const currentScrollY = window.scrollY;
+        const scrollDifference = Math.abs(
+          currentScrollY - scrollPositionRef.current,
+        );
 
         // Close modal if user scrolls more than 10px
         if (scrollDifference > 10) {
-          setIsOpen(false)
+          setIsOpen(false);
         }
       }
-    }
+    };
 
     if (isOpen) {
       // Use passive listener for better performance
-      window.addEventListener("scroll", handleScroll, { passive: true })
-      return () => window.removeEventListener("scroll", handleScroll)
+      window.addEventListener("scroll", handleScroll, { passive: true });
+      return () => window.removeEventListener("scroll", handleScroll);
     }
-  }, [isOpen])
+  }, [isOpen]);
 
   // Close on window resize
   useEffect(() => {
     const handleResize = () => {
       if (isOpen) {
-        setIsOpen(false)
+        setIsOpen(false);
       }
-    }
+    };
 
     if (isOpen) {
-      window.addEventListener("resize", handleResize)
-      return () => window.removeEventListener("resize", handleResize)
+      window.addEventListener("resize", handleResize);
+      return () => window.removeEventListener("resize", handleResize);
     }
-  }, [isOpen])
+  }, [isOpen]);
 
   // Social media share URLs
   const shareUrls = {
@@ -131,7 +151,7 @@ export default function ShareButton({ title, url, description = "" }: ShareButto
     reddit: `https://reddit.com/submit?url=${encodedUrl}&title=${encodedTitle}`,
     whatsapp: `https://wa.me/?text=${encodedTitle}%20${encodedUrl}`,
     telegram: `https://t.me/share/url?url=${encodedUrl}&text=${encodedTitle}`,
-  }
+  };
 
   // Native Web Share API
   const handleNativeShare = async () => {
@@ -141,48 +161,48 @@ export default function ShareButton({ title, url, description = "" }: ShareButto
           title,
           text: description,
           url: fullUrl,
-        })
-        setIsOpen(false)
+        });
+        setIsOpen(false);
       } catch (error) {
-        console.log("Error sharing:", error)
+        console.log("Error sharing:", error);
       }
     }
-  }
+  };
 
   // Copy to clipboard
   const handleCopyLink = async () => {
     try {
-      await navigator.clipboard.writeText(fullUrl)
-      setCopied(true)
-      setTimeout(() => setCopied(false), 2000)
+      await navigator.clipboard.writeText(fullUrl);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
     } catch (error) {
-      console.error("Failed to copy:", error)
+      console.error("Failed to copy:", error);
       // Fallback for older browsers
-      const textArea = document.createElement("textarea")
-      textArea.value = fullUrl
-      document.body.appendChild(textArea)
-      textArea.select()
-      document.execCommand("copy")
-      document.body.removeChild(textArea)
-      setCopied(true)
-      setTimeout(() => setCopied(false), 2000)
+      const textArea = document.createElement("textarea");
+      textArea.value = fullUrl;
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand("copy");
+      document.body.removeChild(textArea);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
     }
-  }
+  };
 
   // Open share URL in new window
   const openShareWindow = (url: string, platform: string) => {
-    const width = 600
-    const height = 400
-    const left = (window.innerWidth - width) / 2
-    const top = (window.innerHeight - height) / 2
+    const width = 600;
+    const height = 400;
+    const left = (window.innerWidth - width) / 2;
+    const top = (window.innerHeight - height) / 2;
 
     window.open(
       url,
       `share-${platform}`,
       `width=${width},height=${height},left=${left},top=${top},resizable=yes,scrollbars=yes`,
-    )
-    setIsOpen(false)
-  }
+    );
+    setIsOpen(false);
+  };
 
   const ShareDropdown = () => (
     <div
@@ -210,7 +230,7 @@ export default function ShareButton({ title, url, description = "" }: ShareButto
 
       <div className="py-2">
         {/* Native Share (if supported) */}
-        {typeof window !== "undefined" && navigator.share && (
+        {typeof window !== "undefined" && navigator.share !== undefined && (
           <>
             <button
               onClick={handleNativeShare}
@@ -229,7 +249,9 @@ export default function ShareButton({ title, url, description = "" }: ShareButto
           className="w-full flex items-center space-x-3 px-4 py-3 hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors duration-150 text-left"
         >
           <Twitter size={16} className="text-blue-500" />
-          <span className="text-gray-700 dark:text-gray-300">Share on Twitter</span>
+          <span className="text-gray-700 dark:text-gray-300">
+            Share on Twitter
+          </span>
         </button>
 
         <button
@@ -237,7 +259,9 @@ export default function ShareButton({ title, url, description = "" }: ShareButto
           className="w-full flex items-center space-x-3 px-4 py-3 hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors duration-150 text-left"
         >
           <Facebook size={16} className="text-blue-600" />
-          <span className="text-gray-700 dark:text-gray-300">Share on Facebook</span>
+          <span className="text-gray-700 dark:text-gray-300">
+            Share on Facebook
+          </span>
         </button>
 
         <button
@@ -245,7 +269,9 @@ export default function ShareButton({ title, url, description = "" }: ShareButto
           className="w-full flex items-center space-x-3 px-4 py-3 hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors duration-150 text-left"
         >
           <Linkedin size={16} className="text-blue-700" />
-          <span className="text-gray-700 dark:text-gray-300">Share on LinkedIn</span>
+          <span className="text-gray-700 dark:text-gray-300">
+            Share on LinkedIn
+          </span>
         </button>
 
         <button
@@ -255,7 +281,9 @@ export default function ShareButton({ title, url, description = "" }: ShareButto
           <div className="w-4 h-4 bg-green-500 rounded-full flex items-center justify-center">
             <span className="text-white text-xs font-bold">W</span>
           </div>
-          <span className="text-gray-700 dark:text-gray-300">Share on WhatsApp</span>
+          <span className="text-gray-700 dark:text-gray-300">
+            Share on WhatsApp
+          </span>
         </button>
 
         <button
@@ -265,7 +293,9 @@ export default function ShareButton({ title, url, description = "" }: ShareButto
           <div className="w-4 h-4 bg-blue-500 rounded-full flex items-center justify-center">
             <span className="text-white text-xs font-bold">T</span>
           </div>
-          <span className="text-gray-700 dark:text-gray-300">Share on Telegram</span>
+          <span className="text-gray-700 dark:text-gray-300">
+            Share on Telegram
+          </span>
         </button>
 
         <button
@@ -275,7 +305,9 @@ export default function ShareButton({ title, url, description = "" }: ShareButto
           <div className="w-4 h-4 bg-orange-500 rounded-full flex items-center justify-center">
             <span className="text-white text-xs font-bold">R</span>
           </div>
-          <span className="text-gray-700 dark:text-gray-300">Share on Reddit</span>
+          <span className="text-gray-700 dark:text-gray-300">
+            Share on Reddit
+          </span>
         </button>
 
         <div className="h-px bg-gray-200 dark:bg-slate-600 mx-2" />
@@ -290,11 +322,13 @@ export default function ShareButton({ title, url, description = "" }: ShareButto
           ) : (
             <Link2 size={16} className="text-gray-600 dark:text-gray-400" />
           )}
-          <span className="text-gray-700 dark:text-gray-300">{copied ? "Link copied!" : "Copy link"}</span>
+          <span className="text-gray-700 dark:text-gray-300">
+            {copied ? "Link copied!" : "Copy link"}
+          </span>
         </button>
       </div>
     </div>
-  )
+  );
 
   return (
     <>
@@ -314,11 +348,14 @@ export default function ShareButton({ title, url, description = "" }: ShareButto
         createPortal(
           <>
             {/* Backdrop for mobile */}
-            <div className="fixed inset-0 z-[9998] bg-black/20 md:hidden" onClick={() => setIsOpen(false)} />
+            <div
+              className="fixed inset-0 z-[9998] bg-black/20 md:hidden"
+              onClick={() => setIsOpen(false)}
+            />
             <ShareDropdown />
           </>,
           document.body,
         )}
     </>
-  )
+  );
 }
