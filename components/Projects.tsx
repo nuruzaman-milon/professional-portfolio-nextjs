@@ -2,11 +2,14 @@
 
 import { useRef } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { motion, useInView, type Variants } from "framer-motion";
 import { ArrowUpRight, Github, ExternalLink } from "lucide-react";
+import swopImg1 from "@/public/images/projects/swop/swop-thumb-12.png";
+import swopImg2 from "@/public/images/projects/swop/swop-thumb-13.png";
+import swopImg3 from "@/public/images/projects/swop/swop-thumb-11.png";
+import ImageCarousel from "./custom/ImageCarosel";
 
-// ─── Project data — sourced from resume ──────────────────────────────────────
+// ─── Project data ─────────────────────────────────────────────────────────────
 const projects = [
   {
     id: 1,
@@ -15,7 +18,7 @@ const projects = [
     title: "SWOP Platform",
     description:
       "A full-stack Web2/Web3 social platform with a Twitter-style feed, SmartSite builder, on-chain tipping, and a peer-to-peer token swap. Built from scratch at Bayshore Communication.",
-    image: "/images/swop-platform.jpg",
+    images: [swopImg1, swopImg2, swopImg3],
     stack: [
       "Next.js",
       "TypeScript",
@@ -26,8 +29,8 @@ const projects = [
       "LI.FI SDK",
       "Framer Motion",
     ],
-    github: null, // private repo
-    live: "https://swop.so",
+    github: null,
+    live: "https://swopme.app",
     highlights: [
       "Solana wallet integration & token transfers",
       "SmartSite builder — Linktree-style portfolio",
@@ -41,7 +44,10 @@ const projects = [
     title: "E-Commerce Platform",
     description:
       "A production-grade e-commerce platform built from scratch — covering product management, checkout, SSL Commerce payment gateway, and an admin dashboard.",
-    image: "/images/ecommerce-platform.jpg",
+    images: [
+      "/images/ecommerce-platform.jpg",
+      // "/images/ecommerce-platform-2.jpg",
+    ],
     stack: [
       "Next.js",
       "Node.js",
@@ -65,7 +71,10 @@ const projects = [
     title: "ERP System",
     description:
       "A modern ERP frontend for Peoples IT Solution covering account management, dealer management, product oversight, and labour tracking — reducing manual effort by 70–80%.",
-    image: "/images/erp-system.jpg",
+    images: [
+      "/images/erp-system.jpg",
+      // "/images/erp-system-2.jpg",
+    ],
     stack: ["React", "Vite", "Redux", "Tailwind CSS", "REST API"],
     github: null,
     live: null,
@@ -92,6 +101,7 @@ const stagger: Variants = {
   show: { transition: { staggerChildren: 0.12 } },
 };
 
+// ─── Main Section ─────────────────────────────────────────────────────────────
 export default function Projects() {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
@@ -150,26 +160,12 @@ export default function Projects() {
               variants={fadeUp}
               className="group grid lg:grid-cols-[2fr_3fr] gap-0 rounded-xl border border-gray-200/60 dark:border-white/[0.07] bg-white/60 dark:bg-white/[0.03] backdrop-blur-sm overflow-hidden hover:border-emerald-300/50 dark:hover:border-emerald-700/40 transition-all duration-300"
             >
-              {/* ── Image pane ── */}
-              <div className="relative overflow-hidden bg-gray-100 dark:bg-gray-800/50 aspect-[16/10] lg:aspect-auto min-h-[200px]">
-                <Image
-                  src={project.image}
-                  alt={project.title}
-                  fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  onError={(e) => {
-                    // Fallback gradient if image missing
-                    (e.target as HTMLImageElement).style.display = "none";
-                  }}
-                />
-                {/* Gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-br from-emerald-900/20 to-transparent opacity-60" />
-
-                {/* Index watermark */}
-                <div className="absolute bottom-3 left-4 text-[10px] font-mono tracking-[.18em] text-white/40">
-                  {String(i + 1).padStart(2, "0")}
-                </div>
-              </div>
+              {/* ── Image carousel pane ── */}
+              <ImageCarousel
+                images={project.images}
+                title={project.title}
+                index={i}
+              />
 
               {/* ── Content pane ── */}
               <div className="flex flex-col p-7">
