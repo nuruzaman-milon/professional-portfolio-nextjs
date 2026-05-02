@@ -84,7 +84,7 @@ export default function RootLayout({
       <body className="font-sans antialiased">
         <ThemeProvider>
           <Navbar />
-          <main className="pf-grid absolute inset-0 z-0">{children}</main>
+          {children}
           <Footer />
         </ThemeProvider>
       </body>

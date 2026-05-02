@@ -104,7 +104,7 @@ export default function Navbar() {
       <div
         className={`absolute inset-0 transition-all duration-700 ease-out ${
           scrolled
-            ? "bg-white/95 dark:bg-gray-900/95 backdrop-blur-md shadow-lg border-b border-gray-200/50 dark:border-gray-700/50"
+            ? "bg-white/95 dark:bg-[#0C1014] backdrop-blur-md shadow-lg border-b border-gray-200/50 dark:border-gray-700/50"
             : "bg-transparent"
         }`}
       />
