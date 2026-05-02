@@ -4,89 +4,11 @@ import { useRef } from "react";
 import Link from "next/link";
 import { motion, useInView, type Variants } from "framer-motion";
 import { ArrowUpRight, Github, ExternalLink } from "lucide-react";
-import swopImg1 from "@/public/images/projects/swop/swop-thumb-12.png";
-import swopImg2 from "@/public/images/projects/swop/swop-thumb-13.png";
-import swopImg3 from "@/public/images/projects/swop/swop-thumb-11.png";
+import { getFeaturedProjects } from "@/data/projects";
 import ImageCarousel from "./custom/ImageCarosel";
 
-// ─── Project data ─────────────────────────────────────────────────────────────
-const projects = [
-  {
-    id: 1,
-    slug: "swop",
-    label: "Featured · Web2 & Web3",
-    title: "SWOP Platform",
-    description:
-      "A full-stack Web2/Web3 social platform with a Twitter-style feed, SmartSite builder, on-chain tipping, and a peer-to-peer token swap. Built from scratch at Bayshore Communication.",
-    images: [swopImg1, swopImg2, swopImg3],
-    stack: [
-      "Next.js",
-      "TypeScript",
-      "Express.js",
-      "MongoDB",
-      "Zustand",
-      "Privy.io",
-      "LI.FI SDK",
-      "Framer Motion",
-    ],
-    github: null,
-    live: "https://swopme.app",
-    highlights: [
-      "Solana wallet integration & token transfers",
-      "SmartSite builder — Linktree-style portfolio",
-      "Reward & points system",
-    ],
-  },
-  {
-    id: 2,
-    slug: "ecommerce-platform",
-    label: "Full-stack · E-Commerce",
-    title: "E-Commerce Platform",
-    description:
-      "A production-grade e-commerce platform built from scratch — covering product management, checkout, SSL Commerce payment gateway, and an admin dashboard.",
-    images: [
-      "/images/ecommerce-platform.jpg",
-      // "/images/ecommerce-platform-2.jpg",
-    ],
-    stack: [
-      "Next.js",
-      "Node.js",
-      "MongoDB",
-      "Tailwind CSS",
-      "JWT",
-      "SSL Commerce",
-    ],
-    github: null,
-    live: null,
-    highlights: [
-      "Full checkout & payment flow",
-      "Admin dashboard with analytics",
-      "Performance-optimised product pages",
-    ],
-  },
-  {
-    id: 3,
-    slug: "erp-system",
-    label: "Frontend · ERP",
-    title: "ERP System",
-    description:
-      "A modern ERP frontend for Peoples IT Solution covering account management, dealer management, product oversight, and labour tracking — reducing manual effort by 70–80%.",
-    images: [
-      "/images/erp-system.jpg",
-      // "/images/erp-system-2.jpg",
-    ],
-    stack: ["React", "Vite", "Redux", "Tailwind CSS", "REST API"],
-    github: null,
-    live: null,
-    highlights: [
-      "4 core modules — accounts, dealers, products, labour",
-      "Automated complex business workflows",
-      "70–80% reduction in manual operational effort",
-    ],
-  },
-];
-
 // ─── Variants ─────────────────────────────────────────────────────────────────
+
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 22 },
   show: {
@@ -101,10 +23,13 @@ const stagger: Variants = {
   show: { transition: { staggerChildren: 0.12 } },
 };
 
-// ─── Main Section ─────────────────────────────────────────────────────────────
+// ─── Section ──────────────────────────────────────────────────────────────────
+
 export default function Projects() {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
+
+  const projects = getFeaturedProjects(3);
 
   return (
     <section
@@ -160,16 +85,15 @@ export default function Projects() {
               variants={fadeUp}
               className="group grid lg:grid-cols-[2fr_3fr] gap-0 rounded-xl border border-gray-200/60 dark:border-white/[0.07] bg-white/60 dark:bg-white/[0.03] backdrop-blur-sm overflow-hidden hover:border-emerald-300/50 dark:hover:border-emerald-700/40 transition-all duration-300"
             >
-              {/* ── Image carousel pane ── */}
+              {/* Image carousel pane */}
               <ImageCarousel
                 images={project.images}
                 title={project.title}
                 index={i}
               />
 
-              {/* ── Content pane ── */}
+              {/* Content pane */}
               <div className="flex flex-col p-7">
-                {/* Label + links row */}
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-[10px] font-mono tracking-[.15em] uppercase text-emerald-500 dark:text-emerald-400">
                     {project.label}
@@ -200,17 +124,14 @@ export default function Projects() {
                   </div>
                 </div>
 
-                {/* Title */}
                 <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 leading-snug">
                   {project.title}
                 </h3>
 
-                {/* Description */}
                 <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed font-light mb-4">
                   {project.description}
                 </p>
 
-                {/* Highlights */}
                 <ul className="space-y-1 mb-5">
                   {project.highlights.map((h) => (
                     <li
@@ -223,7 +144,6 @@ export default function Projects() {
                   ))}
                 </ul>
 
-                {/* Stack pills */}
                 <div className="flex flex-wrap gap-1.5 mb-6">
                   {project.stack.map((tech) => (
                     <span
@@ -238,7 +158,6 @@ export default function Projects() {
                   ))}
                 </div>
 
-                {/* CTA */}
                 <div className="mt-auto">
                   <Link href={`/projects/${project.slug}`} className="cta-link">
                     View case study <ArrowUpRight size={13} />

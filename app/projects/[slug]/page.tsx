@@ -1,306 +1,392 @@
-import Image from "next/image";
+"use client";
+
+import { notFound, useParams } from "next/navigation";
 import Link from "next/link";
-import { ArrowLeft, ExternalLink, Github, Calendar, Clock } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { useRef } from "react";
+import { motion, useInView, type Variants } from "framer-motion";
+import {
+  ArrowLeft,
+  ArrowUpRight,
+  ExternalLink,
+  Github,
+  Calendar,
+  Clock,
+  Layers,
+  Zap,
+  BookOpen,
+  AlertTriangle,
+} from "lucide-react";
+import { getProjectBySlug } from "@/data/projects";
+import ImageCarousel from "@/components/custom/ImageCarosel";
 
-// This would typically come from a database or CMS
-const getProject = (slug: string) => {
-  const projects = {
-    "ecommerce-platform": {
-      id: 1,
-      title: "E-Commerce Platform",
-      description:
-        "Full-stack e-commerce solution with React, Node.js, and MongoDB",
-      longDescription:
-        "A comprehensive e-commerce platform built with modern web technologies. This project showcases advanced React patterns, secure authentication, payment processing with Stripe, and a robust admin panel for inventory management.",
-      image: "/images/ecommerce-platform.jpg",
-      technologies: [
-        "React",
-        "Node.js",
-        "MongoDB",
-        "Stripe",
-        "JWT",
-        "Express",
-        "Tailwind CSS",
-      ],
-      github: "#",
-      live: "#",
-      features: [
-        "User Authentication",
-        "Payment Integration",
-        "Admin Dashboard",
-        "Inventory Management",
-        "Order Tracking",
-      ],
-      challenges: [
-        "Implementing secure payment processing with Stripe",
-        "Building a scalable product catalog system",
-        "Creating an intuitive admin dashboard",
-        "Optimizing database queries for large product datasets",
-      ],
-      learnings: [
-        "Advanced React state management patterns",
-        "Secure authentication and authorization",
-        "Payment gateway integration best practices",
-        "Database optimization techniques",
-      ],
-      duration: "3 months",
-      completedDate: "2024-01-15",
-    },
-    "chat-app": {
-      id: 2,
-      title: "Real-Time Chat Application",
-      description:
-        "Modern chat application with real-time messaging and file sharing",
-      longDescription:
-        "A feature-rich real-time chat application that enables seamless communication between users. Built with Socket.io for real-time functionality and includes advanced features like file sharing, emoji reactions, and group management.",
-      image: "/images/chat-app.jpg",
-      technologies: [
-        "React",
-        "Socket.io",
-        "Express",
-        "MongoDB",
-        "Cloudinary",
-        "JWT",
-      ],
-      github: "#",
-      live: "#",
-      features: [
-        "Real-time Messaging",
-        "File Sharing",
-        "Group Chats",
-        "Emoji Reactions",
-        "User Presence",
-      ],
-      challenges: [
-        "Implementing real-time communication with Socket.io",
-        "Handling file uploads and storage with Cloudinary",
-        "Managing user presence and online status",
-        "Optimizing message delivery and storage",
-      ],
-      learnings: [
-        "WebSocket communication patterns",
-        "Real-time application architecture",
-        "File upload and processing workflows",
-        "Scalable chat system design",
-      ],
-      duration: "2 months",
-      completedDate: "2024-02-20",
-    },
-    "task-management": {
-      id: 3,
-      title: "Task Management System",
-      description:
-        "Collaborative project management tool with drag-and-drop functionality",
-      longDescription:
-        "A comprehensive project management solution designed for teams. Features include Kanban boards, task assignments, progress tracking, and team collaboration tools to enhance productivity.",
-      image: "/images/task-management.jpg",
-      technologies: [
-        "Next.js",
-        "TypeScript",
-        "PostgreSQL",
-        "Prisma",
-        "Tailwind CSS",
-        "NextAuth",
-      ],
-      github: "#",
-      live: "#",
-      features: [
-        "Kanban Boards",
-        "Team Collaboration",
-        "Progress Tracking",
-        "Task Assignment",
-        "Time Tracking",
-      ],
-      challenges: [
-        "Implementing drag-and-drop functionality",
-        "Building complex database relationships",
-        "Creating real-time collaboration features",
-        "Designing intuitive user interfaces",
-      ],
-      learnings: [
-        "Advanced TypeScript patterns",
-        "Database design and optimization",
-        "Real-time collaboration implementation",
-        "Complex state management",
-      ],
-      duration: "4 months",
-      completedDate: "2024-03-10",
-    },
-  };
+// ─── Variants ─────────────────────────────────────────────────────────────────
 
-  return projects[slug as keyof typeof projects] || null;
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
+  },
 };
 
-export default async function ProjectDetail({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
-  const { slug } = await params;
-  const project = getProject(slug);
+const stagger: Variants = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.1 } },
+};
 
-  if (!project) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 pt-20 flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-4xl font-bold text-white mb-4">
-            Project Not Found
-          </h1>
-          <Link href="/projects">
-            <Button>Back to Projects</Button>
-          </Link>
-        </div>
-      </div>
-    );
-  }
+// ─── Small reusable pieces ────────────────────────────────────────────────────
+
+function SectionLabel({
+  icon: Icon,
+  label,
+}: {
+  icon: React.ElementType;
+  label: string;
+}) {
+  return (
+    <div className="flex items-center gap-2 mb-4">
+      <Icon size={13} className="text-emerald-500" />
+      <span className="text-[10px] font-mono tracking-[.18em] uppercase text-emerald-500 dark:text-emerald-400">
+        {label}
+      </span>
+    </div>
+  );
+}
+
+function Card({
+  children,
+  className = "",
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <div
+      className={`rounded-xl border border-gray-200/60 dark:border-white/[0.07] bg-white/60 dark:bg-white/[0.03] backdrop-blur-sm p-7 ${className}`}
+    >
+      {children}
+    </div>
+  );
+}
+
+// ─── Page ─────────────────────────────────────────────────────────────────────
+
+export default function ProjectDetail() {
+  const params: { slug: string } = useParams();
+  const project = getProjectBySlug(params.slug);
+  if (!project) notFound();
+
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-60px" });
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-100 via-white to-gray-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 pt-20">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="mb-8">
+    <div className="pf-mesh pf-noise relative min-h-screen overflow-hidden py-24 px-4 sm:px-6 lg:px-8">
+      <div className="pf-grid absolute inset-0 z-0" />
+      <div
+        className="absolute pointer-events-none z-0 opacity-25"
+        style={{
+          top: "10%",
+          left: "-8%",
+          width: 500,
+          height: 500,
+          borderRadius: "50%",
+          background:
+            "radial-gradient(circle, rgba(16,185,129,.18) 0%, transparent 70%)",
+        }}
+      />
+
+      <div ref={ref} className="max-w-5xl mx-auto relative z-10">
+        {/* ── Back ── */}
+        <motion.div
+          initial={{ opacity: 0, x: -10 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          className="mb-14"
+        >
           <Link
             href="/projects"
-            className="inline-flex items-center text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 dark:hover:text-emerald-300 transition-colors mb-6"
+            className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors duration-200 font-light"
           >
-            <ArrowLeft size={20} className="mr-2" />
-            Back to Projects
+            <ArrowLeft size={15} />
+            Back to projects
           </Link>
-        </div>
+        </motion.div>
 
-        <div className="glass-effect rounded-xl overflow-hidden">
-          <div className="relative">
-            <Image
-              src={project.image || "/placeholder.svg"}
-              alt={project.title}
-              width={800}
-              height={500}
-              className="w-full h-64 md:h-96 object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-            <div className="absolute bottom-6 left-6 right-6">
-              <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">
-                {project.title}
-              </h1>
-              <p className="text-xl text-gray-200">{project.description}</p>
-            </div>
+        {/* ── Hero ── */}
+        <motion.div
+          animate={inView ? "show" : "hidden"}
+          variants={stagger}
+          initial="hidden"
+          className="mb-16"
+        >
+          <motion.div variants={fadeUp}>
+            <span className="text-[10px] font-mono tracking-[.18em] uppercase text-emerald-500 dark:text-emerald-400">
+              {project.label}
+            </span>
+          </motion.div>
+
+          <motion.h1
+            variants={fadeUp}
+            className="pf-serif text-4xl md:text-6xl font-normal text-gray-900 dark:text-white leading-tight mt-3 mb-5"
+          >
+            {project.title}
+          </motion.h1>
+
+          <motion.div
+            variants={fadeUp}
+            className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-gray-400 dark:text-gray-500 font-light mb-6"
+          >
+            <span className="flex items-center gap-1.5">
+              <Clock size={13} />
+              {project.duration}
+            </span>
+            <span className="flex items-center gap-1.5">
+              <Calendar size={13} />
+              {new Date(project.completedDate).toLocaleDateString("en-GB", {
+                month: "short",
+                year: "numeric",
+              })}
+            </span>
+            <span className="flex items-center gap-1.5">
+              <Layers size={13} />
+              {project.role}
+            </span>
+          </motion.div>
+
+          <motion.div variants={fadeUp} className="flex items-center gap-3">
+            {project.github && (
+              <a
+                href={project.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-gray-100/80 dark:bg-white/[0.05] text-gray-600 dark:text-gray-300 border border-gray-200/60 dark:border-white/[0.08] hover:border-emerald-300/50 dark:hover:border-emerald-700/40 transition-all duration-200"
+              >
+                <Github size={15} />
+                View Code
+              </a>
+            )}
+            {project.live && (
+              <a
+                href={project.live}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-emerald-500 hover:bg-emerald-600 text-white transition-all duration-200"
+              >
+                <ExternalLink size={15} />
+                Live Site
+                <ArrowUpRight size={13} />
+              </a>
+            )}
+          </motion.div>
+        </motion.div>
+
+        {/* ── Full-width carousel ── */}
+        <motion.div
+          animate={inView ? "show" : "hidden"}
+          variants={fadeUp}
+          initial="hidden"
+          transition={{ delay: 0.1 }}
+          className="mb-16 rounded-xl overflow-hidden border border-gray-200/60 dark:border-white/[0.07]"
+          style={{ aspectRatio: "16/9" }}
+        >
+          <ImageCarousel
+            images={project.images}
+            title={project.title}
+            index={0}
+            className="w-full h-full"
+          />
+        </motion.div>
+
+        {/* ── Content grid ── */}
+        <motion.div
+          animate={inView ? "show" : "hidden"}
+          variants={stagger}
+          initial="hidden"
+          className="grid lg:grid-cols-[1fr_300px] gap-6"
+        >
+          {/* Left */}
+          <div className="space-y-6">
+            <motion.div variants={fadeUp}>
+              <Card>
+                <SectionLabel icon={BookOpen} label="Overview" />
+                <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed font-light">
+                  {project.overview}
+                </p>
+              </Card>
+            </motion.div>
+
+            <motion.div variants={fadeUp}>
+              <Card>
+                <SectionLabel icon={Zap} label="Key Features" />
+                <ul className="space-y-2.5">
+                  {project.features.map((f) => (
+                    <li
+                      key={f}
+                      className="flex items-start gap-3 text-sm text-gray-500 dark:text-gray-400 font-light"
+                    >
+                      <span className="mt-2 w-1 h-1 rounded-full bg-emerald-400/70 flex-shrink-0" />
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+              </Card>
+            </motion.div>
+
+            <motion.div variants={fadeUp}>
+              <Card>
+                <SectionLabel icon={AlertTriangle} label="Challenges" />
+                <ol className="space-y-4">
+                  {project.challenges.map((c, i) => (
+                    <li key={i} className="flex gap-4">
+                      <span
+                        className="mt-0.5 flex-shrink-0 font-mono text-[10px] text-emerald-500 dark:text-emerald-400"
+                        style={{ minWidth: 20 }}
+                      >
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <p className="text-sm text-gray-500 dark:text-gray-400 font-light leading-relaxed">
+                        {c}
+                      </p>
+                    </li>
+                  ))}
+                </ol>
+              </Card>
+            </motion.div>
+
+            <motion.div variants={fadeUp}>
+              <Card>
+                <SectionLabel icon={BookOpen} label="Key Learnings" />
+                <ol className="space-y-4">
+                  {project.learnings.map((l, i) => (
+                    <li key={i} className="flex gap-4">
+                      <span
+                        className="mt-0.5 flex-shrink-0 font-mono text-[10px] text-emerald-500 dark:text-emerald-400"
+                        style={{ minWidth: 20 }}
+                      >
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <p className="text-sm text-gray-500 dark:text-gray-400 font-light leading-relaxed">
+                        {l}
+                      </p>
+                    </li>
+                  ))}
+                </ol>
+              </Card>
+            </motion.div>
           </div>
 
-          <div className="p-8">
-            <div className="grid md:grid-cols-3 gap-8 mb-8">
-              <div className="md:col-span-2">
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-                  Project Overview
-                </h2>
-                <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-6">
-                  {project.longDescription}
-                </p>
-
-                <div className="flex items-center space-x-6 text-sm text-gray-500 dark:text-gray-400 mb-6">
-                  <div className="flex items-center space-x-2">
-                    <Clock size={16} />
-                    <span>Duration: {project.duration}</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <Calendar size={16} />
-                    <span>
-                      Completed:{" "}
-                      {new Date(project.completedDate).toLocaleDateString()}
-                    </span>
-                  </div>
-                </div>
-
-                <div className="flex space-x-4">
-                  <a
-                    href={project.github}
-                    className="inline-flex items-center px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-white rounded-lg transition-colors"
-                  >
-                    <Github size={18} className="mr-2" />
-                    View Code
-                  </a>
-                  <a
-                    href={project.live}
-                    className="inline-flex items-center px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg transition-colors"
-                  >
-                    <ExternalLink size={18} className="mr-2" />
-                    Live Demo
-                  </a>
-                </div>
-              </div>
-
-              <div>
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
-                  Technologies Used
-                </h3>
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {project.technologies.map((tech) => (
+          {/* Right — sticky sidebar */}
+          <div className="space-y-6 lg:sticky lg:top-28 lg:self-start">
+            <motion.div variants={fadeUp}>
+              <Card>
+                <SectionLabel icon={Layers} label="Tech Stack" />
+                <div className="flex flex-wrap gap-1.5">
+                  {project.stack.map((tech) => (
                     <span
                       key={tech}
-                      className="px-3 py-1 bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-400 text-sm rounded-full"
+                      className="px-2.5 py-1 rounded-md text-[11px] font-medium bg-gray-100/80 dark:bg-white/[0.05] text-gray-600 dark:text-gray-400 border border-gray-200/60 dark:border-white/[0.08]"
                     >
                       {tech}
                     </span>
                   ))}
                 </div>
+              </Card>
+            </motion.div>
 
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
-                  Key Features
-                </h3>
-                <ul className="space-y-2">
-                  {project.features.map((feature) => (
+            <motion.div variants={fadeUp}>
+              <Card>
+                <SectionLabel icon={Zap} label="Highlights" />
+                <ul className="space-y-2.5">
+                  {project.highlights.map((h) => (
                     <li
-                      key={feature}
-                      className="text-gray-600 dark:text-gray-300 flex items-center"
+                      key={h}
+                      className="flex items-start gap-2.5 text-sm text-gray-500 dark:text-gray-400 font-light"
                     >
-                      <div className="w-2 h-2 bg-emerald-400 rounded-full mr-3"></div>
-                      {feature}
+                      <span className="mt-2 w-1 h-1 rounded-full bg-emerald-400/70 flex-shrink-0" />
+                      {h}
                     </li>
                   ))}
                 </ul>
-              </div>
-            </div>
+              </Card>
+            </motion.div>
 
-            <div className="grid md:grid-cols-2 gap-8">
-              <div>
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
-                  Challenges Faced
-                </h3>
-                <ul className="space-y-3">
-                  {project.challenges.map((challenge, index) => (
-                    <li
-                      key={index}
-                      className="text-gray-600 dark:text-gray-300"
-                    >
-                      <span className="text-emerald-600 dark:text-emerald-400 font-medium">
-                        {index + 1}.
-                      </span>{" "}
-                      {challenge}
-                    </li>
+            <motion.div variants={fadeUp}>
+              <Card>
+                <SectionLabel icon={Calendar} label="Details" />
+                <dl className="space-y-3">
+                  {[
+                    { label: "Role", value: project.role },
+                    { label: "Duration", value: project.duration },
+                    {
+                      label: "Completed",
+                      value: new Date(project.completedDate).toLocaleDateString(
+                        "en-GB",
+                        { month: "long", year: "numeric" },
+                      ),
+                    },
+                    {
+                      label: "Status",
+                      value: project.live ? "Live" : "Shipped",
+                    },
+                  ].map(({ label, value }) => (
+                    <div key={label} className="flex justify-between gap-4">
+                      <dt className="text-xs font-mono text-gray-400 dark:text-gray-500 uppercase tracking-widest">
+                        {label}
+                      </dt>
+                      <dd className="text-xs text-gray-600 dark:text-gray-300 font-light text-right">
+                        {value}
+                        {label === "Status" && value === "Live" && (
+                          <span className="inline-block ml-1.5 w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                        )}
+                      </dd>
+                    </div>
                   ))}
-                </ul>
-              </div>
+                </dl>
 
-              <div>
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
-                  Key Learnings
-                </h3>
-                <ul className="space-y-3">
-                  {project.learnings.map((learning, index) => (
-                    <li
-                      key={index}
-                      className="text-gray-600 dark:text-gray-300"
-                    >
-                      <span className="text-emerald-600 dark:text-emerald-400 font-medium">
-                        •
-                      </span>{" "}
-                      {learning}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
+                {project.live && (
+                  <a
+                    href={project.live}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-5 w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-xs font-medium bg-emerald-500 hover:bg-emerald-600 text-white transition-all duration-200"
+                  >
+                    <ExternalLink size={13} />
+                    Visit Live Site
+                    <ArrowUpRight size={12} />
+                  </a>
+                )}
+              </Card>
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
+
+        {/* ── Footer ── */}
+        <motion.div
+          animate={inView ? "show" : "hidden"}
+          variants={fadeUp}
+          initial="hidden"
+          transition={{ delay: 0.4 }}
+          className="mt-20 pt-10 border-t border-gray-200/40 dark:border-white/[0.06] flex items-center justify-between"
+        >
+          <Link
+            href="/projects"
+            className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors duration-200 font-light"
+          >
+            <ArrowLeft size={15} />
+            All projects
+          </Link>
+          {project.live && (
+            <a
+              href={project.live}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="cta-link text-sm"
+            >
+              Live site <ArrowUpRight size={13} />
+            </a>
+          )}
+        </motion.div>
       </div>
     </div>
   );
