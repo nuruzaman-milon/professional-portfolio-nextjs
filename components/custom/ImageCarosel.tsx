@@ -260,6 +260,7 @@ function Lightbox({
                               src={src}
                               alt={`${title} — image ${i + 1}`}
                               fill
+                              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 40vw, 33vw"
                               className="object-contain"
                               priority={i === startIndex}
                             />
@@ -398,7 +399,7 @@ export default function ImageCarousel({
         onMouseLeave={() => setIsHovered(false)}
       >
         {/* Crossfade image stack */}
-        <AnimatePresence mode="crossfade">
+        <AnimatePresence mode="sync">
           <motion.div
             key={current}
             variants={slideVariants}
@@ -411,6 +412,7 @@ export default function ImageCarousel({
               src={images[current]}
               alt={`${title} screenshot ${current + 1}`}
               fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 40vw, 33vw"
               className="object-cover"
               onError={(e) => {
                 (e.target as HTMLImageElement).style.display = "none";
