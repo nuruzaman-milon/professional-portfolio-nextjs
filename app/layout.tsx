@@ -1,30 +1,47 @@
-import type React from "react"
-import type { Metadata } from "next"
-import { Inter, JetBrains_Mono } from "next/font/google"
-import "./globals.css"
-import Navbar from "@/components/Navbar"
-import Footer from "@/components/Footer"
-import { ThemeProvider } from "@/contexts/ThemeContext"
+import type React from "react";
+import type { Metadata } from "next";
+import { Instrument_Serif, Plus_Jakarta_Sans } from "next/font/google";
+import "./globals.css";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import { ThemeProvider } from "@/contexts/ThemeContext";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" })
-const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono" })
+// ─── Instrument Serif — not a variable font, use explicit weights ───────────
+const instrumentSerif = Instrument_Serif({
+  weight: ["400"],
+  style: ["normal", "italic"],
+  subsets: ["latin"],
+  variable: "--font-serif",
+  display: "swap",
+});
+
+// ─── Plus Jakarta Sans — variable font ─────────────────────────────────────
+const plusJakartaSans = Plus_Jakarta_Sans({
+  weight: "variable",
+  subsets: ["latin"],
+  variable: "--font-sans",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
-  title: "Alex Johnson - Full Stack Developer",
-  description: "Experienced MERN Stack Developer with 2+ years of experience building scalable web applications",
-  keywords: "Full Stack Developer, MERN Stack, React, Node.js, MongoDB, Express.js, JavaScript, TypeScript",
-  authors: [{ name: "Alex Johnson" }],
+  title: "Nuruzaman Milon - Software Engineer",
+  description:
+    "Full-stack Software Engineer with 3+ years of experience building scalable web applications using React, Next.js, and Node.js.",
+  keywords:
+    "Full Stack Developer, React, Next.js, Node.js, TypeScript, Web3, MongoDB, PostgreSQL",
+  authors: [{ name: "Nuruzaman Milon" }],
   openGraph: {
-    title: "Alex Johnson - Full Stack Developer",
-    description: "Experienced MERN Stack Developer with 2+ years of experience building scalable web applications",
-    url: "https://alexjohnson.dev",
-    siteName: "Alex Johnson - Full Stack Developer",
+    title: "Nuruzaman Milon - Software Engineer",
+    description:
+      "Full-stack Software Engineer with 3+ years of experience building scalable web applications using React, Next.js, and Node.js.",
+    url: "https://nuruzaman-milon.vercel.app",
+    siteName: "Nuruzaman Milon - Software Engineer",
     images: [
       {
-        url: "https://alexjohnson.dev/images/profile-photo.jpg",
+        url: "https://nuruzaman-milon.vercel.app/images/nuruzaman-milon-profile-photo.png",
         width: 1200,
         height: 630,
-        alt: "Alex Johnson - Full Stack Developer",
+        alt: "Nuruzaman Milon - Software Engineer",
       },
     ],
     locale: "en_US",
@@ -32,11 +49,14 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Alex Johnson - Full Stack Developer",
-    description: "Experienced MERN Stack Developer with 2+ years of experience building scalable web applications",
-    images: ["https://alexjohnson.dev/images/profile-photo.jpg"],
-    creator: "@alexjohnson_dev",
-    site: "@alexjohnson_dev",
+    title: "Nuruzaman Milon - Software Engineer",
+    description:
+      "Full-stack Software Engineer with 3+ years of experience building scalable web applications using React, Next.js, and Node.js.",
+    images: [
+      "https://nuruzaman-milon.vercel.app/images/nuruzaman-milon-profile-photo.png",
+    ],
+    creator: "@nuruzaman_milon",
+    site: "@nuruzaman_milon",
   },
   robots: {
     index: true,
@@ -49,23 +69,25 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-    generator: 'v0.dev'
-}
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="scroll-smooth">
-      <body className={`${inter.variable} ${jetbrainsMono.variable} font-sans antialiased`}>
+    <html
+      lang="en"
+      className={`${instrumentSerif.variable} ${plusJakartaSans.variable} scroll-smooth`}
+    >
+      <body className="font-sans antialiased">
         <ThemeProvider>
           <Navbar />
-          {children}
+          <main className="pf-grid absolute inset-0 z-0">{children}</main>
           <Footer />
         </ThemeProvider>
       </body>
     </html>
-  )
+  );
 }
