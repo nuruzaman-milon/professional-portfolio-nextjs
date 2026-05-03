@@ -81,22 +81,21 @@ export default function Navbar() {
 
   // ── Click handler — smooth scroll + mobile close ──────────────────────────
   const handleNavClick = (id: string) => {
+    console.log("nav id", id);
+
     setIsOpen(false);
 
-    // Dedicated pages for projects / blog when not on home
-    if (id === "projects" && pathname !== "/") {
-      router.push("/projects");
-      return;
-    }
-    if (id === "blog" && pathname !== "/") {
-      router.push("/blog");
+    if (pathname === "/") {
+      // Already on home — just smooth scroll
+      document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
       return;
     }
 
-    // Smooth scroll on home page — let scroll handler update activeSection
-    if (pathname === "/") {
-      document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-    }
+    // On any other route — navigate to home with the hash
+    // Next.js router.push will load the page, then the browser
+    // will scroll to the anchor automatically
+    // Force a full navigation to home with hash — clears the current route
+    window.location.href = `/#${id}`;
   };
 
   return (
