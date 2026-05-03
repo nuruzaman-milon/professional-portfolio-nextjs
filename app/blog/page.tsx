@@ -1,18 +1,19 @@
-"use client"
+"use client";
 
-import { useState, useMemo } from "react"
-import Image from "next/image"
-import Link from "next/link"
-import { Calendar, Clock, ArrowLeft, Search, Filter, X } from "lucide-react"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
+import { useState, useMemo } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { Calendar, Clock, ArrowLeft, Search, Filter, X } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import Container from "@/components/Container";
 
 export default function BlogPage() {
-  const [searchQuery, setSearchQuery] = useState("")
-  const [selectedCategory, setSelectedCategory] = useState("All")
-  const [selectedTag, setSelectedTag] = useState("All")
-  const [sortBy, setSortBy] = useState("newest")
-  const [showFilters, setShowFilters] = useState(false)
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [selectedTag, setSelectedTag] = useState("All");
+  const [sortBy, setSortBy] = useState("newest");
+  const [showFilters, setShowFilters] = useState(false);
 
   const blogPosts = [
     {
@@ -111,15 +112,21 @@ export default function BlogPage() {
       slug: "docker-javascript-developers",
       tags: ["Docker", "DevOps", "Node.js", "Containerization"],
     },
-  ]
+  ];
 
   // Get unique categories and tags
-  const categories = ["All", ...Array.from(new Set(blogPosts.map((post) => post.category)))]
-  const allTags = ["All", ...Array.from(new Set(blogPosts.flatMap((post) => post.tags)))]
+  const categories = [
+    "All",
+    ...Array.from(new Set(blogPosts.map((post) => post.category))),
+  ];
+  const allTags = [
+    "All",
+    ...Array.from(new Set(blogPosts.flatMap((post) => post.tags))),
+  ];
 
   // Filter and search logic
   const filteredPosts = useMemo(() => {
-    let filtered = blogPosts
+    let filtered = blogPosts;
 
     // Search filter
     if (searchQuery) {
@@ -127,51 +134,57 @@ export default function BlogPage() {
         (post) =>
           post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
           post.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          post.tags.some((tag) => tag.toLowerCase().includes(searchQuery.toLowerCase())),
-      )
+          post.tags.some((tag) =>
+            tag.toLowerCase().includes(searchQuery.toLowerCase()),
+          ),
+      );
     }
 
     // Category filter
     if (selectedCategory !== "All") {
-      filtered = filtered.filter((post) => post.category === selectedCategory)
+      filtered = filtered.filter((post) => post.category === selectedCategory);
     }
 
     // Tag filter
     if (selectedTag !== "All") {
-      filtered = filtered.filter((post) => post.tags.includes(selectedTag))
+      filtered = filtered.filter((post) => post.tags.includes(selectedTag));
     }
 
     // Sort
     filtered.sort((a, b) => {
       switch (sortBy) {
         case "newest":
-          return new Date(b.date).getTime() - new Date(a.date).getTime()
+          return new Date(b.date).getTime() - new Date(a.date).getTime();
         case "oldest":
-          return new Date(a.date).getTime() - new Date(b.date).getTime()
+          return new Date(a.date).getTime() - new Date(b.date).getTime();
         case "shortest":
-          return Number.parseInt(a.readTime) - Number.parseInt(b.readTime)
+          return Number.parseInt(a.readTime) - Number.parseInt(b.readTime);
         case "longest":
-          return Number.parseInt(b.readTime) - Number.parseInt(a.readTime)
+          return Number.parseInt(b.readTime) - Number.parseInt(a.readTime);
         default:
-          return 0
+          return 0;
       }
-    })
+    });
 
-    return filtered
-  }, [blogPosts, searchQuery, selectedCategory, selectedTag, sortBy])
+    return filtered;
+  }, [blogPosts, searchQuery, selectedCategory, selectedTag, sortBy]);
 
   const clearFilters = () => {
-    setSearchQuery("")
-    setSelectedCategory("All")
-    setSelectedTag("All")
-    setSortBy("newest")
-  }
+    setSearchQuery("");
+    setSelectedCategory("All");
+    setSelectedTag("All");
+    setSortBy("newest");
+  };
 
-  const hasActiveFilters = searchQuery || selectedCategory !== "All" || selectedTag !== "All" || sortBy !== "newest"
+  const hasActiveFilters =
+    searchQuery ||
+    selectedCategory !== "All" ||
+    selectedTag !== "All" ||
+    sortBy !== "newest";
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-100 via-white to-gray-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 pt-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <Container className="py-12">
         <div className="mb-8">
           <Link
             href="/"
@@ -184,8 +197,9 @@ export default function BlogPage() {
             Tech <span className="gradient-text">Blog</span>
           </h1>
           <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl">
-            Insights, tutorials, and thoughts on modern web development. Sharing knowledge about MERN stack, best
-            practices, and emerging technologies.
+            Insights, tutorials, and thoughts on modern web development. Sharing
+            knowledge about MERN stack, best practices, and emerging
+            technologies.
           </p>
         </div>
 
@@ -193,7 +207,10 @@ export default function BlogPage() {
         <div className="mb-12 space-y-6">
           {/* Search Bar */}
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+            <Search
+              className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+              size={20}
+            />
             <Input
               placeholder="Search articles by title, content, or tags..."
               value={searchQuery}
@@ -248,7 +265,9 @@ export default function BlogPage() {
 
             {/* Tag Filter */}
             <div className="flex flex-wrap gap-2">
-              <span className="text-sm font-medium text-gray-700 dark:text-gray-300 mr-2 flex items-center">Tags:</span>
+              <span className="text-sm font-medium text-gray-700 dark:text-gray-300 mr-2 flex items-center">
+                Tags:
+              </span>
               <select
                 value={selectedTag}
                 onChange={(e) => setSelectedTag(e.target.value)}
@@ -264,7 +283,9 @@ export default function BlogPage() {
 
             {/* Sort Options */}
             <div className="flex items-center gap-2">
-              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Sort by:</span>
+              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                Sort by:
+              </span>
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
@@ -314,7 +335,9 @@ export default function BlogPage() {
               </div>
               <div className="md:w-1/2 p-8">
                 <div className="flex items-center mb-4">
-                  <span className="px-3 py-1 bg-emerald-600 text-white text-sm rounded-full mr-4">Featured</span>
+                  <span className="px-3 py-1 bg-emerald-600 text-white text-sm rounded-full mr-4">
+                    Featured
+                  </span>
                   <span className="px-3 py-1 bg-emerald-500/20 text-emerald-400 text-sm rounded-full">
                     {filteredPosts[0].category}
                   </span>
@@ -322,11 +345,15 @@ export default function BlogPage() {
                 <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-4">
                   {filteredPosts[0].title}
                 </h2>
-                <p className="text-gray-600 dark:text-gray-400 mb-6">{filteredPosts[0].excerpt}</p>
+                <p className="text-gray-600 dark:text-gray-400 mb-6">
+                  {filteredPosts[0].excerpt}
+                </p>
                 <div className="flex items-center text-gray-500 dark:text-gray-400 text-sm mb-6 space-x-4">
                   <div className="flex items-center space-x-1">
                     <Calendar size={14} />
-                    <span>{new Date(filteredPosts[0].date).toLocaleDateString()}</span>
+                    <span>
+                      {new Date(filteredPosts[0].date).toLocaleDateString()}
+                    </span>
                   </div>
                   <div className="flex items-center space-x-1">
                     <Clock size={14} />
@@ -347,71 +374,80 @@ export default function BlogPage() {
         {/* Blog Posts Grid */}
         {filteredPosts.length > 0 ? (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {(hasActiveFilters ? filteredPosts : filteredPosts.slice(1)).map((post) => (
-              <article
-                key={post.id}
-                className="glass-effect rounded-xl overflow-hidden hover:scale-105 transition-all duration-300 group"
-              >
-                <div className="relative overflow-hidden">
-                  <Image
-                    src={post.image || "/placeholder.svg"}
-                    alt={post.title}
-                    width={500}
-                    height={300}
-                    className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
-                  />
-                  <div className="absolute top-4 left-4">
-                    <span className="px-3 py-1 bg-emerald-600 text-white text-xs rounded-full">{post.category}</span>
-                  </div>
-                </div>
-
-                <div className="p-6">
-                  <div className="flex items-center text-gray-500 dark:text-gray-400 text-sm mb-3 space-x-4">
-                    <div className="flex items-center space-x-1">
-                      <Calendar size={14} />
-                      <span>{new Date(post.date).toLocaleDateString()}</span>
-                    </div>
-                    <div className="flex items-center space-x-1">
-                      <Clock size={14} />
-                      <span>{post.readTime}</span>
+            {(hasActiveFilters ? filteredPosts : filteredPosts.slice(1)).map(
+              (post) => (
+                <article
+                  key={post.id}
+                  className="glass-effect rounded-xl overflow-hidden hover:scale-105 transition-all duration-300 group"
+                >
+                  <div className="relative overflow-hidden">
+                    <Image
+                      src={post.image || "/placeholder.svg"}
+                      alt={post.title}
+                      width={500}
+                      height={300}
+                      className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
+                    />
+                    <div className="absolute top-4 left-4">
+                      <span className="px-3 py-1 bg-emerald-600 text-white text-xs rounded-full">
+                        {post.category}
+                      </span>
                     </div>
                   </div>
 
-                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 line-clamp-2 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
-                    {post.title}
-                  </h3>
+                  <div className="p-6">
+                    <div className="flex items-center text-gray-500 dark:text-gray-400 text-sm mb-3 space-x-4">
+                      <div className="flex items-center space-x-1">
+                        <Calendar size={14} />
+                        <span>{new Date(post.date).toLocaleDateString()}</span>
+                      </div>
+                      <div className="flex items-center space-x-1">
+                        <Clock size={14} />
+                        <span>{post.readTime}</span>
+                      </div>
+                    </div>
 
-                  <p className="text-gray-600 dark:text-gray-400 mb-4 line-clamp-3">{post.excerpt}</p>
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 line-clamp-2 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
+                      {post.title}
+                    </h3>
 
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {post.tags.slice(0, 3).map((tag) => (
-                      <button
-                        key={tag}
-                        onClick={() => setSelectedTag(tag)}
-                        className="px-2 py-1 bg-gray-200 hover:bg-emerald-100 text-gray-700 hover:text-emerald-700 dark:bg-slate-700 dark:text-gray-300 dark:hover:bg-emerald-900/30 dark:hover:text-emerald-400 text-xs rounded transition-colors cursor-pointer"
-                      >
-                        {tag}
-                      </button>
-                    ))}
+                    <p className="text-gray-600 dark:text-gray-400 mb-4 line-clamp-3">
+                      {post.excerpt}
+                    </p>
+
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {post.tags.slice(0, 3).map((tag) => (
+                        <button
+                          key={tag}
+                          onClick={() => setSelectedTag(tag)}
+                          className="px-2 py-1 bg-gray-200 hover:bg-emerald-100 text-gray-700 hover:text-emerald-700 dark:bg-slate-700 dark:text-gray-300 dark:hover:bg-emerald-900/30 dark:hover:text-emerald-400 text-xs rounded transition-colors cursor-pointer"
+                        >
+                          {tag}
+                        </button>
+                      ))}
+                    </div>
+
+                    <Link
+                      href={`/blog/${post.slug}`}
+                      className="inline-flex items-center text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 dark:hover:text-emerald-300 transition-colors"
+                    >
+                      Read More →
+                    </Link>
                   </div>
-
-                  <Link
-                    href={`/blog/${post.slug}`}
-                    className="inline-flex items-center text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 dark:hover:text-emerald-300 transition-colors"
-                  >
-                    Read More →
-                  </Link>
-                </div>
-              </article>
-            ))}
+                </article>
+              ),
+            )}
           </div>
         ) : (
           <div className="text-center py-12">
             <div className="glass-effect rounded-xl p-8 max-w-md mx-auto">
               <Search className="mx-auto mb-4 text-gray-400" size={48} />
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">No articles found</h3>
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                No articles found
+              </h3>
               <p className="text-gray-600 dark:text-gray-400 mb-4">
-                Try adjusting your search terms or filters to find what you're looking for.
+                Try adjusting your search terms or filters to find what you're
+                looking for.
               </p>
               <Button onClick={clearFilters} variant="outline">
                 Clear All Filters
@@ -419,7 +455,7 @@ export default function BlogPage() {
             </div>
           </div>
         )}
-      </div>
+      </Container>
     </div>
-  )
+  );
 }

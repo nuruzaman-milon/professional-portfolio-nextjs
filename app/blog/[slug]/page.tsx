@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import ShareButton from "@/components/ShareButton";
 import type { Metadata } from "next";
 import Head from "next/head";
+import Container from "@/components/Container";
 
 // This would typically come from a database or CMS
 const getBlogPost = (slug: string) => {
@@ -446,7 +447,7 @@ export default async function BlogPost({
     <>
       <BlogPostHead post={post} slug={slug} />
       <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 pt-20">
-        <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <Container className="py-12">
           <div className="mb-8">
             <Link
               href="/blog"
@@ -615,7 +616,7 @@ export default async function BlogPost({
               </Link>
             </div>
           </div>
-        </article>
+        </Container>
       </div>
     </>
   );

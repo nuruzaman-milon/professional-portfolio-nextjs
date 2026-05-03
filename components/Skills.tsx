@@ -261,6 +261,7 @@
 import { useRef } from "react";
 import { motion, useInView, type Variants } from "framer-motion";
 import { Sparkles } from "lucide-react";
+import Container from "./Container";
 
 // ─── Deliverable-based groups ─────────────────────────────────────────────────
 const deliverables = [
@@ -433,126 +434,128 @@ export default function Skills() {
         }}
       />
 
-      <div className="max-w-5xl mx-auto relative z-10">
-        {/* ── Header ── */}
-        <motion.div
-          animate={inView ? "show" : "hidden"}
-          variants={fadeUp}
-          initial="hidden"
-          className="mb-20 flex flex-col items-center text-center gap-3"
-        >
-          <span className="sec-label">Skills</span>
-          <h2 className="pf-serif text-4xl md:text-5xl font-normal text-gray-900 dark:text-white leading-tight">
-            What I can
-            <br />
-            <span className="em-g italic">deliver for you</span>
-          </h2>
-          <p className="text-sm text-gray-400 dark:text-gray-500 max-w-sm leading-relaxed font-light mt-1">
-            Not just a list of tools — but what I've actually built with them,
-            in production, for real users.
-          </p>
-        </motion.div>
+      <div className="relative z-10">
+        <Container>
+          {/* ── Header ── */}
+          <motion.div
+            animate={inView ? "show" : "hidden"}
+            variants={fadeUp}
+            initial="hidden"
+            className="mb-20 flex flex-col items-center text-center gap-3"
+          >
+            <span className="sec-label">Skills</span>
+            <h2 className="pf-serif text-4xl md:text-5xl font-normal text-gray-900 dark:text-white leading-tight">
+              What I can
+              <br />
+              <span className="em-g italic">deliver for you</span>
+            </h2>
+            <p className="text-sm text-gray-400 dark:text-gray-500 max-w-sm leading-relaxed font-light mt-1">
+              Not just a list of tools — but what I've actually built with them,
+              in production, for real users.
+            </p>
+          </motion.div>
 
-        {/* ── Groups ── */}
-        <div className="space-y-4">
-          {deliverables.map((group, gi) => (
-            <motion.div
-              key={group.index}
-              animate={inView ? "show" : "hidden"}
-              variants={fadeUp}
-              initial="hidden"
-              transition={{ delay: gi * 0.09 }}
-              className="rounded-xl border border-gray-200/60 dark:border-white/[0.07]
+          {/* ── Groups ── */}
+          <div className="space-y-4">
+            {deliverables.map((group, gi) => (
+              <motion.div
+                key={group.index}
+                animate={inView ? "show" : "hidden"}
+                variants={fadeUp}
+                initial="hidden"
+                transition={{ delay: gi * 0.09 }}
+                className="rounded-xl border border-gray-200/60 dark:border-white/[0.07]
                          bg-white/60 dark:bg-white/[0.03] backdrop-blur-sm overflow-hidden
                          hover:border-emerald-300/50 dark:hover:border-emerald-700/40
                          transition-colors duration-300"
-            >
-              {/* ── Group header ── */}
-              <div className="px-6 pt-5 pb-4 border-b border-gray-100/80 dark:border-white/[0.05]">
-                <div className="flex items-start justify-between gap-4 mb-3">
-                  <div className="flex items-center gap-3 min-w-0">
-                    <span className="text-[10px] font-mono tracking-[.18em] text-emerald-500 dark:text-emerald-400 flex-shrink-0">
-                      {group.index}
-                    </span>
-                    <div className="min-w-0">
-                      <h3 className="text-sm font-bold text-gray-900 dark:text-white leading-snug">
-                        {group.capability}
-                      </h3>
-                      <p className="text-xs text-gray-400 dark:text-gray-500 font-light mt-0.5">
-                        {group.tagline}
-                      </p>
-                    </div>
-                  </div>
-                  <span className="text-[10px] font-mono text-gray-300 dark:text-gray-600 flex-shrink-0 mt-0.5">
-                    {group.skills.length} skills
-                  </span>
-                </div>
-
-                {/* Highlight callout */}
-                <div className="flex items-start gap-2 px-3 py-2 rounded-md bg-emerald-50/60 dark:bg-emerald-900/15 border border-emerald-100 dark:border-emerald-800/30">
-                  <Sparkles
-                    size={11}
-                    className="text-emerald-500 dark:text-emerald-400 flex-shrink-0 mt-0.5"
-                  />
-                  <p className="text-[11px] text-emerald-700 dark:text-emerald-300 font-medium leading-relaxed">
-                    {group.highlight}
-                  </p>
-                </div>
-              </div>
-
-              {/* ── Skill rows ── */}
-              <motion.div
-                variants={stagger}
-                animate={inView ? "show" : "hidden"}
-                initial="hidden"
-                className="divide-y divide-gray-100/60 dark:divide-white/[0.04]"
               >
-                {group.skills.map((skill) => (
-                  <motion.div
-                    key={skill.name}
-                    variants={rowVariant}
-                    className="flex items-center gap-4 px-6 py-3
+                {/* ── Group header ── */}
+                <div className="px-6 pt-5 pb-4 border-b border-gray-100/80 dark:border-white/[0.05]">
+                  <div className="flex items-start justify-between gap-4 mb-3">
+                    <div className="flex items-center gap-3 min-w-0">
+                      <span className="text-[10px] font-mono tracking-[.18em] text-emerald-500 dark:text-emerald-400 flex-shrink-0">
+                        {group.index}
+                      </span>
+                      <div className="min-w-0">
+                        <h3 className="text-sm font-bold text-gray-900 dark:text-white leading-snug">
+                          {group.capability}
+                        </h3>
+                        <p className="text-xs text-gray-400 dark:text-gray-500 font-light mt-0.5">
+                          {group.tagline}
+                        </p>
+                      </div>
+                    </div>
+                    <span className="text-[10px] font-mono text-gray-300 dark:text-gray-600 flex-shrink-0 mt-0.5">
+                      {group.skills.length} skills
+                    </span>
+                  </div>
+
+                  {/* Highlight callout */}
+                  <div className="flex items-start gap-2 px-3 py-2 rounded-md bg-emerald-50/60 dark:bg-emerald-900/15 border border-emerald-100 dark:border-emerald-800/30">
+                    <Sparkles
+                      size={11}
+                      className="text-emerald-500 dark:text-emerald-400 flex-shrink-0 mt-0.5"
+                    />
+                    <p className="text-[11px] text-emerald-700 dark:text-emerald-300 font-medium leading-relaxed">
+                      {group.highlight}
+                    </p>
+                  </div>
+                </div>
+
+                {/* ── Skill rows ── */}
+                <motion.div
+                  variants={stagger}
+                  animate={inView ? "show" : "hidden"}
+                  initial="hidden"
+                  className="divide-y divide-gray-100/60 dark:divide-white/[0.04]"
+                >
+                  {group.skills.map((skill) => (
+                    <motion.div
+                      key={skill.name}
+                      variants={rowVariant}
+                      className="flex items-center gap-4 px-6 py-3
                                hover:bg-emerald-50/25 dark:hover:bg-emerald-900/10
                                transition-colors duration-150"
-                  >
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400/60 dark:bg-emerald-500/50 flex-shrink-0" />
+                    >
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400/60 dark:bg-emerald-500/50 flex-shrink-0" />
 
-                    <span className="text-sm font-semibold text-gray-800 dark:text-gray-100 w-36 flex-shrink-0">
-                      {skill.name}
-                    </span>
+                      <span className="text-sm font-semibold text-gray-800 dark:text-gray-100 w-36 flex-shrink-0">
+                        {skill.name}
+                      </span>
 
-                    <span className="hidden sm:block w-px h-3 bg-gray-200 dark:bg-white/10 flex-shrink-0" />
+                      <span className="hidden sm:block w-px h-3 bg-gray-200 dark:bg-white/10 flex-shrink-0" />
 
-                    <span className="text-xs text-gray-400 dark:text-gray-500 font-light">
-                      {skill.context}
-                    </span>
-                  </motion.div>
-                ))}
+                      <span className="text-xs text-gray-400 dark:text-gray-500 font-light">
+                        {skill.context}
+                      </span>
+                    </motion.div>
+                  ))}
+                </motion.div>
               </motion.div>
-            </motion.div>
-          ))}
-        </div>
+            ))}
+          </div>
 
-        {/* ── Footer note ── */}
-        <motion.div
-          animate={inView ? "show" : "hidden"}
-          variants={fadeUp}
-          initial="hidden"
-          transition={{ delay: 0.6 }}
-          className="mt-12 flex items-center gap-4"
-        >
-          <div className="hl flex-1" />
-          <p className="text-xs text-gray-400 dark:text-gray-500 font-light flex-shrink-0">
-            All skills used in{" "}
-            <a
-              href="#projects"
-              className="text-emerald-600 dark:text-emerald-400 hover:underline underline-offset-2"
-            >
-              production projects
-            </a>
-          </p>
-          <div className="hl flex-1" />
-        </motion.div>
+          {/* ── Footer note ── */}
+          <motion.div
+            animate={inView ? "show" : "hidden"}
+            variants={fadeUp}
+            initial="hidden"
+            transition={{ delay: 0.6 }}
+            className="mt-12 flex items-center gap-4"
+          >
+            <div className="hl flex-1" />
+            <p className="text-xs text-gray-400 dark:text-gray-500 font-light flex-shrink-0">
+              All skills used in{" "}
+              <a
+                href="#projects"
+                className="text-emerald-600 dark:text-emerald-400 hover:underline underline-offset-2"
+              >
+                production projects
+              </a>
+            </p>
+            <div className="hl flex-1" />
+          </motion.div>
+        </Container>
       </div>
     </section>
   );
