@@ -8,8 +8,11 @@ import nazaaraImg1 from "@/public/images/projects/nazaara/nazaara-1.png";
 import nazaaraImg2 from "@/public/images/projects/nazaara/nazaara-2.png";
 import nazaaraImg3 from "@/public/images/projects/nazaara/nazaara-3.png";
 
-// ─── Types ────────────────────────────────────────────────────────────────────
+import erpImg1 from "@/public/images/projects/erp/erp1.webp";
+import erpImg2 from "@/public/images/projects/erp/erp2.webp";
+import erpImg3 from "@/public/images/projects/erp/erp3.webp";
 
+// ─── Types ────────────────────────────────────────────────────────────────────
 export interface Project {
   id: number;
   slug: string;
@@ -61,8 +64,8 @@ export const projects: Project[] = [
     github: null,
     live: "https://swopme.app",
     role: "Full-Stack Engineer",
-    duration: "6 months",
-    completedDate: "2024-06-01",
+    duration: "2+ years (ongoing)",
+    completedDate: "",
     overview:
       "SWOP is a next-generation social platform that bridges Web2 usability with Web3 capabilities. Built end-to-end at Bayshore Communication, it lets users post content, build a personal SmartSite (a customisable link-in-bio portfolio), tip creators on-chain, and swap tokens directly in the feed — all without leaving the app.",
     features: [
@@ -110,7 +113,7 @@ export const projects: Project[] = [
     github: null,
     live: "https://nazaaralifestyle.com",
     role: "Full-Stack Engineer",
-    duration: "3 months",
+    duration: "6+ months",
     completedDate: "2024-01-15",
     overview:
       "A complete e-commerce solution built from the ground up for a Bangladeshi retail client. The platform handles the full commerce lifecycle — product catalogue, cart, SSL Commerce payment integration, order tracking, and a rich admin dashboard with analytics — serving real customers from day one.",
@@ -147,13 +150,13 @@ export const projects: Project[] = [
       "Automated complex business workflows",
       "70–80% reduction in manual operational effort",
     ],
-    images: ["/images/erp-system.jpg"],
+    images: [erpImg2, erpImg1, erpImg3],
     stack: ["React", "Vite", "Redux", "Tailwind CSS", "REST API"],
     github: null,
     live: null,
     role: "Frontend Engineer",
-    duration: "4 months",
-    completedDate: "2024-03-10",
+    duration: "10+ months",
+    completedDate: "2023-02-01",
     overview:
       "An internal ERP system built for Peoples IT Solution to replace a patchwork of spreadsheets and manual processes. The frontend covers four core operational modules — accounts, dealer management, product oversight, and labour tracking — and was designed to be intuitive enough for non-technical staff to adopt with minimal training.",
     features: [

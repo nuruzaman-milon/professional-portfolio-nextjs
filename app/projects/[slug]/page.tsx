@@ -145,10 +145,15 @@ export default function ProjectDetail() {
               </span>
               <span className="flex items-center gap-1.5">
                 <Calendar size={13} />
-                {new Date(project.completedDate).toLocaleDateString("en-GB", {
-                  month: "short",
-                  year: "numeric",
-                })}
+                {project.completedDate
+                  ? new Date(project.completedDate).toLocaleDateString(
+                      "en-GB",
+                      {
+                        month: "short",
+                        year: "numeric",
+                      },
+                    )
+                  : "In Progress"}
               </span>
               <span className="flex items-center gap-1.5">
                 <Layers size={13} />
@@ -322,12 +327,15 @@ export default function ProjectDetail() {
                       { label: "Duration", value: project.duration },
                       {
                         label: "Completed",
-                        value: new Date(
-                          project.completedDate,
-                        ).toLocaleDateString("en-GB", {
-                          month: "long",
-                          year: "numeric",
-                        }),
+                        value: project.completedDate
+                          ? new Date(project.completedDate).toLocaleDateString(
+                              "en-GB",
+                              {
+                                month: "long",
+                                year: "numeric",
+                              },
+                            )
+                          : "Ongoing",
                       },
                       {
                         label: "Status",

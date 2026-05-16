@@ -14,30 +14,13 @@ export type CarouselImage = string | StaticImageData;
 export interface ImageCarouselProps {
   images: CarouselImage[];
   title: string;
-  /** Shown as a zero-padded watermark (e.g. "01") */
   index?: number;
-  /** Auto-advance interval in ms. Set to 0 to disable. Default: 3500 */
   interval?: number;
-  /** Accent colour for active dot & ring. Default: emerald */
   accent?: string;
   className?: string;
 }
 
 // ─── Animation variants ───────────────────────────────────────────────────────
-
-const slideVariants: Variants = {
-  enter: { opacity: 0, y: 8 },
-  center: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.9, ease: [0.22, 1, 0.36, 1] },
-  },
-  exit: {
-    opacity: 0,
-    y: -8,
-    transition: { duration: 0.9, ease: [0.22, 1, 0.36, 1] },
-  },
-};
 
 const overlayVariants: Variants = {
   hidden: { opacity: 0 },
@@ -100,7 +83,7 @@ function Dots({
   );
 }
 
-// ─── Lightbox (fullscreen preview) ───────────────────────────────────────────
+// ─── Lightbox ─────────────────────────────────────────────────────────────────
 
 function Lightbox({
   images,
@@ -124,7 +107,6 @@ function Lightbox({
   });
   const [current, setCurrent] = useState(startIndex);
 
-  // Sync current index with embla
   useEffect(() => {
     if (!emblaApi) return;
     const onSelect = () => setCurrent(emblaApi.selectedScrollSnap());
@@ -134,7 +116,6 @@ function Lightbox({
     };
   }, [emblaApi]);
 
-  // Jump to startIndex when lightbox opens
   useEffect(() => {
     if (open && emblaApi) {
       emblaApi.scrollTo(startIndex, true);
@@ -142,7 +123,6 @@ function Lightbox({
     }
   }, [open, startIndex, emblaApi]);
 
-  // Keyboard navigation
   useEffect(() => {
     if (!open) return;
     const handler = (e: KeyboardEvent) => {
@@ -162,7 +142,6 @@ function Lightbox({
         <AnimatePresence>
           {open && (
             <>
-              {/* Backdrop */}
               <Dialog.Overlay asChild forceMount>
                 <motion.div
                   key="lb-overlay"
@@ -178,7 +157,6 @@ function Lightbox({
                 />
               </Dialog.Overlay>
 
-              {/* Content */}
               <Dialog.Content asChild forceMount>
                 <motion.div
                   key="lb-content"
@@ -189,7 +167,6 @@ function Lightbox({
                   className="fixed inset-0 z-50 flex flex-col items-center justify-center p-4 focus:outline-none"
                   onClick={onClose}
                 >
-                  {/* Top bar */}
                   <div
                     className="w-full max-w-5xl flex items-center justify-between mb-4"
                     onClick={(e) => e.stopPropagation()}
@@ -207,7 +184,6 @@ function Lightbox({
                         </span>
                       )}
                     </div>
-
                     <Dialog.Close asChild>
                       <button
                         className="flex items-center justify-center rounded-full transition-all duration-200"
@@ -236,7 +212,6 @@ function Lightbox({
                     </Dialog.Close>
                   </div>
 
-                  {/* Embla carousel */}
                   <div
                     className="w-full max-w-5xl relative rounded-xl overflow-hidden"
                     style={{
@@ -260,7 +235,7 @@ function Lightbox({
                               src={src}
                               alt={`${title} — image ${i + 1}`}
                               fill
-                              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 40vw, 33vw"
+                              sizes="(max-width: 768px) 100vw, 80vw"
                               className="object-contain"
                               priority={i === startIndex}
                             />
@@ -269,7 +244,6 @@ function Lightbox({
                       </div>
                     </div>
 
-                    {/* Prev / Next arrows */}
                     {hasMultiple && (
                       <>
                         <button
@@ -298,7 +272,6 @@ function Lightbox({
                         >
                           <ChevronLeft size={18} />
                         </button>
-
                         <button
                           onClick={() => emblaApi?.scrollNext()}
                           aria-label="Next image"
@@ -329,7 +302,6 @@ function Lightbox({
                     )}
                   </div>
 
-                  {/* Bottom dots */}
                   {hasMultiple && (
                     <div className="mt-4" onClick={(e) => e.stopPropagation()}>
                       <Dots
@@ -341,7 +313,6 @@ function Lightbox({
                     </div>
                   )}
 
-                  {/* Dismiss hint */}
                   <p className="mt-5 text-xs text-white/25 font-mono tracking-widest">
                     ESC OR CLICK OUTSIDE TO CLOSE
                   </p>
@@ -355,7 +326,9 @@ function Lightbox({
   );
 }
 
-// ─── Main ImageCarousel component ─────────────────────────────────────────────
+// ─── Main ImageCarousel ───────────────────────────────────────────────────────
+
+const DRAG_THRESHOLD = 5;
 
 export default function ImageCarousel({
   images,
@@ -371,20 +344,32 @@ export default function ImageCarousel({
   const [isHovered, setIsHovered] = useState(false);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
+  const pointerDownPos = useRef<{ x: number; y: number } | null>(null);
+  const didDrag = useRef(false);
+
   const hasMultiple = images.length > 1;
 
-  // Auto-advance — pauses on hover
+  // ── Embla ──────────────────────────────────────────────────────────────────
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
+
+  useEffect(() => {
+    if (!emblaApi) return;
+    const onSelect = () => setCurrent(emblaApi.selectedScrollSnap());
+    emblaApi.on("select", onSelect);
+    return () => {
+      emblaApi.off("select", onSelect);
+    };
+  }, [emblaApi]);
+
   useEffect(() => {
     if (!hasMultiple || interval === 0 || isHovered) return;
-    timerRef.current = setInterval(() => {
-      setCurrent((c) => (c + 1) % images.length);
-    }, interval);
+    timerRef.current = setInterval(() => emblaApi?.scrollNext(), interval);
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
-  }, [hasMultiple, interval, images.length, isHovered]);
+  }, [hasMultiple, interval, isHovered, emblaApi]);
 
-  const goTo = useCallback((i: number) => setCurrent(i), []);
+  const goTo = useCallback((i: number) => emblaApi?.scrollTo(i), [emblaApi]);
 
   const openLightbox = useCallback(() => {
     setLightboxStart(current);
@@ -398,30 +383,62 @@ export default function ImageCarousel({
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        {/* Crossfade image stack */}
-        <AnimatePresence mode="sync">
-          <motion.div
-            key={current}
-            variants={slideVariants}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            className="absolute inset-0"
-          >
-            <Image
-              src={images[current]}
-              alt={`${title} screenshot ${current + 1}`}
-              fill
-              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 40vw, 33vw"
-              className="object-cover"
-              onError={(e) => {
-                (e.target as HTMLImageElement).style.display = "none";
-              }}
-            />
-          </motion.div>
-        </AnimatePresence>
+        {/*
+          KEY FIX: Embla container owns ALL pointer events.
+          No overlay button sitting on top — drag detection is handled
+          directly on this element via onPointer* handlers.
+          onPointerUp fires openLightbox() only if the pointer didn't move.
+        */}
+        <div
+          ref={emblaRef}
+          className="absolute inset-0 overflow-hidden"
+          style={{ cursor: didDrag.current ? "grabbing" : "zoom-in" }}
+          onPointerDown={(e) => {
+            pointerDownPos.current = { x: e.clientX, y: e.clientY };
+            didDrag.current = false;
+          }}
+          onPointerMove={(e) => {
+            if (!pointerDownPos.current) return;
+            const dx = Math.abs(e.clientX - pointerDownPos.current.x);
+            const dy = Math.abs(e.clientY - pointerDownPos.current.y);
+            if (dx > DRAG_THRESHOLD || dy > DRAG_THRESHOLD) {
+              didDrag.current = true;
+            }
+          }}
+          onPointerUp={() => {
+            pointerDownPos.current = null;
+            // Use setTimeout(0) so Embla settles its drag state before we check
+            setTimeout(() => {
+              if (!didDrag.current) openLightbox();
+            }, 0);
+          }}
+        >
+          <div className="flex h-full touch-pan-y">
+            {images.map((src, i) => (
+              <div
+                key={i}
+                className="relative flex-none w-full h-full select-none"
+              >
+                <Image
+                  src={src}
+                  alt={`${title} screenshot ${i + 1}`}
+                  quality={100}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 100vw"
+                  className="object-cover"
+                  draggable={false}
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).style.display = "none";
+                  }}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
 
-        {/* Gradient overlay */}
+        {/* All overlays below are pointer-events-none — they never block Embla */}
+
+        {/* Gradient */}
         <div
           className="absolute inset-0 z-10 pointer-events-none"
           style={{
@@ -431,15 +448,12 @@ export default function ImageCarousel({
           }}
         />
 
-        {/* Click-to-expand button — visible on hover */}
-        <motion.button
-          onClick={openLightbox}
-          aria-label="Open fullscreen preview"
+        {/* Preview hint */}
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: isHovered ? 1 : 0 }}
           transition={{ duration: 0.2 }}
-          className="absolute inset-0 z-20 w-full h-full flex items-center justify-center cursor-zoom-in"
-          style={{ background: "transparent", border: "none", padding: 0 }}
+          className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none"
         >
           <div
             className="flex items-center gap-2 px-3 py-1.5 rounded-lg"
@@ -451,29 +465,27 @@ export default function ImageCarousel({
               fontSize: 12,
               fontFamily: "monospace",
               letterSpacing: "0.1em",
-              pointerEvents: "none",
             }}
           >
             <ZoomIn size={13} />
             PREVIEW
           </div>
-        </motion.button>
+        </motion.div>
 
         {/* Index watermark */}
         <div
-          className="absolute bottom-3 left-4 z-30"
+          className="absolute bottom-3 left-4 z-30 pointer-events-none"
           style={{
             fontSize: 10,
             fontFamily: "monospace",
             letterSpacing: "0.18em",
             color: "rgba(255,255,255,0.35)",
-            pointerEvents: "none",
           }}
         >
           {String(cardIndex + 1).padStart(2, "0")}
         </div>
 
-        {/* Dots */}
+        {/* Dots — these do need pointer events to be clickable */}
         {hasMultiple && (
           <div className="absolute bottom-3 right-4 z-30">
             <Dots
@@ -488,7 +500,7 @@ export default function ImageCarousel({
         {/* Counter badge */}
         {hasMultiple && (
           <div
-            className="absolute top-3 right-3 z-30 px-2 py-0.5 rounded-md"
+            className="absolute top-3 right-3 z-30 px-2 py-0.5 rounded-md pointer-events-none"
             style={{
               background: "rgba(0,0,0,0.3)",
               backdropFilter: "blur(4px)",
@@ -502,7 +514,6 @@ export default function ImageCarousel({
         )}
       </div>
 
-      {/* Fullscreen lightbox */}
       <Lightbox
         images={images}
         title={title}

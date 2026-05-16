@@ -175,7 +175,7 @@ export default async function BlogPost({
 
               {/* Actions */}
               <div className="flex items-center gap-2">
-                <button
+                {/* <button
                   className="h-8 px-3 rounded-lg border border-gray-200/70 dark:border-white/[0.08]
                              bg-white/70 dark:bg-white/[0.04] text-xs font-mono
                              text-gray-500 dark:text-gray-400
@@ -192,7 +192,7 @@ export default async function BlogPost({
                              flex items-center gap-1.5 transition-colors duration-200"
                 >
                   <MessageCircle size={12} /> 8
-                </button>
+                </button> */}
                 <ShareButton
                   title={post.title}
                   url={`/blog/${slug}`}
@@ -240,11 +240,11 @@ export default async function BlogPost({
           <div className="rounded-xl border border-gray-200/60 dark:border-white/[0.07] bg-white/60 dark:bg-white/[0.03] backdrop-blur-sm p-7 mb-16 flex items-center gap-5">
             <div className="w-14 h-14 rounded-full overflow-hidden border border-emerald-400/30 flex-shrink-0">
               <Image
-                src="/images/profile-photo.jpg"
+                src="/images/me/nuruzaman-milon1.webp"
                 alt={post.author}
                 width={56}
                 height={56}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover object-top"
               />
             </div>
             <div>
@@ -255,7 +255,7 @@ export default async function BlogPost({
                 {post.author}
               </h3>
               <p className="text-sm text-gray-500 dark:text-gray-400 font-light leading-relaxed">
-                Full Stack Developer with 2+ years of experience in MERN stack
+                Full Stack Developer with 3+ years of experience in MERN stack
                 development. Passionate about sharing knowledge and building
                 great products.
               </p>
