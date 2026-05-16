@@ -1,13 +1,20 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowDown, Github, Linkedin, Mail, ArrowUpRight, Download } from "lucide-react";
+import {
+  ArrowDown,
+  Github,
+  Linkedin,
+  Mail,
+  ArrowUpRight,
+  Download,
+} from "lucide-react";
 import type { Variants } from "framer-motion";
 import Container from "./Container";
 import Link from "next/link";
-import myImg from "@/public/images/me/nuruzaman-milon1.webp"
+import myImg from "@/public/images/me/nuruzaman-milon1.webp";
 
 const roles = [
   "Software Engineer",
@@ -42,14 +49,7 @@ const stagger: Variants = {
 };
 
 export default function Hero() {
-  const [mounted, setMounted] = useState(false);
   const [currentRole, setCurrentRole] = useState(0);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  const heroRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   useEffect(() => {
     const id = setInterval(() => {
@@ -58,31 +58,15 @@ export default function Hero() {
     return () => clearInterval(id);
   }, []);
 
-  useEffect(() => {
-    const move = (e: MouseEvent) => {
-      if (!heroRef.current) return;
-      const r = heroRef.current.getBoundingClientRect();
-      setMousePos({
-        x: (e.clientX - r.left) / r.width - 0.5,
-        y: (e.clientY - r.top) / r.height - 0.5,
-      });
-    };
-    window.addEventListener("mousemove", move);
-    return () => window.removeEventListener("mousemove", move);
-  }, []);
-
-  if (!mounted) return null;
-
   return (
     <section
-      ref={heroRef}
       id="home"
       className="pf-mesh pf-noise min-h-screen flex items-center justify-center relative overflow-hidden pt-16 sm:pt-0"
     >
       {/* Grid overlay */}
       <div className="ab-grid absolute inset-0 z-0" />
 
-      {/* Parallax orbs */}
+      {/* Static orbs */}
       <div
         className="absolute pointer-events-none z-0"
         style={{
@@ -93,8 +77,6 @@ export default function Hero() {
           borderRadius: "50%",
           background:
             "radial-gradient(circle,rgba(16,185,129,.12) 0%,transparent 70%)",
-          transform: `translate(${mousePos.x * -24}px,${mousePos.y * -24}px)`,
-          transition: "transform .6s cubic-bezier(.22,1,.36,1)",
         }}
       />
       <div
@@ -107,8 +89,6 @@ export default function Hero() {
           borderRadius: "50%",
           background:
             "radial-gradient(circle,rgba(20,184,166,.10) 0%,transparent 70%)",
-          transform: `translate(${mousePos.x * 20}px,${mousePos.y * 20}px)`,
-          transition: "transform .8s cubic-bezier(.22,1,.36,1)",
         }}
       />
 
@@ -133,7 +113,7 @@ export default function Hero() {
 
             {/* Two-column layout */}
             <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-20 mb-16">
-              {/* ── Text column ── */}
+              {/* Text column */}
               <div className="flex-1 text-center lg:text-left">
                 <motion.div
                   variants={slideUp}
@@ -186,14 +166,16 @@ export default function Hero() {
                   variants={slideUp}
                   className="flex flex-wrap gap-3 justify-center lg:justify-start mb-10"
                 >
-                  <Link href={'/projects'} className="btn-p">
+                  <Link href="/projects" className="btn-p">
                     View My Work <ArrowUpRight size={14} />
                   </Link>
-                  <a href="/resume/Nuruzaman-milon-resume.pdf"
-                      download="Nuruzaman-milon-resume.pdf"
-                      className="btn-g flex items-center gap-2">
-                        <Download size={14} />
-                        Download Resume
+                  <a
+                    href="/resume/Nuruzaman-milon-resume.pdf"
+                    download="Nuruzaman-Milon-Resume.pdf"
+                    className="btn-g flex items-center gap-2"
+                  >
+                    <Download size={14} />
+                    Download Resume
                   </a>
                 </motion.div>
 
@@ -232,7 +214,7 @@ export default function Hero() {
                 </motion.div>
               </div>
 
-              {/* ── Photo column ── */}
+              {/* Photo column */}
               <motion.div
                 variants={slideUp}
                 className="flex-shrink-0 flex justify-center"
@@ -246,18 +228,16 @@ export default function Hero() {
                       <Image
                         src={myImg}
                         alt="Nuruzaman Milon — Software Engineer"
-                        width={1200}
-                        height={900}
-                        quality={100}
+                        width={256}
+                        height={256}
+                        quality={90}
+                        sizes="(max-width: 768px) 224px, 256px"
                         className="w-full h-full object-cover object-top"
                         priority
                       />
                     </div>
 
-                    {/*
-                    BOTTOM-RIGHT BADGE — Experience counter
-                    Pulled from resume: Mar 2023 – Present (Bayshore) = 3+ yrs total
-                  */}
+                    {/* Bottom-right badge */}
                     <div
                       className="absolute -bottom-5 -right-6 px-4 py-2.5 rounded-lg shadow-xl"
                       style={{
@@ -273,11 +253,7 @@ export default function Hero() {
                       </div>
                     </div>
 
-                    {/*
-                    TOP-LEFT BADGE — Core stack highlight
-                    Replaces "Currently at" (already shown via tp chip + About section).
-                    Shows recruiter-facing stack at a glance.
-                  */}
+                    {/* Top-left badge */}
                     <div
                       className="absolute -top-4 -left-6 px-3 py-2 rounded-lg shadow-lg"
                       style={{

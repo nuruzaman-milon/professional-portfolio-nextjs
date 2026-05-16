@@ -1,13 +1,11 @@
 "use client";
 
-import { useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion, useInView, type Variants } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import { ArrowUpRight, Calendar, Clock } from "lucide-react";
 import Container from "./Container";
 
-// ─── Blog data ────────────────────────────────────────────────────────────────
 const blogPosts = [
   {
     id: 1,
@@ -50,7 +48,6 @@ const blogPosts = [
   },
 ];
 
-// ─── Variants — identical timing to Projects ──────────────────────────────────
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 22 },
   show: {
@@ -74,18 +71,14 @@ function formatDate(dateStr: string) {
 }
 
 export default function Blog() {
-  const ref = useRef<HTMLElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
-
   return (
     <section
-      ref={ref}
       id="blog"
       className="pf-mesh pf-noise relative overflow-hidden py-28 px-4 sm:px-6 lg:px-8"
     >
       <div className="pf-grid absolute inset-0 z-0" />
 
-      {/* Ambient orb — mirrored to left side for visual variety */}
+      {/* Ambient orb */}
       <div
         className="absolute pointer-events-none z-0 opacity-30"
         style={{
@@ -103,9 +96,10 @@ export default function Blog() {
         <Container>
           {/* ── Header ── */}
           <motion.div
-            animate={inView ? "show" : "hidden"}
             variants={fadeUp}
             initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: "-40px", amount: 0.1 }}
             className="mb-20 flex flex-col items-center text-center gap-3"
           >
             <span className="sec-label">Blog</span>
@@ -122,9 +116,10 @@ export default function Blog() {
 
           {/* ── Blog cards ── */}
           <motion.div
-            animate={inView ? "show" : "hidden"}
             variants={stagger}
             initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: "-40px", amount: 0.1 }}
             className="space-y-6"
           >
             {blogPosts.map((post, i) => (
@@ -133,18 +128,18 @@ export default function Blog() {
                 variants={fadeUp}
                 className="group grid lg:grid-cols-[2fr_3fr] gap-0 rounded-xl border border-gray-200/60 dark:border-white/[0.07] bg-white/60 dark:bg-white/[0.03] backdrop-blur-sm overflow-hidden hover:border-emerald-300/50 dark:hover:border-emerald-700/40 transition-all duration-300"
               >
-                {/* ── Image pane ── */}
+                {/* Image pane */}
                 <div className="relative overflow-hidden bg-gray-100 dark:bg-gray-800/50 aspect-[16/10] lg:aspect-auto min-h-[200px]">
                   <Image
                     src={post.image}
                     alt={post.title}
                     fill
+                    sizes="(max-width: 1024px) 100vw, 40vw"
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                     onError={(e) => {
                       (e.target as HTMLImageElement).style.display = "none";
                     }}
                   />
-                  {/* Gradient overlay */}
                   <div className="absolute inset-0 bg-gradient-to-br from-emerald-900/20 to-transparent opacity-60" />
 
                   {/* Category badge */}
@@ -160,9 +155,8 @@ export default function Blog() {
                   </div>
                 </div>
 
-                {/* ── Content pane ── */}
+                {/* Content pane */}
                 <div className="flex flex-col p-7">
-                  {/* Label + meta row */}
                   <div className="flex items-center justify-between mb-3">
                     <span className="text-[10px] font-mono tracking-[.15em] uppercase text-emerald-500 dark:text-emerald-400">
                       {post.label}
@@ -179,17 +173,14 @@ export default function Blog() {
                     </div>
                   </div>
 
-                  {/* Title */}
                   <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 leading-snug">
                     {post.title}
                   </h3>
 
-                  {/* Excerpt */}
                   <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed font-light mb-5">
                     {post.excerpt}
                   </p>
 
-                  {/* Tags — styled as stack pills in Projects */}
                   <div className="flex flex-wrap gap-1.5 mb-6">
                     {post.tags.map((tag) => (
                       <span
@@ -204,7 +195,6 @@ export default function Blog() {
                     ))}
                   </div>
 
-                  {/* CTA */}
                   <div className="mt-auto">
                     <Link href={`/blog/${post.slug}`} className="cta-link">
                       Read article <ArrowUpRight size={13} />
@@ -217,10 +207,11 @@ export default function Blog() {
 
           {/* ── View all CTA ── */}
           <motion.div
-            animate={inView ? "show" : "hidden"}
             variants={fadeUp}
             initial="hidden"
-            transition={{ delay: 0.45 }}
+            whileInView="show"
+            viewport={{ once: true, margin: "-40px", amount: 0.1 }}
+            transition={{ delay: 0.2 }}
             className="mt-14 flex flex-col items-center gap-5"
           >
             <div className="hl w-full" />

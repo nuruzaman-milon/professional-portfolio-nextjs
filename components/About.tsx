@@ -1,13 +1,11 @@
 "use client";
 
-import { useRef } from "react";
 import Image from "next/image";
-import { motion, useInView, type Variants } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import Container from "./Container";
-import myImg from "@/public/images/me/nuruzaman-milon.webp"
+import myImg from "@/public/images/me/nuruzaman-milon.webp";
 
-// ─── Tech stack ─────────────────────────────────────────────────────────────
 const techStack = [
   { label: "JavaScript", bg: "#f7df1e", text: "#000" },
   { label: "TypeScript", bg: "#3178c6", text: "#fff" },
@@ -16,7 +14,7 @@ const techStack = [
   { label: "Node.js", bg: "#339933", text: "#fff" },
   { label: "Express.js", bg: "#404040", text: "#fff" },
   { label: "MongoDB", bg: "#47a248", text: "#fff" },
-   { label: "Prisma", bg: "#4790a2", text: "#fff" },
+  { label: "Prisma", bg: "#4790a2", text: "#fff" },
   { label: "PostgreSQL", bg: "#336791", text: "#fff" },
   { label: "Tailwind CSS", bg: "#06b6d4", text: "#fff" },
   { label: "Framer Motion", bg: "#ff0050", text: "#fff" },
@@ -24,8 +22,6 @@ const techStack = [
   { label: "Docker", bg: "#2496ed", text: "#fff" },
 ];
 
-// ─── Work history ─────────────────────────────────────────────────────────────
-// Source: resume (accurate dates + descriptions)
 const timeline = [
   {
     period: "Mar 2023 – Present",
@@ -47,7 +43,6 @@ const timeline = [
   },
 ];
 
-// ─── Animation variants ──────────────────────────────────────────────────────
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 22 },
   show: {
@@ -61,12 +56,8 @@ const fadeUp: Variants = {
 };
 
 export default function About() {
-  const ref = useRef<HTMLElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
-
   return (
     <section
-      ref={ref}
       id="about"
       className="ab-bg pf-noise relative overflow-hidden py-28 px-4 sm:px-6 lg:px-8"
     >
@@ -77,9 +68,10 @@ export default function About() {
         <Container>
           {/* ── Section header ── */}
           <motion.div
-            animate={inView ? "show" : "hidden"}
             variants={fadeUp}
             initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: "-40px", amount: 0.1 }}
             className="mb-16 flex flex-col items-center text-center gap-3"
           >
             <span className="sec-label">About Me</span>
@@ -95,9 +87,10 @@ export default function About() {
             {/* ── LEFT: bio + timeline ── */}
             <div>
               <motion.div
-                animate={inView ? "show" : "hidden"}
                 variants={fadeUp}
                 initial="hidden"
+                whileInView="show"
+                viewport={{ once: true, margin: "-40px", amount: 0.1 }}
                 transition={{ delay: 0.1 }}
                 className="space-y-5 mb-8"
               >
@@ -118,9 +111,10 @@ export default function About() {
 
               {/* Availability + CTA */}
               <motion.div
-                animate={inView ? "show" : "hidden"}
                 variants={fadeUp}
                 initial="hidden"
+                whileInView="show"
+                viewport={{ once: true, margin: "-40px", amount: 0.1 }}
                 transition={{ delay: 0.2 }}
                 className="flex flex-wrap items-center gap-4 mb-10"
               >
@@ -135,9 +129,10 @@ export default function About() {
 
               {/* Timeline */}
               <motion.div
-                animate={inView ? "show" : "hidden"}
                 variants={fadeUp}
                 initial="hidden"
+                whileInView="show"
+                viewport={{ once: true, margin: "-40px", amount: 0.1 }}
                 transition={{ delay: 0.3 }}
               >
                 <div className="text-xs font-semibold tracking-[.12em] uppercase text-gray-400 dark:text-gray-500 mb-5">
@@ -148,7 +143,8 @@ export default function About() {
                     <motion.div
                       key={i}
                       initial={{ opacity: 0, x: -12 }}
-                      animate={inView ? { opacity: 1, x: 0 } : {}}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true, margin: "-40px", amount: 0.1 }}
                       transition={{
                         duration: 0.55,
                         ease: [0.22, 1, 0.36, 1] as [
@@ -157,7 +153,7 @@ export default function About() {
                           number,
                           number,
                         ],
-                        delay: 0.35 + i * 0.1,
+                        delay: 0.1 + i * 0.1,
                       }}
                       className="flex gap-4"
                     >
@@ -188,9 +184,10 @@ export default function About() {
             <div className="space-y-10">
               {/* Photo */}
               <motion.div
-                animate={inView ? "show" : "hidden"}
                 variants={fadeUp}
                 initial="hidden"
+                whileInView="show"
+                viewport={{ once: true, margin: "-40px", amount: 0.1 }}
                 transition={{ delay: 0.15 }}
                 className="flex justify-center lg:justify-start"
               >
@@ -199,21 +196,19 @@ export default function About() {
                     <div className="ctl" />
                     <div className="cbr" />
                     <div className="ph-frame w-full h-full">
+                      {/* ✅ Fix: সঠিক size ও sizes prop */}
                       <Image
                         src={myImg}
                         alt="Nuruzaman Milon — Software Engineer"
-                         width={1200}
-                        height={900}
-                        quality={100}
+                        width={256}
+                        height={288}
+                        quality={90}
+                        sizes="256px"
                         className="w-full h-full object-cover object-top"
                       />
                     </div>
 
-                    {/*
-                    BOTTOM-LEFT BADGE — Education
-                    Source: resume → BSc in Computer Science & Engineering
-                    IUBAT University, Dhaka · 2017–2021
-                  */}
+                    {/* Bottom-left badge */}
                     <div
                       className="absolute -bottom-4 -left-5 px-3 py-2.5 rounded-lg shadow-lg"
                       style={{
@@ -230,11 +225,7 @@ export default function About() {
                       </div>
                     </div>
 
-                    {/*
-                    TOP-RIGHT BADGE — Current role
-                    Source: resume → Bayshore Communication, Software Engineer, Mar 2023–Present
-                    Kept here (not in Hero) as About is where detailed context lives.
-                  */}
+                    {/* Top-right badge */}
                     <div
                       className="absolute -top-4 -right-5 px-3 py-2.5 rounded-lg shadow-xl"
                       style={{
@@ -260,9 +251,10 @@ export default function About() {
 
               {/* Tech stack */}
               <motion.div
-                animate={inView ? "show" : "hidden"}
                 variants={fadeUp}
                 initial="hidden"
+                whileInView="show"
+                viewport={{ once: true, margin: "-40px", amount: 0.1 }}
                 transition={{ delay: 0.4 }}
               >
                 <div className="text-xs font-semibold tracking-[.12em] uppercase text-gray-400 dark:text-gray-500 mb-4">
@@ -281,11 +273,12 @@ export default function About() {
                 </div>
               </motion.div>
 
-              {/* Quick facts — no duplication with badges */}
+              {/* Quick facts */}
               <motion.div
-                animate={inView ? "show" : "hidden"}
                 variants={fadeUp}
                 initial="hidden"
+                whileInView="show"
+                viewport={{ once: true, margin: "-40px", amount: 0.1 }}
                 transition={{ delay: 0.5 }}
               >
                 <div className="text-xs font-semibold tracking-[.12em] uppercase text-gray-400 dark:text-gray-500 mb-4">

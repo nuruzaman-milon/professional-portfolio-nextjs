@@ -108,7 +108,7 @@ export const projects: Project[] = [
       "SSL Commerce",
     ],
     github: null,
-    live: null,
+    live: "https://nazaaralifestyle.com",
     role: "Full-Stack Engineer",
     duration: "3 months",
     completedDate: "2024-01-15",

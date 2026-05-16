@@ -6,7 +6,6 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 
-// ─── Instrument Serif — not a variable font, use explicit weights ───────────
 const instrumentSerif = Instrument_Serif({
   weight: ["400"],
   style: ["normal", "italic"],
@@ -15,7 +14,6 @@ const instrumentSerif = Instrument_Serif({
   display: "swap",
 });
 
-// ─── Plus Jakarta Sans — variable font ─────────────────────────────────────
 const plusJakartaSans = Plus_Jakarta_Sans({
   weight: "variable",
   subsets: ["latin"],
@@ -71,6 +69,24 @@ export const metadata: Metadata = {
   },
 };
 
+// ✅ Anti-flash script — render এর আগেই theme class set করে
+const themeScript = `
+  (function() {
+    try {
+      var t = localStorage.getItem('theme');
+      if (t === 'light' || t === 'dark') {
+        document.documentElement.classList.add(t);
+        return;
+      }
+      if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+        document.documentElement.classList.add('light');
+      } else {
+        document.documentElement.classList.add('dark');
+      }
+    } catch(e) {}
+  })();
+`;
+
 export default function RootLayout({
   children,
 }: {
@@ -79,8 +95,13 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${instrumentSerif.variable} ${plusJakartaSans.variable} scroll-smooth`}
+      className={`${instrumentSerif.variable} ${plusJakartaSans.variable}`}
+      suppressHydrationWarning // ✅ এটা জরুরি — theme class hydration warning suppress করে
     >
+      <head>
+        {/* ✅ Flash বন্ধ করার script — সবার আগে execute হয় */}
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
       <body className="font-sans antialiased">
         <ThemeProvider>
           <Navbar />

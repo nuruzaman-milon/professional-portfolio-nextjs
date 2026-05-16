@@ -1,56 +1,45 @@
 "use client";
 
-import { useRef } from "react";
 import Link from "next/link";
-import { motion, useInView, type Variants } from "framer-motion";
+import Image from "next/image";
+import { motion, type Variants } from "framer-motion";
 import { ArrowUpRight, Github, ExternalLink } from "lucide-react";
+
 import { getFeaturedProjects } from "@/data/projects";
-import ImageCarousel from "./custom/ImageCarosel";
 import Container from "./Container";
 
-// ─── Variants ─────────────────────────────────────────────────────────────────
-
 const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 22 },
+  hidden: { opacity: 0, y: 14 },
   show: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.42, ease: [0.22, 1, 0.36, 1] },
   },
 };
 
 const stagger: Variants = {
   hidden: {},
-  show: { transition: { staggerChildren: 0.12 } },
+  show: { transition: { staggerChildren: 0.1 } },
 };
 
-// ─── Section ──────────────────────────────────────────────────────────────────
-
 export default function Projects() {
-  const ref = useRef<HTMLElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
-
   const projects = getFeaturedProjects(3);
+  console.log("projects", projects);
 
   return (
     <section
-      ref={ref}
       id="projects"
       className="pf-mesh pf-noise relative overflow-hidden py-28 px-4 sm:px-6 lg:px-8"
     >
+      {/* Grid Overlay */}
       <div className="pf-grid absolute inset-0 z-0" />
 
-      {/* Ambient orb */}
+      {/* Ambient Orb */}
       <div
-        className="absolute pointer-events-none z-0 opacity-30"
+        className="absolute pointer-events-none z-0 opacity-20 right-0 top-32 w-72 h-72 rounded-full blur-3xl"
         style={{
-          top: "20%",
-          right: "-6%",
-          width: 460,
-          height: 460,
-          borderRadius: "50%",
           background:
-            "radial-gradient(circle, rgba(16,185,129,.15) 0%, transparent 70%)",
+            "radial-gradient(circle, rgba(16,185,129,.12) 0%, transparent 70%)",
         }}
       />
 
@@ -58,9 +47,10 @@ export default function Projects() {
         <Container>
           {/* ── Header ── */}
           <motion.div
-            animate={inView ? "show" : "hidden"}
             variants={fadeUp}
             initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: "-40px", amount: 0.1 }}
             className="mb-20 flex flex-col items-center text-center gap-3"
           >
             <span className="sec-label">Projects</span>
@@ -74,27 +64,38 @@ export default function Projects() {
             </p>
           </motion.div>
 
-          {/* ── Project cards ── */}
+          {/* ── Project Cards ── */}
           <motion.div
-            animate={inView ? "show" : "hidden"}
             variants={stagger}
             initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: "-40px", amount: 0.1 }}
             className="space-y-6"
           >
-            {projects.map((project, i) => (
+            {projects.map((project) => (
               <motion.div
                 key={project.id}
                 variants={fadeUp}
-                className="group grid lg:grid-cols-[2fr_3fr] gap-0 rounded-xl border border-gray-200/60 dark:border-white/[0.07] bg-white/60 dark:bg-white/[0.03] backdrop-blur-sm overflow-hidden hover:border-emerald-300/50 dark:hover:border-emerald-700/40 transition-all duration-300"
+                className="group grid lg:grid-cols-[2fr_3fr] rounded-xl overflow-hidden
+                          border border-gray-200/60 dark:border-white/[0.06]
+                          bg-white/75 dark:bg-zinc-900/60
+                          transition-[border-color] duration-300
+                          hover:border-emerald-300/40 dark:hover:border-emerald-700/30"
               >
-                {/* Image carousel pane */}
-                <ImageCarousel
-                  images={project.images}
-                  title={project.title}
-                  index={i}
-                />
+                {/* Image Pane */}
+                <div className="relative overflow-hidden bg-gray-100 dark:bg-white/[0.02] aspect-video lg:aspect-auto lg:min-h-[240px]">
+                  <Image
+                    src={project.images[0]}
+                    alt={project.title}
+                    fill
+                    priority={false}
+                    sizes="(max-width: 1024px) 100vw, 40vw"
+                    className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.02]"
+                  />
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/[0.03] transition-colors duration-300" />
+                </div>
 
-                {/* Content pane */}
+                {/* Content Pane */}
                 <div className="flex flex-col p-7">
                   <div className="flex items-center justify-between mb-3">
                     <span className="text-[10px] font-mono tracking-[.15em] uppercase text-emerald-500 dark:text-emerald-400">
@@ -135,13 +136,13 @@ export default function Projects() {
                   </p>
 
                   <ul className="space-y-1 mb-5">
-                    {project.highlights.map((h) => (
+                    {project.highlights.map((highlight) => (
                       <li
-                        key={h}
+                        key={highlight}
                         className="flex items-start gap-2 text-xs text-gray-500 dark:text-gray-400 font-light"
                       >
                         <span className="mt-1.5 w-1 h-1 rounded-full bg-emerald-400/70 flex-shrink-0" />
-                        {h}
+                        {highlight}
                       </li>
                     ))}
                   </ul>
@@ -151,9 +152,9 @@ export default function Projects() {
                       <span
                         key={tech}
                         className="px-2.5 py-1 rounded-md text-[11px] font-medium
-                                 bg-gray-100/80 dark:bg-white/[0.05]
+                                 bg-gray-100/90 dark:bg-white/[0.04]
                                  text-gray-600 dark:text-gray-400
-                                 border border-gray-200/60 dark:border-white/[0.08]"
+                                 border border-gray-200/60 dark:border-white/[0.06]"
                       >
                         {tech}
                       </span>
@@ -173,12 +174,13 @@ export default function Projects() {
             ))}
           </motion.div>
 
-          {/* ── View all CTA ── */}
+          {/* ── Bottom CTA ── */}
           <motion.div
-            animate={inView ? "show" : "hidden"}
             variants={fadeUp}
             initial="hidden"
-            transition={{ delay: 0.45 }}
+            whileInView="show"
+            viewport={{ once: true, margin: "-40px", amount: 0.1 }}
+            transition={{ delay: 0.2 }}
             className="mt-14 flex flex-col items-center gap-5"
           >
             <div className="hl w-full" />
