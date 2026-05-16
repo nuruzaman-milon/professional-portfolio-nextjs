@@ -4,6 +4,10 @@ import swopImg1 from "@/public/images/projects/swop/swop-thumb-12.png";
 import swopImg2 from "@/public/images/projects/swop/swop-thumb-13.png";
 import swopImg3 from "@/public/images/projects/swop/swop-thumb-11.png";
 
+import nazaaraImg1 from "@/public/images/projects/nazaara/nazaara-1.png";
+import nazaaraImg2 from "@/public/images/projects/nazaara/nazaara-2.png";
+import nazaaraImg3 from "@/public/images/projects/nazaara/nazaara-3.png";
+
 // ─── Types ────────────────────────────────────────────────────────────────────
 
 export interface Project {
@@ -94,7 +98,7 @@ export const projects: Project[] = [
       "Admin dashboard with analytics",
       "Performance-optimised product pages",
     ],
-    images: ["/images/ecommerce-platform.jpg"],
+    images: [nazaaraImg1, nazaaraImg2, nazaaraImg3],
     stack: [
       "Next.js",
       "Node.js",
