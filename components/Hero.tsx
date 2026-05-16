@@ -3,9 +3,11 @@
 import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowDown, Github, Linkedin, Mail, ArrowUpRight } from "lucide-react";
+import { ArrowDown, Github, Linkedin, Mail, ArrowUpRight, Download } from "lucide-react";
 import type { Variants } from "framer-motion";
 import Container from "./Container";
+import Link from "next/link";
+import myImg from "@/public/images/me/nuruzaman-milon1.webp"
 
 const roles = [
   "Software Engineer",
@@ -184,10 +186,15 @@ export default function Hero() {
                   variants={slideUp}
                   className="flex flex-wrap gap-3 justify-center lg:justify-start mb-10"
                 >
-                  <button className="btn-p">
+                  <Link href={'/projects'} className="btn-p">
                     View My Work <ArrowUpRight size={14} />
-                  </button>
-                  <button className="btn-g">Download CV</button>
+                  </Link>
+                  <a href="/resume/Nuruzaman-milon-resume.pdf"
+                      download="Nuruzaman-milon-resume.pdf"
+                      className="btn-g flex items-center gap-2">
+                        <Download size={14} />
+                        Download Resume
+                  </a>
                 </motion.div>
 
                 <motion.div
@@ -237,11 +244,12 @@ export default function Hero() {
                     <div className="cbr" />
                     <div className="w-full h-full rounded-2xl overflow-hidden border border-emerald-500/20 shadow-2xl">
                       <Image
-                        src="/images/nuruzaman-milon-profile-photo.png"
+                        src={myImg}
                         alt="Nuruzaman Milon — Software Engineer"
-                        width={256}
-                        height={256}
-                        className="w-full h-full object-cover"
+                        width={1200}
+                        height={900}
+                        quality={100}
+                        className="w-full h-full object-cover object-top"
                         priority
                       />
                     </div>

@@ -5,16 +5,18 @@ import Image from "next/image";
 import { motion, useInView, type Variants } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import Container from "./Container";
+import myImg from "@/public/images/me/nuruzaman-milon.webp"
 
 // ─── Tech stack ─────────────────────────────────────────────────────────────
 const techStack = [
-  { label: "TypeScript", bg: "#3178c6", text: "#fff" },
   { label: "JavaScript", bg: "#f7df1e", text: "#000" },
+  { label: "TypeScript", bg: "#3178c6", text: "#fff" },
   { label: "React", bg: "#61dafb", text: "#000" },
   { label: "Next.js", bg: "#000000", text: "#fff" },
   { label: "Node.js", bg: "#339933", text: "#fff" },
   { label: "Express.js", bg: "#404040", text: "#fff" },
   { label: "MongoDB", bg: "#47a248", text: "#fff" },
+   { label: "Prisma", bg: "#4790a2", text: "#fff" },
   { label: "PostgreSQL", bg: "#336791", text: "#fff" },
   { label: "Tailwind CSS", bg: "#06b6d4", text: "#fff" },
   { label: "Framer Motion", bg: "#ff0050", text: "#fff" },
@@ -198,11 +200,12 @@ export default function About() {
                     <div className="cbr" />
                     <div className="ph-frame w-full h-full">
                       <Image
-                        src="/images/nuruzaman-milon-profile-photo.png"
+                        src={myImg}
                         alt="Nuruzaman Milon — Software Engineer"
-                        width={256}
-                        height={288}
-                        className="w-full h-full object-cover"
+                         width={1200}
+                        height={900}
+                        quality={100}
+                        className="w-full h-full object-cover object-top"
                       />
                     </div>
 

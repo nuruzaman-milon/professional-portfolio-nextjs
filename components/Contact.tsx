@@ -68,10 +68,16 @@ export default function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSending(true);
-    await new Promise((r) => setTimeout(r, 1200)); // replace with real submission
+
+    const res = await fetch("/api/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    });
+
     setSending(false);
-    setSent(true);
-    console.log("Form submitted:", formData);
+    if (res.ok) setSent(true);
+    else alert("Something went wrong. Try again.");
   };
 
   return (
