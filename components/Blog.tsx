@@ -74,7 +74,7 @@ export default function Blog() {
   return (
     <section
       id="blog"
-      className="pf-mesh pf-noise relative overflow-hidden py-28 px-4 sm:px-6 lg:px-8"
+      className="pf-mesh pf-noise relative overflow-hidden py-28"
     >
       <div className="pf-grid absolute inset-0 z-0" />
 
@@ -156,8 +156,8 @@ export default function Blog() {
                 </div>
 
                 {/* Content pane */}
-                <div className="flex flex-col p-7">
-                  <div className="flex items-center justify-between mb-3">
+                <div className="flex flex-col p-5 sm:p-7">
+                  <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1.5 mb-3">
                     <span className="text-[10px] font-mono tracking-[.15em] uppercase text-emerald-500 dark:text-emerald-400">
                       {post.label}
                     </span>

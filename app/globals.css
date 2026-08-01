@@ -297,7 +297,7 @@ body {
    PORTFOLIO — STAT / INFO CARDS
    ───────────────────────────────────────────────────────────────────────── */
 .sc {
-  padding: 20px 24px;
+  padding: 14px 10px;
   border-radius: 6px;
   border: 1px solid rgba(0, 0, 0, 0.06);
   background: rgba(255, 255, 255, 0.6);
@@ -311,6 +311,11 @@ body {
 .sc:hover {
   border-color: rgba(5, 150, 105, 0.25);
   transform: translateY(-3px);
+}
+@media (min-width: 640px) {
+  .sc {
+    padding: 20px 24px;
+  }
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────

@@ -151,7 +151,7 @@ export default function Skills() {
   return (
     <section
       id="skills"
-      className="ab-bg pf-noise relative overflow-hidden py-28 px-4 sm:px-6 lg:px-8"
+      className="ab-bg pf-noise relative overflow-hidden py-28"
     >
       <div className="ab-grid absolute inset-0 z-0" />
 
@@ -207,7 +207,7 @@ export default function Skills() {
                          transition-colors duration-300"
               >
                 {/* ── Group header ── */}
-                <div className="px-6 pt-5 pb-4 border-b border-gray-100/80 dark:border-white/[0.05]">
+                <div className="px-4 sm:px-6 pt-5 pb-4 border-b border-gray-100/80 dark:border-white/[0.05]">
                   <div className="flex items-start justify-between gap-4 mb-3">
                     <div className="flex items-center gap-3 min-w-0">
                       <span className="text-[10px] font-mono tracking-[.18em] text-emerald-500 dark:text-emerald-400 flex-shrink-0">
@@ -251,7 +251,7 @@ export default function Skills() {
                     <motion.div
                       key={skill.name}
                       variants={rowVariant}
-                      className="flex items-center gap-4 px-6 py-3
+                      className="flex flex-wrap items-center gap-x-4 gap-y-1 px-4 sm:px-6 py-3
                                hover:bg-emerald-50/25 dark:hover:bg-emerald-900/10
                                transition-colors duration-150"
                     >
@@ -260,7 +260,7 @@ export default function Skills() {
                         {skill.name}
                       </span>
                       <span className="hidden sm:block w-px h-3 bg-gray-200 dark:bg-white/10 flex-shrink-0" />
-                      <span className="text-xs text-gray-400 dark:text-gray-500 font-light">
+                      <span className="text-xs text-gray-400 dark:text-gray-500 font-light grow basis-40">
                         {skill.context}
                       </span>
                     </motion.div>

@@ -124,7 +124,7 @@ export default function Hero() {
 
                 <motion.h1
                   variants={slideUp}
-                  className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-5 leading-[1.08]"
+                  className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-5 leading-[1.08]"
                 >
                   Md. Nuruzaman Milon
                 </motion.h1>
@@ -280,7 +280,7 @@ export default function Hero() {
             {/* Stats */}
             <motion.div
               variants={slideUp}
-              className="grid grid-cols-3 gap-4 max-w-lg mx-auto lg:mx-0"
+              className="grid grid-cols-3 gap-2 sm:gap-4 max-w-lg mx-auto lg:mx-0"
             >
               {PORTFOLIO_STATS.map(({ value, label }) => (
                 <div key={label} className="sc text-center lg:text-left">

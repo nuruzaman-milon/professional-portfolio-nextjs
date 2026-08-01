@@ -84,7 +84,7 @@ export default function Contact() {
     <section
       ref={ref}
       id="contact"
-      className="pf-mesh pf-noise relative overflow-hidden py-28 px-4 sm:px-6 lg:px-8"
+      className="pf-mesh pf-noise relative overflow-hidden py-28"
     >
       <div className="pf-grid absolute inset-0 z-0" />
 
@@ -183,7 +183,7 @@ export default function Contact() {
             {/* ── Right — form ── */}
             <motion.div
               variants={fadeUp}
-              className="rounded-xl border border-gray-200/60 dark:border-white/[0.07] bg-white/60 dark:bg-white/[0.03] backdrop-blur-sm p-7"
+              className="rounded-xl border border-gray-200/60 dark:border-white/[0.07] bg-white/60 dark:bg-white/[0.03] backdrop-blur-sm p-5 sm:p-7"
             >
               {sent ? (
                 <div className="h-full flex flex-col items-center justify-center gap-4 text-center py-12">

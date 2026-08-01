@@ -135,8 +135,8 @@ export default function BlogPage() {
           {/* Search and Filter */}
           <div className="mb-12 space-y-4">
             {/* Search + Sort row */}
-            <div className="flex items-center gap-3">
-              <div className="relative flex-1">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+              <div className="relative flex-1 w-full">
                 <Search
                   size={14}
                   className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500 pointer-events-none"
@@ -163,6 +163,7 @@ export default function BlogPage() {
                 )}
               </div>
 
+              <div className="flex items-center gap-3">
               {/* Sort */}
               <select
                 value={sortBy}
@@ -204,6 +205,7 @@ export default function BlogPage() {
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
                 )}
               </button>
+              </div>
             </div>
 
             {/* Filter pills */}
@@ -299,7 +301,7 @@ export default function BlogPage() {
                     className="w-full h-64 md:h-full object-cover"
                   />
                 </div>
-                <div className="md:w-1/2 p-8 flex flex-col justify-center">
+                <div className="md:w-1/2 p-5 sm:p-8 flex flex-col justify-center">
                   <div className="flex items-center gap-2 mb-4">
                     <span className="px-3 py-1 bg-emerald-600 text-white text-[11px] font-mono tracking-wide rounded-md">
                       Featured

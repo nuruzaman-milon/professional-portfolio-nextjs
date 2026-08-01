@@ -163,7 +163,7 @@ export default function ShareButton({
         role="dialog"
         aria-modal="true"
         aria-label="Share this post"
-        className="fixed z-[9999] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-xl overflow-hidden shadow-2xl"
+        className="fixed z-[9999] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] max-w-[calc(100vw-2rem)] bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-xl overflow-hidden shadow-2xl"
       >
         {/* Header */}
         <div className="flex items-center justify-between px-4 py-3.5 border-b border-gray-100 dark:border-slate-700">

@@ -134,7 +134,7 @@ export default function ProjectsPage() {
   const isSearching = inputValue.trim().toLowerCase() !== debouncedQuery;
 
   return (
-    <div className="pf-mesh pf-noise relative min-h-screen overflow-hidden py-24 px-4 sm:px-6 lg:px-8">
+    <div className="pf-mesh pf-noise relative min-h-screen overflow-hidden py-24">
       <div className="pf-grid absolute inset-0 z-0" />
       <div
         className="absolute pointer-events-none z-0 opacity-25"
@@ -185,9 +185,9 @@ export default function ProjectsPage() {
             initial="hidden"
             className="mb-8 flex flex-col gap-3"
           >
-            <div className="flex items-center gap-3">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-3">
               {/* Search input */}
-              <div className="relative flex-1">
+              <div className="relative flex-1 w-full">
                 <Search
                   size={14}
                   className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500 pointer-events-none"
@@ -224,6 +224,7 @@ export default function ProjectsPage() {
                 ) : null}
               </div>
 
+              <div className="flex items-center gap-3">
               {/* Sort */}
               <select
                 value={sort}
@@ -264,6 +265,7 @@ export default function ProjectsPage() {
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
                 )}
               </button>
+              </div>
             </div>
 
             {/* Stack pills — pure CSS transition, zero Framer Motion overhead */}
@@ -344,8 +346,8 @@ export default function ProjectsPage() {
                         index={i}
                       />
 
-                      <div className="flex flex-col p-7">
-                        <div className="flex items-center justify-between mb-3">
+                      <div className="flex flex-col p-5 sm:p-7">
+                        <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1.5 mb-3">
                           <span className="text-[10px] font-mono tracking-[.15em] uppercase text-emerald-500 dark:text-emerald-400">
                             {project.label}
                           </span>
@@ -422,10 +424,12 @@ export default function ProjectsPage() {
                             View case study <ArrowUpRight size={13} />
                           </Link>
                           <span className="text-[10px] font-mono text-gray-300 dark:text-gray-700">
-                            {new Date(project.completedDate).toLocaleDateString(
-                              "en-US",
-                              { month: "short", year: "numeric" },
-                            )}
+                            {project.completedDate
+                              ? new Date(project.completedDate).toLocaleDateString(
+                                  "en-US",
+                                  { month: "short", year: "numeric" },
+                                )
+                              : "Ongoing"}
                           </span>
                         </div>
                       </div>

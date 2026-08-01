@@ -64,7 +64,7 @@ function Card({
 }) {
   return (
     <div
-      className={`rounded-xl border border-gray-200/60 dark:border-white/[0.07] bg-white/60 dark:bg-white/[0.03] backdrop-blur-sm p-7 ${className}`}
+      className={`rounded-xl border border-gray-200/60 dark:border-white/[0.07] bg-white/60 dark:bg-white/[0.03] backdrop-blur-sm p-5 sm:p-7 ${className}`}
     >
       {children}
     </div>
@@ -82,7 +82,7 @@ export default function ProjectDetail() {
   const inView = useInView(ref, { once: true, margin: "-60px" });
 
   return (
-    <div className="pf-mesh pf-noise relative min-h-screen overflow-hidden py-24 px-4 sm:px-6 lg:px-8">
+    <div className="pf-mesh pf-noise relative min-h-screen overflow-hidden py-24">
       <div className="pf-grid absolute inset-0 z-0" />
       <div
         className="absolute pointer-events-none z-0 opacity-25"

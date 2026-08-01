@@ -59,7 +59,7 @@ export default function About() {
   return (
     <section
       id="about"
-      className="ab-bg pf-noise relative overflow-hidden py-28 px-4 sm:px-6 lg:px-8"
+      className="ab-bg pf-noise relative overflow-hidden py-28"
     >
       {/* Grid overlay */}
       <div className="ab-grid absolute inset-0 z-0" />
@@ -294,7 +294,7 @@ export default function About() {
                       <span className="text-gray-400 dark:text-gray-500 font-medium w-20 flex-shrink-0">
                         {label}
                       </span>
-                      <span className="text-gray-600 dark:text-gray-300 font-light">
+                      <span className="text-gray-600 dark:text-gray-300 font-light break-all">
                         {value}
                       </span>
                     </div>

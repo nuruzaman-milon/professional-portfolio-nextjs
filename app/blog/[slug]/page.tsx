@@ -161,7 +161,7 @@ export default async function BlogPost({
 
             {/* Meta row */}
             <div className="flex flex-wrap items-center justify-between gap-4 pb-8 border-b border-gray-200/40 dark:border-white/[0.06]">
-              <div className="flex items-center gap-5 text-xs font-mono text-gray-400 dark:text-gray-500">
+              <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs font-mono text-gray-400 dark:text-gray-500">
                 <div className="flex items-center gap-1.5">
                   <Calendar size={12} />
                   <span>{new Date(post.date).toLocaleDateString()}</span>
@@ -214,7 +214,7 @@ export default async function BlogPost({
           </div>
 
           {/* ── Article content ── */}
-          <div className="rounded-xl border border-gray-200/60 dark:border-white/[0.07] bg-white/60 dark:bg-white/[0.03] backdrop-blur-sm p-8 md:p-12 mb-10">
+          <div className="rounded-xl border border-gray-200/60 dark:border-white/[0.07] bg-white/60 dark:bg-white/[0.03] backdrop-blur-sm p-5 sm:p-8 md:p-12 mb-10">
             <div
               className="prose prose-lg prose-gray dark:prose-invert max-w-none
                 prose-headings:text-gray-900 dark:prose-headings:text-white
@@ -237,7 +237,7 @@ export default async function BlogPost({
           </div>
 
           {/* ── Author card ── */}
-          <div className="rounded-xl border border-gray-200/60 dark:border-white/[0.07] bg-white/60 dark:bg-white/[0.03] backdrop-blur-sm p-7 mb-16 flex items-center gap-5">
+          <div className="rounded-xl border border-gray-200/60 dark:border-white/[0.07] bg-white/60 dark:bg-white/[0.03] backdrop-blur-sm p-5 sm:p-7 mb-16 flex items-center gap-4 sm:gap-5">
             <div className="w-14 h-14 rounded-full overflow-hidden border border-emerald-400/30 flex-shrink-0">
               <Image
                 src="/images/me/nuruzaman-milon1.webp"

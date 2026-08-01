@@ -213,7 +213,7 @@ export default function Navbar() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
                 transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-                className="md:hidden mt-2 mb-3 p-3 rounded-xl backdrop-blur-md bg-white/95 dark:bg-gray-900/95 shadow-lg border border-gray-200/50 dark:border-gray-700/50"
+                className="md:hidden mt-2 mb-3 p-3 rounded-xl backdrop-blur-md bg-white/95 dark:bg-gray-900/95 shadow-lg border border-gray-200/50 dark:border-gray-700/50 max-h-[calc(100dvh-5rem)] overflow-y-auto"
               >
                 {navItems.map((item, i) => {
                   const isActive = activeSection === item.id;
