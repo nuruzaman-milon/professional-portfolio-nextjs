@@ -56,9 +56,23 @@ const ExperienceSchema = new Schema(
   { timestamps: true },
 );
 
+// ─── Contact Message ──────────────────────────────────────────────────────────
+const MessageSchema = new Schema(
+  {
+    name: { type: String, required: true, maxlength: 100 },
+    email: { type: String, required: true, maxlength: 200 },
+    subject: { type: String, required: true, maxlength: 200 },
+    message: { type: String, required: true, maxlength: 5000 },
+    read: { type: Boolean, default: false },
+  },
+  { timestamps: true },
+);
+
 export const PostModel: Model<any> =
   mongoose.models.Post || mongoose.model("Post", PostSchema);
 export const ProjectModel: Model<any> =
   mongoose.models.Project || mongoose.model("Project", ProjectSchema);
 export const ExperienceModel: Model<any> =
   mongoose.models.Experience || mongoose.model("Experience", ExperienceSchema);
+export const MessageModel: Model<any> =
+  mongoose.models.Message || mongoose.model("Message", MessageSchema);

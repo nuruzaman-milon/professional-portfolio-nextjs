@@ -56,8 +56,10 @@ export default function Contact() {
     subject: "",
     message: "",
   });
+  const [honeypot, setHoneypot] = useState("");
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
+  const [error, setError] = useState("");
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -68,16 +70,28 @@ export default function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSending(true);
+    setError("");
 
-    const res = await fetch("/api/contact", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
-    });
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...formData, website: honeypot }),
+      });
 
-    setSending(false);
-    if (res.ok) setSent(true);
-    else alert("Something went wrong. Try again.");
+      if (res.ok) {
+        setSent(true);
+      } else {
+        const data = await res.json().catch(() => ({}));
+        setError(
+          data.error || "Something went wrong. Please try again later.",
+        );
+      }
+    } catch {
+      setError("Network error. Please check your connection and try again.");
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -214,6 +228,18 @@ export default function Contact() {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-5">
+                  {/* Honeypot — hidden from humans, catches bots */}
+                  <input
+                    type="text"
+                    name="website"
+                    value={honeypot}
+                    onChange={(e) => setHoneypot(e.target.value)}
+                    tabIndex={-1}
+                    autoComplete="off"
+                    aria-hidden="true"
+                    className="absolute -left-[9999px] w-px h-px opacity-0"
+                  />
+
                   {/* Name + Email row */}
                   <div className="grid sm:grid-cols-2 gap-4">
                     {[
@@ -290,6 +316,13 @@ export default function Contact() {
                       className="w-full rounded-lg border border-gray-200/80 dark:border-white/[0.08] bg-gray-50/80 dark:bg-white/[0.04] px-3.5 py-2.5 text-sm text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-600 focus:outline-none focus:border-emerald-400 dark:focus:border-emerald-600 transition-colors duration-200 resize-none"
                     />
                   </div>
+
+                  {/* Error */}
+                  {error && (
+                    <p className="text-sm text-red-500 dark:text-red-400">
+                      {error}
+                    </p>
+                  )}
 
                   {/* Submit */}
                   <button

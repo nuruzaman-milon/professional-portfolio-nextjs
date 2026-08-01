@@ -7,6 +7,7 @@ import {
   FileText,
   FolderKanban,
   Briefcase,
+  Mail,
   LogOut,
 } from "lucide-react";
 
@@ -15,6 +16,7 @@ const navItems = [
   { href: "/admin/posts", label: "Posts", icon: FileText },
   { href: "/admin/projects", label: "Projects", icon: FolderKanban },
   { href: "/admin/experiences", label: "Experience", icon: Briefcase },
+  { href: "/admin/messages", label: "Messages", icon: Mail },
 ];
 
 export default function AdminLayout({

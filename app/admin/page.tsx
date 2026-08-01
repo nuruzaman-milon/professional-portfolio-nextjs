@@ -6,6 +6,7 @@ import {
   FileText,
   FolderKanban,
   Briefcase,
+  Mail,
   DatabaseZap,
   Upload,
 } from "lucide-react";
@@ -15,16 +16,22 @@ export default function AdminDashboard() {
   const [postCount, setPostCount] = useState<number | null>(null);
   const [projectCount, setProjectCount] = useState<number | null>(null);
   const [experienceCount, setExperienceCount] = useState<number | null>(null);
+  const [messageStats, setMessageStats] = useState<{
+    total: number;
+    unread: number;
+  } | null>(null);
   const [dbConnected, setDbConnected] = useState<boolean | null>(null);
   const [seeding, setSeeding] = useState(false);
   const [seedResult, setSeedResult] = useState("");
 
   const load = async () => {
-    const [postsRes, projectsRes, experiencesRes] = await Promise.all([
-      fetch("/api/posts"),
-      fetch("/api/projects"),
-      fetch("/api/experiences"),
-    ]);
+    const [postsRes, projectsRes, experiencesRes, messagesRes] =
+      await Promise.all([
+        fetch("/api/posts"),
+        fetch("/api/projects"),
+        fetch("/api/experiences"),
+        fetch("/api/messages"),
+      ]);
     if (postsRes.status === 503 || projectsRes.status === 503) {
       setDbConnected(false);
       return;
@@ -34,6 +41,13 @@ export default function AdminDashboard() {
     if (projectsRes.ok) setProjectCount((await projectsRes.json()).length);
     if (experiencesRes.ok)
       setExperienceCount((await experiencesRes.json()).length);
+    if (messagesRes.ok) {
+      const msgs = await messagesRes.json();
+      setMessageStats({
+        total: msgs.length,
+        unread: msgs.filter((m: any) => !m.read).length,
+      });
+    }
   };
 
   useEffect(() => {
@@ -78,7 +92,7 @@ export default function AdminDashboard() {
         </div>
       )}
 
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-8">
+      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
         <Link href="/admin/posts" className={`${cardCls} p-6 hover:border-emerald-300/50 dark:hover:border-emerald-700/40 transition-colors`}>
           <div className="flex items-center gap-3 mb-2">
             <FileText size={16} className="text-emerald-500" />
@@ -112,6 +126,23 @@ export default function AdminDashboard() {
           </div>
           <div className="pf-serif text-4xl text-gray-900 dark:text-white">
             {dbConnected === false ? "—" : (experienceCount ?? "…")}
+          </div>
+        </Link>
+
+        <Link href="/admin/messages" className={`${cardCls} p-6 hover:border-emerald-300/50 dark:hover:border-emerald-700/40 transition-colors`}>
+          <div className="flex items-center gap-3 mb-2">
+            <Mail size={16} className="text-emerald-500" />
+            <span className="text-[10px] font-mono tracking-[.15em] uppercase text-emerald-500 dark:text-emerald-400">
+              Messages
+            </span>
+            {messageStats && messageStats.unread > 0 && (
+              <span className="ml-auto px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500 text-white leading-none">
+                {messageStats.unread}
+              </span>
+            )}
+          </div>
+          <div className="pf-serif text-4xl text-gray-900 dark:text-white">
+            {dbConnected === false ? "—" : (messageStats?.total ?? "…")}
           </div>
         </Link>
       </div>
