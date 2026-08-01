@@ -2,12 +2,19 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { LayoutDashboard, FileText, FolderKanban, LogOut } from "lucide-react";
+import {
+  LayoutDashboard,
+  FileText,
+  FolderKanban,
+  Briefcase,
+  LogOut,
+} from "lucide-react";
 
 const navItems = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
   { href: "/admin/posts", label: "Posts", icon: FileText },
   { href: "/admin/projects", label: "Projects", icon: FolderKanban },
+  { href: "/admin/experiences", label: "Experience", icon: Briefcase },
 ];
 
 export default function AdminLayout({

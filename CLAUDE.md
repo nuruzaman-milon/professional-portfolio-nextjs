@@ -24,7 +24,7 @@ Personal portfolio site (Nuruzaman Milon) on Next.js App Router (v16, React 19, 
 All public content flows through `lib/content.ts` — the single data-access layer. It reads from MongoDB when `MONGODB_URI` is set and the DB has content, and **falls back to the static files `data/blog.ts` / `data/projects.ts`** when the DB is unconfigured, unreachable, or empty. The site therefore always renders, even with no database.
 
 - `lib/db.ts` — cached Mongoose connection; `hasDb()` gates all DB paths.
-- `lib/models.ts` — `Post` and `Project` schemas (both have `published`; projects have `sortOrder`).
+- `lib/models.ts` — `Post`, `Project`, and `Experience` schemas (all have `published`; projects/experiences have `sortOrder`). Experience fallback lives in `data/experience.ts` and renders in the About section's Work Experience timeline.
 - `lib/content.ts` — exports `PostDTO`/`ProjectDTO` and all getters. Public components take these DTOs as props.
 - `POST /api/seed` (admin-only) upserts the static `data/` content into MongoDB by slug — the migration path; triggered from the admin dashboard.
 
@@ -32,9 +32,9 @@ Public pages are server components with `revalidate = 300`; every admin mutation
 
 ### Admin panel & auth
 
-- `/admin` (dashboard with seed button), `/admin/posts`, `/admin/projects` — client pages calling the REST routes; forms in `components/admin/` (array fields edited as one-per-line textareas, blog content as raw HTML in a textarea).
+- `/admin` (dashboard with seed button), `/admin/posts`, `/admin/projects`, `/admin/experiences` — client pages calling the REST routes; forms in `components/admin/` (array fields edited as one-per-line textareas, blog content as raw HTML in a textarea).
 - Auth is a single admin password: `POST /api/auth/login` compares against `ADMIN_PASSWORD`, sets a jose-signed JWT cookie (`admin_session`); `middleware.ts` guards `/admin/*` (redirects to `/admin/login`), and every mutating API route re-checks via `isAuthenticated()` from `lib/auth.ts`.
-- API: `GET/POST /api/posts`, `GET/PUT/DELETE /api/posts/[id]`, same for `/api/projects`. All return `{error}` with 503 when no `MONGODB_URI`.
+- API: `GET/POST /api/posts`, `GET/PUT/DELETE /api/posts/[id]`, same for `/api/projects` and `/api/experiences`. All return `{error}` with 503 when no `MONGODB_URI`.
 - Shared admin styling constants live in `components/admin/ui.ts`.
 
 ### Routes

@@ -1,7 +1,8 @@
 import { blogPosts } from "@/data/blog";
 import { projects as staticProjects } from "@/data/projects";
+import { experiences as staticExperiences } from "@/data/experience";
 import { dbConnect, hasDb } from "./db";
-import { PostModel, ProjectModel } from "./models";
+import { PostModel, ProjectModel, ExperienceModel } from "./models";
 
 /*
  * Data access layer for all public pages.
@@ -42,6 +43,14 @@ export type ProjectDTO = {
   features: string[];
   challenges: string[];
   learnings: string[];
+};
+
+export type ExperienceDTO = {
+  id: string | number;
+  company: string;
+  role: string;
+  period: string;
+  desc: string;
 };
 
 // ─── Static fallbacks, normalised to DTOs ────────────────────────────────────
@@ -148,6 +157,34 @@ export async function getAllProjects(): Promise<ProjectDTO[]> {
 
 export async function getFeaturedProjects(count = 3): Promise<ProjectDTO[]> {
   return (await getAllProjects()).slice(0, count);
+}
+
+// ─── Work Experience ─────────────────────────────────────────────────────────
+function staticExperienceDTOs(): ExperienceDTO[] {
+  return staticExperiences.map((e, i) => ({ ...e, id: i }));
+}
+
+function cleanExperience(doc: any): ExperienceDTO {
+  return {
+    id: String(doc._id),
+    company: doc.company,
+    role: doc.role,
+    period: doc.period ?? "",
+    desc: doc.desc ?? "",
+  };
+}
+
+export async function getAllExperiences(): Promise<ExperienceDTO[]> {
+  if (!hasDb()) return staticExperienceDTOs();
+  try {
+    await dbConnect();
+    const docs = await ExperienceModel.find({ published: true })
+      .sort({ sortOrder: 1, createdAt: 1 })
+      .lean();
+    return docs.length ? docs.map(cleanExperience) : staticExperienceDTOs();
+  } catch {
+    return staticExperienceDTOs();
+  }
 }
 
 export async function getProjectBySlug(

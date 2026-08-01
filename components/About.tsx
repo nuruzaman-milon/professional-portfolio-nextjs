@@ -5,6 +5,7 @@ import { motion, type Variants } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import Container from "./Container";
 import myImg from "@/public/images/me/nuruzaman-milon.webp";
+import type { ExperienceDTO } from "@/lib/content";
 
 const techStack = [
   { label: "JavaScript", bg: "#f7df1e", text: "#000" },
@@ -22,27 +23,6 @@ const techStack = [
   { label: "Docker", bg: "#2496ed", text: "#fff" },
 ];
 
-const timeline = [
-  {
-    period: "Mar 2023 – Present",
-    company: "Bayshore Communication",
-    role: "Software Engineer",
-    desc: "Leading frontend of SWOP — a Web2/Web3 social platform — with wallet integration, social feed, and SmartSite builder. Also built a full-stack e-commerce platform from scratch.",
-  },
-  {
-    period: "Jan 2022 – Feb 2023",
-    company: "Peoples IT Solution",
-    role: "Software Engineer",
-    desc: "Built a modern ERP frontend covering account, dealer, product & labour modules. Automated workflows cutting manual operational effort by 70–80%.",
-  },
-  {
-    period: "Jun 2021 – Sep 2021",
-    company: "Kodeeo Limited",
-    role: "Software Engineer Intern",
-    desc: "Built web features with PHP & Laravel following MVC architecture. Collaborated in an agile team on real-world full-stack implementations.",
-  },
-];
-
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 22 },
   show: {
@@ -55,7 +35,11 @@ const fadeUp: Variants = {
   },
 };
 
-export default function About() {
+export default function About({
+  experiences,
+}: {
+  experiences: ExperienceDTO[];
+}) {
   return (
     <section
       id="about"
@@ -139,7 +123,7 @@ export default function About() {
                   Work Experience
                 </div>
                 <div className="tl-wrap space-y-4 pl-1">
-                  {timeline.map(({ period, company, role, desc }, i) => (
+                  {experiences.map(({ period, company, role, desc }, i) => (
                     <motion.div
                       key={i}
                       initial={{ opacity: 0, x: -12 }}

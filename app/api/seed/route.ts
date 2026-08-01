@@ -1,10 +1,11 @@
 import { NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
 import { dbConnect, hasDb } from "@/lib/db";
-import { PostModel, ProjectModel } from "@/lib/models";
+import { PostModel, ProjectModel, ExperienceModel } from "@/lib/models";
 import { isAuthenticated } from "@/lib/auth";
 import { blogPosts } from "@/data/blog";
 import { projects as staticProjects } from "@/data/projects";
+import { experiences as staticExperiences } from "@/data/experience";
 
 /*
  * One-click migration: imports the existing static content from data/blog.ts
@@ -47,6 +48,7 @@ export async function POST() {
   await dbConnect();
   let postsInserted = 0;
   let projectsInserted = 0;
+  let experiencesInserted = 0;
 
   for (const p of blogPosts) {
     const { id: _id, ...doc } = p;
@@ -75,6 +77,15 @@ export async function POST() {
     if (res.upsertedCount) projectsInserted++;
   }
 
+  for (const [i, e] of staticExperiences.entries()) {
+    const res = await ExperienceModel.updateOne(
+      { company: e.company, period: e.period },
+      { $setOnInsert: { ...e, sortOrder: i, published: true } },
+      { upsert: true },
+    );
+    if (res.upsertedCount) experiencesInserted++;
+  }
+
   revalidatePath("/");
   revalidatePath("/blog");
   revalidatePath("/projects");
@@ -83,6 +94,7 @@ export async function POST() {
     success: true,
     postsInserted,
     projectsInserted,
-    message: `Imported ${postsInserted} posts and ${projectsInserted} projects.`,
+    experiencesInserted,
+    message: `Imported ${postsInserted} posts, ${projectsInserted} projects, and ${experiencesInserted} experiences.`,
   });
 }

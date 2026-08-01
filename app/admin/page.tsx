@@ -2,20 +2,28 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { FileText, FolderKanban, DatabaseZap, Upload } from "lucide-react";
+import {
+  FileText,
+  FolderKanban,
+  Briefcase,
+  DatabaseZap,
+  Upload,
+} from "lucide-react";
 import { cardCls, btnPrimaryCls } from "@/components/admin/ui";
 
 export default function AdminDashboard() {
   const [postCount, setPostCount] = useState<number | null>(null);
   const [projectCount, setProjectCount] = useState<number | null>(null);
+  const [experienceCount, setExperienceCount] = useState<number | null>(null);
   const [dbConnected, setDbConnected] = useState<boolean | null>(null);
   const [seeding, setSeeding] = useState(false);
   const [seedResult, setSeedResult] = useState("");
 
   const load = async () => {
-    const [postsRes, projectsRes] = await Promise.all([
+    const [postsRes, projectsRes, experiencesRes] = await Promise.all([
       fetch("/api/posts"),
       fetch("/api/projects"),
+      fetch("/api/experiences"),
     ]);
     if (postsRes.status === 503 || projectsRes.status === 503) {
       setDbConnected(false);
@@ -24,6 +32,8 @@ export default function AdminDashboard() {
     setDbConnected(true);
     if (postsRes.ok) setPostCount((await postsRes.json()).length);
     if (projectsRes.ok) setProjectCount((await projectsRes.json()).length);
+    if (experiencesRes.ok)
+      setExperienceCount((await experiencesRes.json()).length);
   };
 
   useEffect(() => {
@@ -68,7 +78,7 @@ export default function AdminDashboard() {
         </div>
       )}
 
-      <div className="grid sm:grid-cols-2 gap-5 mb-8">
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-8">
         <Link href="/admin/posts" className={`${cardCls} p-6 hover:border-emerald-300/50 dark:hover:border-emerald-700/40 transition-colors`}>
           <div className="flex items-center gap-3 mb-2">
             <FileText size={16} className="text-emerald-500" />
@@ -90,6 +100,18 @@ export default function AdminDashboard() {
           </div>
           <div className="pf-serif text-4xl text-gray-900 dark:text-white">
             {dbConnected === false ? "—" : (projectCount ?? "…")}
+          </div>
+        </Link>
+
+        <Link href="/admin/experiences" className={`${cardCls} p-6 hover:border-emerald-300/50 dark:hover:border-emerald-700/40 transition-colors`}>
+          <div className="flex items-center gap-3 mb-2">
+            <Briefcase size={16} className="text-emerald-500" />
+            <span className="text-[10px] font-mono tracking-[.15em] uppercase text-emerald-500 dark:text-emerald-400">
+              Experience
+            </span>
+          </div>
+          <div className="pf-serif text-4xl text-gray-900 dark:text-white">
+            {dbConnected === false ? "—" : (experienceCount ?? "…")}
           </div>
         </Link>
       </div>

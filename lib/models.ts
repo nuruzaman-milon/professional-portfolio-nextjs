@@ -43,7 +43,22 @@ const ProjectSchema = new Schema(
   { timestamps: true },
 );
 
+// ─── Work Experience ──────────────────────────────────────────────────────────
+const ExperienceSchema = new Schema(
+  {
+    company: { type: String, required: true },
+    role: { type: String, required: true },
+    period: { type: String, required: true }, // e.g. "Mar 2023 – Present"
+    desc: { type: String, default: "" },
+    sortOrder: { type: Number, default: 0 }, // lower = shown first (most recent job)
+    published: { type: Boolean, default: true },
+  },
+  { timestamps: true },
+);
+
 export const PostModel: Model<any> =
   mongoose.models.Post || mongoose.model("Post", PostSchema);
 export const ProjectModel: Model<any> =
   mongoose.models.Project || mongoose.model("Project", ProjectSchema);
+export const ExperienceModel: Model<any> =
+  mongoose.models.Experience || mongoose.model("Experience", ExperienceSchema);
