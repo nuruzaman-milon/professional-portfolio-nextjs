@@ -5,48 +5,7 @@ import Image from "next/image";
 import { motion, type Variants } from "framer-motion";
 import { ArrowUpRight, Calendar, Clock } from "lucide-react";
 import Container from "./Container";
-
-const blogPosts = [
-  {
-    id: 1,
-    slug: "scalable-react-typescript",
-    label: "Article · React",
-    title: "Building Scalable React Applications with TypeScript",
-    excerpt:
-      "Learn how to structure large React applications using TypeScript for better maintainability and developer experience.",
-    image: "/images/blog-react-typescript.jpg",
-    date: "2024-01-15",
-    readTime: "8 min read",
-    category: "React",
-    tags: ["React", "TypeScript", "Architecture"],
-  },
-  {
-    id: 2,
-    slug: "nodejs-performance-optimization",
-    label: "Article · Node.js",
-    title: "Optimizing Node.js Performance for Production",
-    excerpt:
-      "Discover advanced techniques to optimize your Node.js applications for better performance and scalability.",
-    image: "/images/blog-nodejs-performance.jpg",
-    date: "2024-01-10",
-    readTime: "12 min read",
-    category: "Node.js",
-    tags: ["Node.js", "Performance", "Backend"],
-  },
-  {
-    id: 3,
-    slug: "mongodb-best-practices",
-    label: "Article · MongoDB",
-    title: "MongoDB Best Practices for MERN Stack",
-    excerpt:
-      "Essential MongoDB patterns and practices every MERN stack developer should know for building robust applications.",
-    image: "/images/blog-mongodb.jpg",
-    date: "2024-01-05",
-    readTime: "10 min read",
-    category: "MongoDB",
-    tags: ["MongoDB", "MERN", "Database"],
-  },
-];
+import type { PostDTO } from "@/lib/content";
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 22 },
@@ -70,7 +29,7 @@ function formatDate(dateStr: string) {
   });
 }
 
-export default function Blog() {
+export default function Blog({ posts }: { posts: PostDTO[] }) {
   return (
     <section
       id="blog"
@@ -122,7 +81,7 @@ export default function Blog() {
             viewport={{ once: true, margin: "-40px", amount: 0.1 }}
             className="space-y-6"
           >
-            {blogPosts.map((post, i) => (
+            {posts.map((post, i) => (
               <motion.article
                 key={post.id}
                 variants={fadeUp}
@@ -159,7 +118,7 @@ export default function Blog() {
                 <div className="flex flex-col p-5 sm:p-7">
                   <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1.5 mb-3">
                     <span className="text-[10px] font-mono tracking-[.15em] uppercase text-emerald-500 dark:text-emerald-400">
-                      {post.label}
+                      Article · {post.category}
                     </span>
                     <div className="flex items-center gap-3 text-xs text-gray-500 dark:text-gray-400">
                       <span className="flex items-center gap-1">

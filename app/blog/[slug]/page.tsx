@@ -4,7 +4,9 @@ import { ArrowLeft, Calendar, Clock, Heart, MessageCircle } from "lucide-react";
 import ShareButton from "@/components/ShareButton";
 import type { Metadata, ResolvingMetadata } from "next";
 import Container from "@/components/Container";
-import { getBlogPost, getRelatedPosts } from "@/data/blog";
+import { getPostBySlug, getRelatedPosts } from "@/lib/content";
+
+export const revalidate = 300;
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -17,9 +19,7 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   const { slug } = await params;
 
-  console.log("meta data slug", slug);
-
-  const post = getBlogPost(slug);
+  const post = await getPostBySlug(slug);
 
   if (!post) {
     return {
@@ -66,7 +66,7 @@ export default async function BlogPost({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const post = getBlogPost(slug);
+  const post = await getPostBySlug(slug);
 
   // ── 404 state ──────────────────────────────────────────────────────────────
   if (!post) {
@@ -87,7 +87,7 @@ export default async function BlogPost({
       </div>
     );
   }
-  const related = getRelatedPosts(slug);
+  const related = await getRelatedPosts(slug);
 
   return (
     <div className="pf-mesh pf-noise relative min-h-screen overflow-hidden pt-20">

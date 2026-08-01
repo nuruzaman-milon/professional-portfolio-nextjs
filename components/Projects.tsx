@@ -5,7 +5,7 @@ import Image from "next/image";
 import { motion, type Variants } from "framer-motion";
 import { ArrowUpRight, Github, ExternalLink } from "lucide-react";
 
-import { getFeaturedProjects } from "@/data/projects";
+import type { ProjectDTO } from "@/lib/content";
 import Container from "./Container";
 
 const fadeUp: Variants = {
@@ -22,10 +22,7 @@ const stagger: Variants = {
   show: { transition: { staggerChildren: 0.1 } },
 };
 
-export default function Projects() {
-  const projects = getFeaturedProjects(3);
-  console.log("projects", projects);
-
+export default function Projects({ projects }: { projects: ProjectDTO[] }) {
   return (
     <section
       id="projects"

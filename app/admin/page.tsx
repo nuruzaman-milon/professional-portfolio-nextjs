@@ -1,0 +1,124 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import { FileText, FolderKanban, DatabaseZap, Upload } from "lucide-react";
+import { cardCls, btnPrimaryCls } from "@/components/admin/ui";
+
+export default function AdminDashboard() {
+  const [postCount, setPostCount] = useState<number | null>(null);
+  const [projectCount, setProjectCount] = useState<number | null>(null);
+  const [dbConnected, setDbConnected] = useState<boolean | null>(null);
+  const [seeding, setSeeding] = useState(false);
+  const [seedResult, setSeedResult] = useState("");
+
+  const load = async () => {
+    const [postsRes, projectsRes] = await Promise.all([
+      fetch("/api/posts"),
+      fetch("/api/projects"),
+    ]);
+    if (postsRes.status === 503 || projectsRes.status === 503) {
+      setDbConnected(false);
+      return;
+    }
+    setDbConnected(true);
+    if (postsRes.ok) setPostCount((await postsRes.json()).length);
+    if (projectsRes.ok) setProjectCount((await projectsRes.json()).length);
+  };
+
+  useEffect(() => {
+    load();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handleSeed = async () => {
+    setSeeding(true);
+    setSeedResult("");
+    const res = await fetch("/api/seed", { method: "POST" });
+    const data = await res.json().catch(() => ({}));
+    setSeeding(false);
+    setSeedResult(data.message || data.error || "Done.");
+    load();
+  };
+
+  return (
+    <div>
+      <h1 className="pf-serif text-3xl md:text-4xl font-normal text-gray-900 dark:text-white mb-8">
+        Dashboard
+      </h1>
+
+      {dbConnected === false && (
+        <div className={`${cardCls} p-6 mb-6 border-amber-300/50 dark:border-amber-500/30`}>
+          <div className="flex items-start gap-3">
+            <DatabaseZap size={18} className="text-amber-500 mt-0.5 flex-shrink-0" />
+            <div>
+              <h2 className="text-sm font-bold text-gray-900 dark:text-white mb-1">
+                Database not connected
+              </h2>
+              <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+                Set <code className="text-emerald-600 dark:text-emerald-400 font-mono text-xs">MONGODB_URI</code> in{" "}
+                <code className="font-mono text-xs">.env.local</code> (get a free
+                cluster at MongoDB Atlas), restart the dev server, then come back
+                here and click <strong>Import existing content</strong>. Until
+                then the public site keeps serving the static content from{" "}
+                <code className="font-mono text-xs">data/</code>.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <div className="grid sm:grid-cols-2 gap-5 mb-8">
+        <Link href="/admin/posts" className={`${cardCls} p-6 hover:border-emerald-300/50 dark:hover:border-emerald-700/40 transition-colors`}>
+          <div className="flex items-center gap-3 mb-2">
+            <FileText size={16} className="text-emerald-500" />
+            <span className="text-[10px] font-mono tracking-[.15em] uppercase text-emerald-500 dark:text-emerald-400">
+              Blog Posts
+            </span>
+          </div>
+          <div className="pf-serif text-4xl text-gray-900 dark:text-white">
+            {dbConnected === false ? "—" : (postCount ?? "…")}
+          </div>
+        </Link>
+
+        <Link href="/admin/projects" className={`${cardCls} p-6 hover:border-emerald-300/50 dark:hover:border-emerald-700/40 transition-colors`}>
+          <div className="flex items-center gap-3 mb-2">
+            <FolderKanban size={16} className="text-emerald-500" />
+            <span className="text-[10px] font-mono tracking-[.15em] uppercase text-emerald-500 dark:text-emerald-400">
+              Projects
+            </span>
+          </div>
+          <div className="pf-serif text-4xl text-gray-900 dark:text-white">
+            {dbConnected === false ? "—" : (projectCount ?? "…")}
+          </div>
+        </Link>
+      </div>
+
+      <div className={`${cardCls} p-6`}>
+        <h2 className="text-sm font-bold text-gray-900 dark:text-white mb-2">
+          Import existing content
+        </h2>
+        <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
+          Copies the current static content (
+          <code className="font-mono text-xs">data/blog.ts</code> and{" "}
+          <code className="font-mono text-xs">data/projects.ts</code>) into
+          MongoDB. Safe to run more than once — existing entries are never
+          overwritten.
+        </p>
+        <button
+          onClick={handleSeed}
+          disabled={seeding || dbConnected === false}
+          className={btnPrimaryCls}
+        >
+          <Upload size={14} />
+          {seeding ? "Importing…" : "Import existing content"}
+        </button>
+        {seedResult && (
+          <p className="mt-3 text-sm text-emerald-600 dark:text-emerald-400">
+            {seedResult}
+          </p>
+        )}
+      </div>
+    </div>
+  );
+}
