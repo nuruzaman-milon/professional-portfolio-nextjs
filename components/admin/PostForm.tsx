@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { inputCls, labelCls, cardCls, btnPrimaryCls, btnGhostCls } from "./ui";
+import RichTextEditor from "./RichTextEditor";
 
 export type PostFormData = {
   _id?: string;
@@ -47,6 +48,7 @@ export default function PostForm({ initial }: { initial?: PostFormData }) {
   const [form, setForm] = useState<PostFormData>(initial ?? empty);
   const [tagsText, setTagsText] = useState((initial?.tags ?? []).join(", "));
   const [slugTouched, setSlugTouched] = useState(isEdit);
+  const [htmlMode, setHtmlMode] = useState(false);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
 
@@ -122,14 +124,31 @@ export default function PostForm({ initial }: { initial?: PostFormData }) {
       </div>
 
       <div>
-        <label className={labelCls}>Content (HTML)</label>
-        <textarea
-          rows={16}
-          value={form.content}
-          onChange={(e) => set("content", e.target.value)}
-          placeholder="<h2>Introduction</h2>\n<p>…</p>"
-          className={`${inputCls} font-mono text-xs leading-relaxed`}
-        />
+        <div className="flex items-center justify-between mb-2">
+          <label className={`${labelCls} !mb-0`}>Content</label>
+          <button
+            type="button"
+            onClick={() => setHtmlMode((v) => !v)}
+            className="text-[10px] font-mono tracking-wide uppercase text-gray-400 dark:text-gray-500 hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors"
+          >
+            {htmlMode ? "← Visual editor" : "Edit as HTML"}
+          </button>
+        </div>
+        {htmlMode ? (
+          <textarea
+            rows={16}
+            value={form.content}
+            onChange={(e) => set("content", e.target.value)}
+            placeholder="<h2>Introduction</h2><p>…</p>"
+            className={`${inputCls} font-mono text-xs leading-relaxed`}
+          />
+        ) : (
+          <RichTextEditor
+            key={String(htmlMode)}
+            value={form.content}
+            onChange={(html) => set("content", html)}
+          />
+        )}
       </div>
 
       <div className="grid sm:grid-cols-2 gap-4">
