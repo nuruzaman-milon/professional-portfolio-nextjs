@@ -80,7 +80,7 @@ export default function Footer() {
                 </span>
               </Link>
 
-              <p className="text-sm text-gray-500 dark:text-gray-400 font-light leading-relaxed max-w-xs">
+              <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed max-w-xs">
                 {SITE.tagline}
               </p>
 
@@ -115,7 +115,7 @@ export default function Footer() {
                   <li key={label}>
                     <Link
                       href={href}
-                      className="group flex items-center gap-1 text-sm text-gray-500 dark:text-gray-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors duration-200 font-light"
+                      className="group flex items-center gap-1 text-sm text-gray-500 dark:text-gray-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors duration-200"
                     >
                       <span className="w-0 overflow-hidden group-hover:w-3 transition-all duration-200 text-emerald-500">
                         ›
@@ -136,7 +136,7 @@ export default function Footer() {
                 {services.map((s) => (
                   <li
                     key={s}
-                    className="flex items-start gap-2 text-sm text-gray-500 dark:text-gray-400 font-light"
+                    className="flex items-start gap-2 text-sm text-gray-500 dark:text-gray-400"
                   >
                     <span className="mt-2 w-1 h-1 rounded-full bg-emerald-400/60 flex-shrink-0" />
                     {s}

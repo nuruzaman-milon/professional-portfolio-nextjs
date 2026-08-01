@@ -79,7 +79,7 @@ export default async function BlogPost({
           </h1>
           <Link
             href="/blog"
-            className="inline-flex items-center gap-2 text-sm text-emerald-500 hover:text-emerald-400 transition-colors font-light"
+            className="inline-flex items-center gap-2 text-sm text-emerald-500 hover:text-emerald-400 transition-colors"
           >
             <ArrowLeft size={15} /> Back to Blog
           </Link>
@@ -127,7 +127,7 @@ export default async function BlogPost({
           {/* ── Back link ── */}
           <Link
             href="/blog"
-            className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors duration-200 font-light mb-14"
+            className="inline-flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors duration-200 mb-14"
           >
             <ArrowLeft size={15} /> Back to Blog
           </Link>
@@ -155,7 +155,7 @@ export default async function BlogPost({
             </h1>
 
             {/* Excerpt */}
-            <p className="text-lg text-gray-500 dark:text-gray-400 mb-8 leading-relaxed font-light max-w-3xl">
+            <p className="text-lg text-gray-600 dark:text-gray-300 mb-8 leading-relaxed max-w-3xl">
               {post.excerpt}
             </p>
 
@@ -221,7 +221,7 @@ export default async function BlogPost({
                 prose-headings:font-bold
                 prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4
                 prose-h3:text-xl prose-h3:mt-6 prose-h3:mb-3
-                prose-p:text-gray-600 dark:prose-p:text-gray-300 prose-p:font-light prose-p:leading-relaxed
+                prose-p:text-gray-600 dark:prose-p:text-gray-300 prose-p:leading-relaxed
                 prose-strong:text-gray-900 dark:prose-strong:text-white prose-strong:font-semibold
                 prose-code:text-emerald-600 dark:prose-code:text-emerald-400
                 prose-code:bg-gray-100/80 dark:prose-code:bg-white/[0.06]
@@ -229,7 +229,7 @@ export default async function BlogPost({
                 prose-pre:bg-gray-50 dark:prose-pre:bg-white/[0.04]
                 prose-pre:border prose-pre:border-gray-200/60 dark:prose-pre:border-white/[0.07]
                 prose-pre:rounded-xl prose-pre:text-sm
-                prose-li:text-gray-600 dark:prose-li:text-gray-300 prose-li:font-light
+                prose-li:text-gray-600 dark:prose-li:text-gray-300
                 prose-ul:my-4
                 prose-a:text-emerald-600 dark:prose-a:text-emerald-400 prose-a:no-underline hover:prose-a:underline"
               dangerouslySetInnerHTML={{ __html: post.content }}
@@ -254,7 +254,7 @@ export default async function BlogPost({
               <h3 className="text-base font-bold text-gray-900 dark:text-white mb-1">
                 {post.author}
               </h3>
-              <p className="text-sm text-gray-500 dark:text-gray-400 font-light leading-relaxed">
+              <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
                 Full Stack Developer with 3+ years of experience in MERN stack
                 development. Passionate about sharing knowledge and building
                 great products.
@@ -282,7 +282,7 @@ export default async function BlogPost({
                       <h4 className="text-base font-bold text-gray-900 dark:text-white mb-2 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors leading-snug">
                         {rel.title}
                       </h4>
-                      <p className="text-sm text-gray-500 dark:text-gray-400 font-light leading-relaxed line-clamp-2">
+                      <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed line-clamp-2">
                         {rel.excerpt}
                       </p>
                       <div className="mt-4 flex items-center gap-3 text-[11px] font-mono text-gray-400 dark:text-gray-500">
@@ -306,7 +306,7 @@ export default async function BlogPost({
           <div className="mt-20 pt-10 border-t border-gray-200/40 dark:border-white/[0.06]">
             <Link
               href="/blog"
-              className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors duration-200 font-light"
+              className="inline-flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors duration-200"
             >
               <ArrowLeft size={15} /> Back to Blog
             </Link>

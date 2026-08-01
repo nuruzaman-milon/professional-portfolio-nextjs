@@ -115,7 +115,7 @@ export default function BlogPage() {
           {/* Back link */}
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors duration-200 font-light mb-14"
+            className="inline-flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors duration-200 mb-14"
           >
             <ArrowLeft size={15} /> Back to home
           </Link>
@@ -125,7 +125,7 @@ export default function BlogPage() {
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
               Tech <span className="gradient-text">Blog</span>
             </h1>
-            <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl font-light">
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl">
               Insights, tutorials, and thoughts on modern web development.
               Sharing knowledge about MERN stack, best practices, and emerging
               technologies.
@@ -313,7 +313,7 @@ export default function BlogPage() {
                   <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-4 leading-snug">
                     {filteredPosts[0].title}
                   </h2>
-                  <p className="text-gray-500 dark:text-gray-400 mb-6 font-light leading-relaxed">
+                  <p className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
                     {filteredPosts[0].excerpt}
                   </p>
                   <div className="flex items-center text-gray-400 dark:text-gray-500 text-xs font-mono mb-6 gap-4">
@@ -381,7 +381,7 @@ export default function BlogPage() {
                         {post.title}
                       </h3>
 
-                      <p className="text-sm text-gray-500 dark:text-gray-400 mb-4 line-clamp-3 font-light leading-relaxed">
+                      <p className="text-sm text-gray-600 dark:text-gray-300 mb-4 line-clamp-3 leading-relaxed">
                         {post.excerpt}
                       </p>
 
@@ -423,7 +423,7 @@ export default function BlogPage() {
               <div className="w-12 h-12 rounded-xl border border-gray-200/60 dark:border-white/[0.07] bg-white/60 dark:bg-white/[0.03] flex items-center justify-center text-gray-300 dark:text-gray-700">
                 <Search size={20} />
               </div>
-              <p className="text-sm text-gray-500 dark:text-gray-400 font-light">
+              <p className="text-sm text-gray-500 dark:text-gray-400">
                 No articles match{" "}
                 <span className="text-gray-700 dark:text-gray-300">
                   "{searchQuery || selectedCategory || selectedTag}"
@@ -439,7 +439,7 @@ export default function BlogPage() {
           <div className="mt-20 pt-10 border-t border-gray-200/40 dark:border-white/[0.06]">
             <Link
               href="/"
-              className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors duration-200 font-light"
+              className="inline-flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors duration-200"
             >
               <ArrowLeft size={15} /> Back to home
             </Link>

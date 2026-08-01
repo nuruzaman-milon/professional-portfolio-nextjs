@@ -124,7 +124,7 @@ export default function Hero() {
 
                 <motion.h1
                   variants={slideUp}
-                  className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-5 leading-[1.08]"
+                  className="pf-serif text-[clamp(3rem,16vw,3.75rem)] md:text-7xl lg:text-8xl font-normal text-gray-900 dark:text-white mb-5 leading-[1.05]"
                 >
                   Md. Nuruzaman Milon
                 </motion.h1>
@@ -134,7 +134,7 @@ export default function Hero() {
                   variants={slideUp}
                   className="mb-8 h-9 flex items-center lg:justify-start justify-center overflow-hidden"
                 >
-                  <span className="text-gray-400 dark:text-gray-500 text-sm mr-2 font-light">
+                  <span className="text-gray-500 dark:text-gray-400 text-sm mr-2">
                     I work as a
                   </span>
                   <AnimatePresence mode="wait">
@@ -154,7 +154,7 @@ export default function Hero() {
 
                 <motion.p
                   variants={slideUp}
-                  className="text-base text-gray-500 dark:text-gray-400 mb-10 max-w-lg mx-auto lg:mx-0 leading-relaxed font-light"
+                  className="text-base text-gray-600 dark:text-gray-300 mb-10 max-w-lg mx-auto lg:mx-0 leading-relaxed"
                 >
                   Full-stack Software Engineer with 3+ years of experience
                   building scalable web applications using React, Next.js, and

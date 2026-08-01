@@ -30,6 +30,7 @@
     /* ── Font variables (populated by next/font in layout.tsx) ── */
     --font-sans: "Plus Jakarta Sans", sans-serif;
     --font-serif: "Instrument Serif", serif;
+    --font-mono: "JetBrains Mono", ui-monospace, monospace;
   }
 
   .dark {

@@ -108,7 +108,7 @@ export default function ProjectDetail() {
           >
             <Link
               href="/projects"
-              className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors duration-200 font-light"
+              className="inline-flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors duration-200"
             >
               <ArrowLeft size={15} />
               Back to projects
@@ -137,7 +137,7 @@ export default function ProjectDetail() {
 
             <motion.div
               variants={fadeUp}
-              className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-gray-400 dark:text-gray-500 font-light mb-6"
+              className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-gray-500 dark:text-gray-400 mb-6"
             >
               <span className="flex items-center gap-1.5">
                 <Clock size={13} />
@@ -217,7 +217,7 @@ export default function ProjectDetail() {
               <motion.div variants={fadeUp}>
                 <Card>
                   <SectionLabel icon={BookOpen} label="Overview" />
-                  <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed font-light">
+                  <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
                     {project.overview}
                   </p>
                 </Card>
@@ -230,7 +230,7 @@ export default function ProjectDetail() {
                     {project.features.map((f) => (
                       <li
                         key={f}
-                        className="flex items-start gap-3 text-sm text-gray-500 dark:text-gray-400 font-light"
+                        className="flex items-start gap-3 text-sm text-gray-600 dark:text-gray-300"
                       >
                         <span className="mt-2 w-1 h-1 rounded-full bg-emerald-400/70 flex-shrink-0" />
                         {f}
@@ -252,7 +252,7 @@ export default function ProjectDetail() {
                         >
                           {String(i + 1).padStart(2, "0")}
                         </span>
-                        <p className="text-sm text-gray-500 dark:text-gray-400 font-light leading-relaxed">
+                        <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
                           {c}
                         </p>
                       </li>
@@ -273,7 +273,7 @@ export default function ProjectDetail() {
                         >
                           {String(i + 1).padStart(2, "0")}
                         </span>
-                        <p className="text-sm text-gray-500 dark:text-gray-400 font-light leading-relaxed">
+                        <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
                           {l}
                         </p>
                       </li>
@@ -308,7 +308,7 @@ export default function ProjectDetail() {
                     {project.highlights.map((h) => (
                       <li
                         key={h}
-                        className="flex items-start gap-2.5 text-sm text-gray-500 dark:text-gray-400 font-light"
+                        className="flex items-start gap-2.5 text-sm text-gray-600 dark:text-gray-300"
                       >
                         <span className="mt-2 w-1 h-1 rounded-full bg-emerald-400/70 flex-shrink-0" />
                         {h}
@@ -346,7 +346,7 @@ export default function ProjectDetail() {
                         <dt className="text-xs font-mono text-gray-400 dark:text-gray-500 uppercase tracking-widest">
                           {label}
                         </dt>
-                        <dd className="text-xs text-gray-600 dark:text-gray-300 font-light text-right">
+                        <dd className="text-xs text-gray-600 dark:text-gray-300 text-right">
                           {value}
                           {label === "Status" && value === "Live" && (
                             <span className="inline-block ml-1.5 w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
@@ -383,7 +383,7 @@ export default function ProjectDetail() {
           >
             <Link
               href="/projects"
-              className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors duration-200 font-light"
+              className="inline-flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors duration-200"
             >
               <ArrowLeft size={15} />
               All projects

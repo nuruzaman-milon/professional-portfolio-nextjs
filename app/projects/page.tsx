@@ -172,7 +172,7 @@ export default function ProjectsPage() {
           >
             <Link
               href="/"
-              className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors duration-200 font-light"
+              className="inline-flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors duration-200"
             >
               <ArrowLeft size={15} /> Back to home
             </Link>
@@ -380,7 +380,7 @@ export default function ProjectsPage() {
                         <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-2 leading-snug">
                           {project.title}
                         </h2>
-                        <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed font-light mb-4">
+                        <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
                           {project.description}
                         </p>
 
@@ -388,9 +388,9 @@ export default function ProjectsPage() {
                           {project.highlights.map((h) => (
                             <li
                               key={h}
-                              className="flex items-start gap-2 text-xs text-gray-500 dark:text-gray-400 font-light"
+                              className="flex items-start gap-2 text-sm text-gray-600 dark:text-gray-300"
                             >
-                              <span className="mt-1.5 w-1 h-1 rounded-full bg-emerald-400/70 flex-shrink-0" />
+                              <span className="mt-2 w-1 h-1 rounded-full bg-emerald-400/70 flex-shrink-0" />
                               {h}
                             </li>
                           ))}
@@ -448,7 +448,7 @@ export default function ProjectsPage() {
                   <div className="w-12 h-12 rounded-xl border border-gray-200/60 dark:border-white/[0.07] bg-white/60 dark:bg-white/[0.03] flex items-center justify-center text-gray-300 dark:text-gray-700">
                     <Search size={20} />
                   </div>
-                  <p className="text-sm text-gray-500 dark:text-gray-400 font-light">
+                  <p className="text-sm text-gray-500 dark:text-gray-400">
                     No projects match{" "}
                     <span className="text-gray-700 dark:text-gray-300">
                       "{debouncedQuery || activeStack}"
@@ -472,7 +472,7 @@ export default function ProjectsPage() {
           >
             <Link
               href="/"
-              className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors duration-200 font-light"
+              className="inline-flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors duration-200"
             >
               <ArrowLeft size={15} /> Back to home
             </Link>

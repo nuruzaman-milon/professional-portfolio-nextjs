@@ -94,14 +94,14 @@ export default function About() {
                 transition={{ delay: 0.1 }}
                 className="space-y-5 mb-8"
               >
-                <p className="text-base text-gray-500 dark:text-gray-400 leading-[1.85] font-light">
+                <p className="text-base text-gray-600 dark:text-gray-300 leading-[1.85]">
                   I'm a Full Stack Software Engineer with 3+ years of
                   professional experience delivering production-grade web
                   applications. I specialise in React, Next.js, and Node.js —
                   with a strong focus on performance, maintainable architecture,
                   and clean user experiences.
                 </p>
-                <p className="text-base text-gray-500 dark:text-gray-400 leading-[1.85] font-light">
+                <p className="text-base text-gray-600 dark:text-gray-300 leading-[1.85]">
                   My work spans e-commerce platforms, ERP systems, and
                   Web3-integrated social platforms. I care about translating
                   complex requirements into reliable features that hold up in
@@ -167,10 +167,10 @@ export default function About() {
                             {role}
                           </span>
                         </div>
-                        <div className="text-[11px] text-gray-400 font-medium tracking-wide mb-2">
+                        <div className="text-xs text-gray-500 dark:text-gray-400 font-medium tracking-wide mb-2">
                           {period}
                         </div>
-                        <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed font-light">
+                        <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
                           {desc}
                         </p>
                       </div>
@@ -294,7 +294,7 @@ export default function About() {
                       <span className="text-gray-400 dark:text-gray-500 font-medium w-20 flex-shrink-0">
                         {label}
                       </span>
-                      <span className="text-gray-600 dark:text-gray-300 font-light break-all">
+                      <span className="text-gray-600 dark:text-gray-300 break-all">
                         {value}
                       </span>
                     </div>

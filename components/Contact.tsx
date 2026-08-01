@@ -117,7 +117,7 @@ export default function Contact() {
               <br />
               <span className="em-g italic">something together</span>
             </h2>
-            <p className="text-sm text-gray-400 dark:text-gray-500 max-w-sm leading-relaxed font-light mt-1">
+            <p className="text-sm text-gray-500 dark:text-gray-400 max-w-sm leading-relaxed mt-1">
               Have a project in mind or want to collaborate? I'd love to hear
               from you.
             </p>
@@ -173,7 +173,7 @@ export default function Contact() {
                     Available for work
                   </span>
                 </div>
-                <p className="text-xs text-gray-500 dark:text-gray-400 font-light leading-relaxed">
+                <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
                   Currently open to full-time roles and freelance projects.
                   Response time is typically within 24 hours.
                 </p>
@@ -193,7 +193,7 @@ export default function Contact() {
                   <h3 className="text-lg font-bold text-gray-900 dark:text-white">
                     Message sent!
                   </h3>
-                  <p className="text-sm text-gray-500 dark:text-gray-400 font-light max-w-xs">
+                  <p className="text-sm text-gray-600 dark:text-gray-300 max-w-xs">
                     Thanks for reaching out. I'll get back to you within 24
                     hours.
                   </p>

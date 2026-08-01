@@ -185,7 +185,7 @@ export default function Skills() {
               <br />
               <span className="em-g italic">deliver for you</span>
             </h2>
-            <p className="text-sm text-gray-400 dark:text-gray-500 max-w-sm leading-relaxed font-light mt-1">
+            <p className="text-sm text-gray-500 dark:text-gray-400 max-w-sm leading-relaxed mt-1">
               Not just a list of tools — but what I've actually built with them,
               in production, for real users.
             </p>
@@ -217,7 +217,7 @@ export default function Skills() {
                         <h3 className="text-sm font-bold text-gray-900 dark:text-white leading-snug">
                           {group.capability}
                         </h3>
-                        <p className="text-xs text-gray-400 dark:text-gray-500 font-light mt-0.5">
+                        <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
                           {group.tagline}
                         </p>
                       </div>
@@ -260,7 +260,7 @@ export default function Skills() {
                         {skill.name}
                       </span>
                       <span className="hidden sm:block w-px h-3 bg-gray-200 dark:bg-white/10 flex-shrink-0" />
-                      <span className="text-xs text-gray-400 dark:text-gray-500 font-light grow basis-40">
+                      <span className="text-[13px] text-gray-500 dark:text-gray-400 grow basis-40">
                         {skill.context}
                       </span>
                     </motion.div>
@@ -280,7 +280,7 @@ export default function Skills() {
             className="mt-12 flex items-center gap-4"
           >
             <div className="hl flex-1" />
-            <p className="text-xs text-gray-400 dark:text-gray-500 font-light flex-shrink-0">
+            <p className="text-xs text-gray-500 dark:text-gray-400 flex-shrink-0">
               All skills used in{" "}
               <a
                 href="#projects"

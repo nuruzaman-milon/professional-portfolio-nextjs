@@ -108,7 +108,7 @@ export default function Blog() {
               <br />
               <span className="em-g italic">written and shared</span>
             </h2>
-            <p className="text-sm text-gray-400 dark:text-gray-500 max-w-sm leading-relaxed font-light mt-1">
+            <p className="text-sm text-gray-500 dark:text-gray-400 max-w-sm leading-relaxed mt-1">
               Thoughts on engineering, architecture, and lessons learned
               building in public.
             </p>
@@ -161,7 +161,7 @@ export default function Blog() {
                     <span className="text-[10px] font-mono tracking-[.15em] uppercase text-emerald-500 dark:text-emerald-400">
                       {post.label}
                     </span>
-                    <div className="flex items-center gap-3 text-[11px] text-gray-400 dark:text-gray-500">
+                    <div className="flex items-center gap-3 text-xs text-gray-500 dark:text-gray-400">
                       <span className="flex items-center gap-1">
                         <Calendar size={11} />
                         {formatDate(post.date)}
@@ -177,7 +177,7 @@ export default function Blog() {
                     {post.title}
                   </h3>
 
-                  <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed font-light mb-5">
+                  <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed mb-5">
                     {post.excerpt}
                   </p>
 

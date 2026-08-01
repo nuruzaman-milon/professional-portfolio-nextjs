@@ -59,7 +59,7 @@ export default function Projects() {
               <br />
               <span className="em-g italic">built and shipped</span>
             </h2>
-            <p className="text-sm text-gray-400 dark:text-gray-500 max-w-sm leading-relaxed font-light mt-1">
+            <p className="text-sm text-gray-500 dark:text-gray-400 max-w-sm leading-relaxed mt-1">
               Production work — real users, real problems, real constraints.
             </p>
           </motion.div>
@@ -131,7 +131,7 @@ export default function Projects() {
                     {project.title}
                   </h3>
 
-                  <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed font-light mb-4">
+                  <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
                     {project.description}
                   </p>
 
@@ -139,9 +139,9 @@ export default function Projects() {
                     {project.highlights.map((highlight) => (
                       <li
                         key={highlight}
-                        className="flex items-start gap-2 text-xs text-gray-500 dark:text-gray-400 font-light"
+                        className="flex items-start gap-2 text-sm text-gray-600 dark:text-gray-300"
                       >
-                        <span className="mt-1.5 w-1 h-1 rounded-full bg-emerald-400/70 flex-shrink-0" />
+                        <span className="mt-2 w-1 h-1 rounded-full bg-emerald-400/70 flex-shrink-0" />
                         {highlight}
                       </li>
                     ))}
