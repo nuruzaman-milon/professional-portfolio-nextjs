@@ -41,7 +41,7 @@ Public pages are server components with `revalidate = 300`; every admin mutation
 
 - `app/page.tsx` — homepage composing section components (`Hero`, `About`, `Skills`, `Projects`, `Blog`, `Contact`); fetches featured projects + latest posts and passes them to `Projects`/`Blog`.
 - `app/blog/[slug]` renders post `content` (an HTML string) via `dangerouslySetInnerHTML`, styled by `@tailwindcss/typography` (`prose` overrides in `app/globals.css`).
-- `app/api/contact/route.ts` — contact form: validates + honeypot (`website` field), always stores the message in the `Message` collection (admin inbox at `/admin/messages`), and additionally emails via Resend when `RESEND_API_KEY` is set (`CONTACT_EMAIL` overrides the recipient). `/api/messages` GET is auth-protected — messages are private.
+- `app/api/contact/route.ts` — contact form: validates + server-side honeypot (drops any payload with a `website` key; the form deliberately has NO hidden honeypot input — Chrome autofill filled it and real messages were silently dropped, so don't re-add one), always stores the message in the `Message` collection (admin inbox at `/admin/messages`), and additionally emails via Resend when `RESEND_API_KEY` is set (`CONTACT_EMAIL` overrides the recipient). `/api/messages` GET is auth-protected — messages are private.
 
 ### Theming & styling
 

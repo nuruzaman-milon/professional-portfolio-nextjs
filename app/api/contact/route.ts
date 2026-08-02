@@ -13,8 +13,13 @@ export async function POST(req: Request) {
 
   const { name, email, subject, message, website } = body;
 
-  // Honeypot — real users never fill this hidden field
-  if (website) return NextResponse.json({ success: true });
+  // Honeypot — the real form never sends "website"; only bots that scrape
+  // and POST the API directly include it. (No hidden input in the form —
+  // Chrome autofill used to fill it and real messages got dropped.)
+  if (website) {
+    console.warn("Contact honeypot triggered — message dropped (likely a bot).");
+    return NextResponse.json({ success: true });
+  }
 
   if (
     !name?.trim() ||

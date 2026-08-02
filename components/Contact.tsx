@@ -56,7 +56,6 @@ export default function Contact() {
     subject: "",
     message: "",
   });
-  const [honeypot, setHoneypot] = useState("");
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
   const [error, setError] = useState("");
@@ -76,13 +75,16 @@ export default function Contact() {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...formData, website: honeypot }),
+        body: JSON.stringify(formData),
       });
+
+      const data = await res.json().catch(() => ({}));
+      console.log("form data", formData);
+      console.log("form submit res", data);
 
       if (res.ok) {
         setSent(true);
       } else {
-        const data = await res.json().catch(() => ({}));
         setError(
           data.error || "Something went wrong. Please try again later.",
         );
@@ -228,17 +230,10 @@ export default function Contact() {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-5">
-                  {/* Honeypot — hidden from humans, catches bots */}
-                  <input
-                    type="text"
-                    name="website"
-                    value={honeypot}
-                    onChange={(e) => setHoneypot(e.target.value)}
-                    tabIndex={-1}
-                    autoComplete="off"
-                    aria-hidden="true"
-                    className="absolute -left-[9999px] w-px h-px opacity-0"
-                  />
+                  {/* No honeypot input here — Chrome autofill kept filling the
+                      hidden field, which made the API silently drop real
+                      messages. The server still rejects payloads that include
+                      a filled "website" key (bots POSTing the API directly). */}
 
                   {/* Name + Email row */}
                   <div className="grid sm:grid-cols-2 gap-4">
