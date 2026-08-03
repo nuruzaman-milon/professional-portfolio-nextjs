@@ -113,16 +113,66 @@ export default function Projects({ projects }: { projects: ProjectDTO[] }) {
                     className="object-cover object-top transition-transform duration-700 group-hover:scale-[1.04]"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-teal-900/15 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  {/* index chip — dark glass, same badge language as hero/About */}
+                  <div className="absolute top-3 left-3 px-2.5 py-1 rounded-lg bg-gray-900/80 backdrop-blur-md border border-white/10 text-[10px] font-mono tracking-[.18em] text-teal-300">
+                    {String(i + 1).padStart(2, "0")}
+                  </div>
                 </div>
 
                 {/* Content Pane */}
                 <div
                   className={`flex flex-col p-5 sm:p-7 ${flipped ? "lg:order-1" : ""}`}
                 >
-                  <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1.5 mb-3">
-                    <span className="text-[10px] font-mono tracking-[.15em] uppercase text-teal-600 dark:text-teal-400">
-                      {project.label}
-                    </span>
+                  <span className="text-[10px] font-mono tracking-[.15em] uppercase text-teal-600 dark:text-teal-400 mb-3">
+                    {project.label}
+                  </span>
+
+                  {/* serif display title, links to the case study */}
+                  <Link
+                    href={`/projects/${project.slug}`}
+                    className="group/title inline-flex items-start gap-2 mb-2.5 self-start"
+                  >
+                    <h3 className="pf-serif text-2xl sm:text-[28px] font-normal text-gray-900 dark:text-white leading-snug group-hover/title:text-teal-700 dark:group-hover/title:text-teal-300 transition-colors duration-200">
+                      {project.title}
+                    </h3>
+                    <ArrowUpRight
+                      size={18}
+                      className="mt-1.5 flex-shrink-0 text-gray-400 group-hover/title:text-teal-600 dark:group-hover/title:text-teal-400 group-hover/title:translate-x-0.5 group-hover/title:-translate-y-0.5 transition-all duration-200"
+                    />
+                  </Link>
+
+                  <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
+                    {project.description}
+                  </p>
+
+                  <ul className="space-y-1.5 mb-5">
+                    {project.highlights.map((highlight) => (
+                      <li
+                        key={highlight}
+                        className="flex items-start gap-2.5 text-sm text-gray-600 dark:text-gray-300"
+                      >
+                        <span className="mt-[9px] w-3 h-px bg-teal-500/70 flex-shrink-0" />
+                        {highlight}
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div className="flex flex-wrap gap-1.5 mb-5">
+                    {project.stack.map((tech) => (
+                      <span key={tech} className="tech-pill">
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* action bar — case study left, source/live right */}
+                  <div className="mt-auto pt-4 border-t border-gray-200/60 dark:border-white/[0.06] flex items-center justify-between gap-3">
+                    <Link
+                      href={`/projects/${project.slug}`}
+                      className="cta-link"
+                    >
+                      View case study <ArrowUpRight size={13} />
+                    </Link>
                     <div className="flex items-center gap-2">
                       {project.github && (
                         <a
@@ -147,43 +197,6 @@ export default function Projects({ projects }: { projects: ProjectDTO[] }) {
                         </a>
                       )}
                     </div>
-                  </div>
-
-                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 leading-snug">
-                    {project.title}
-                  </h3>
-
-                  <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
-                    {project.description}
-                  </p>
-
-                  <ul className="space-y-1 mb-5">
-                    {project.highlights.map((highlight) => (
-                      <li
-                        key={highlight}
-                        className="flex items-start gap-2 text-sm text-gray-600 dark:text-gray-300"
-                      >
-                        <span className="mt-2 w-1 h-1 rounded-full bg-teal-400/70 flex-shrink-0" />
-                        {highlight}
-                      </li>
-                    ))}
-                  </ul>
-
-                  <div className="flex flex-wrap gap-1.5 mb-6">
-                    {project.stack.map((tech) => (
-                      <span key={tech} className="tech-pill">
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-
-                  <div className="mt-auto">
-                    <Link
-                      href={`/projects/${project.slug}`}
-                      className="cta-link"
-                    >
-                      View case study <ArrowUpRight size={13} />
-                    </Link>
                   </div>
                 </div>
               </motion.div>
