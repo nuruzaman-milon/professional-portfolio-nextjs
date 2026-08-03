@@ -106,6 +106,9 @@ body {
 .pf-serif {
   font-family: var(--font-serif);
 }
+.pf-script {
+  font-family: var(--font-script);
+}
 
 /* ─────────────────────────────────────────────────────────────────────────────
    PORTFOLIO — TEAL GRADIENT TEXT

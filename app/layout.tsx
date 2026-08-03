@@ -1,6 +1,7 @@
 import type React from "react";
 import type { Metadata } from "next";
 import {
+  Caveat,
   Instrument_Serif,
   JetBrains_Mono,
   Plus_Jakarta_Sans,
@@ -29,6 +30,13 @@ const jetbrainsMono = JetBrains_Mono({
   weight: "variable",
   subsets: ["latin"],
   variable: "--font-mono",
+  display: "swap",
+});
+
+const caveat = Caveat({
+  weight: ["500", "600"],
+  subsets: ["latin"],
+  variable: "--font-script",
   display: "swap",
 });
 
@@ -106,7 +114,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${instrumentSerif.variable} ${plusJakartaSans.variable} ${jetbrainsMono.variable}`}
+      className={`${instrumentSerif.variable} ${plusJakartaSans.variable} ${jetbrainsMono.variable} ${caveat.variable}`}
       suppressHydrationWarning // ✅ এটা জরুরি — theme class hydration warning suppress করে
     >
       <head>
