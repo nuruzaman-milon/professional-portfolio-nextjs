@@ -29,21 +29,18 @@ const contactItems = [
     label: "Email",
     value: "nuruzaman.milon@gmail.com",
     href: "mailto:nuruzaman.milon@gmail.com",
-    mono: "mail://",
   },
   {
     icon: Phone,
     label: "Phone",
     value: "+880 1303746940",
     href: "tel:+8801303746940",
-    mono: "tel://",
   },
   {
     icon: MapPin,
     label: "Location",
     value: "Dhaka, Bangladesh",
     href: "https://www.google.com/maps?q=Dhaka,+Bangladesh",
-    mono: "loc://",
   },
 ];
 
@@ -80,8 +77,6 @@ export default function Contact() {
       });
 
       const data = await res.json().catch(() => ({}));
-      console.log("form data", formData);
-      console.log("form submit res", data);
 
       if (res.ok) {
         setSent(true);
@@ -126,15 +121,33 @@ export default function Contact() {
             animate={inView ? "show" : "hidden"}
             variants={fadeUp}
             initial="hidden"
-            className="mb-20 flex flex-col items-center text-center gap-3"
+            className="mb-12"
           >
             <span className="sec-label">Contact</span>
-            <h2 className="pf-serif text-4xl md:text-5xl font-normal text-gray-900 dark:text-white leading-tight">
+            <h2 className="pf-serif font-normal leading-[1.08] text-gray-900 dark:text-white text-5xl md:text-6xl mt-3 mb-5">
               Let's build
               <br />
-              <span className="em-g italic">something together</span>
+              <span className="em-g">something</span>{" "}
+              <span className="pf-script font-medium text-4xl md:text-5xl relative inline-block -rotate-2 align-middle ml-1">
+                together.
+                {/* hand-drawn underline swoosh */}
+                <svg
+                  className="absolute -bottom-1.5 left-0 w-full text-teal-500 dark:text-teal-400"
+                  viewBox="0 0 120 8"
+                  fill="none"
+                  preserveAspectRatio="none"
+                  aria-hidden
+                >
+                  <path
+                    d="M2 6 C 30 2, 62 7, 118 3"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </span>
             </h2>
-            <p className="text-sm text-gray-500 dark:text-gray-400 max-w-sm leading-relaxed mt-1">
+            <p className="text-base text-gray-600 dark:text-gray-300 leading-[1.85] max-w-md">
               Have a project in mind or want to collaborate? I'd love to hear
               from you.
             </p>
@@ -149,22 +162,23 @@ export default function Contact() {
           >
             {/* ── Left — contact info ── */}
             <motion.div variants={fadeUp} className="flex flex-col gap-4">
-              {contactItems.map(({ icon: Icon, label, value, href, mono }) => (
+              {contactItems.map(({ icon: Icon, label, value, href }) => (
                 <a
                   key={label}
                   href={href}
-                  target="_blank"
+                  {...(href.startsWith("http")
+                    ? { target: "_blank", rel: "noopener noreferrer" }
+                    : {})}
                   className="group flex items-center gap-4 rounded-xl border border-gray-200/60 dark:border-white/[0.07] bg-white/60 dark:bg-white/[0.03] backdrop-blur-sm p-5 hover:border-teal-300/50 dark:hover:border-teal-800/40 transition-all duration-300"
                 >
-                  {/* Icon */}
-                  <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-teal-50 dark:bg-teal-600/10 border border-teal-200/60 dark:border-teal-600/20 flex items-center justify-center text-teal-700 dark:text-teal-400 group-hover:bg-teal-600 group-hover:text-white group-hover:border-teal-600 transition-all duration-300">
+                  {/* Icon — round teal chip, About quick-facts style */}
+                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-teal-600/10 dark:bg-teal-400/10 flex items-center justify-center text-teal-700 dark:text-teal-400 group-hover:bg-teal-600 group-hover:text-white transition-all duration-300">
                     <Icon size={16} />
                   </div>
 
                   {/* Text */}
                   <div className="min-w-0">
-                    <div className="text-[10px] font-mono tracking-[.15em] uppercase text-teal-600 dark:text-teal-400 mb-0.5">
-                      {mono}
+                    <div className="text-[10px] font-semibold tracking-[.15em] uppercase text-gray-400 dark:text-gray-500 mb-0.5">
                       {label}
                     </div>
                     <div className="text-sm font-medium text-gray-900 dark:text-white truncate">
@@ -322,7 +336,6 @@ export default function Contact() {
 
                   {/* Submit */}
                   <Button
-                    variant="ghost"
                     type="submit"
                     disabled={sending}
                     className="w-full disabled:opacity-60 disabled:cursor-not-allowed"
