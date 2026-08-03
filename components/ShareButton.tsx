@@ -217,11 +217,11 @@ export default function ShareButton({
             className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors text-left"
           >
             {copied ? (
-              <Check size={16} className="text-emerald-500" />
+              <Check size={16} className="text-teal-600" />
             ) : (
               <Link2 size={16} className="text-gray-500 dark:text-gray-400" />
             )}
-            <span className={copied ? "text-emerald-500" : ""}>
+            <span className={copied ? "text-teal-600" : ""}>
               {copied ? "Link copied!" : "Copy link"}
             </span>
           </button>
@@ -237,7 +237,7 @@ export default function ShareButton({
         variant="ghost"
         size="sm"
         aria-label="Share this post"
-        className="text-gray-500 hover:text-emerald-600 hover:bg-emerald-50 dark:text-gray-400 dark:hover:text-emerald-400 dark:hover:bg-emerald-900/20 transition-all duration-200"
+        className="text-gray-500 hover:text-teal-700 hover:bg-teal-50 dark:text-gray-400 dark:hover:text-teal-400 dark:hover:bg-teal-900/20 transition-all duration-200"
       >
         <Share2 size={16} />
       </Button>

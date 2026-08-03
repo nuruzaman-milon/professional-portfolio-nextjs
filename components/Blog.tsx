@@ -47,7 +47,7 @@ export default function Blog({ posts }: { posts: PostDTO[] }) {
           height: 460,
           borderRadius: "50%",
           background:
-            "radial-gradient(circle, rgba(16,185,129,.15) 0%, transparent 70%)",
+            "radial-gradient(circle, rgba(13,148,136,.15) 0%, transparent 70%)",
         }}
       />
 
@@ -85,7 +85,7 @@ export default function Blog({ posts }: { posts: PostDTO[] }) {
               <motion.article
                 key={post.id}
                 variants={fadeUp}
-                className="group grid lg:grid-cols-[2fr_3fr] gap-0 rounded-xl border border-gray-200/60 dark:border-white/[0.07] bg-white/60 dark:bg-white/[0.03] backdrop-blur-sm overflow-hidden hover:border-emerald-300/50 dark:hover:border-emerald-700/40 transition-all duration-300"
+                className="group grid lg:grid-cols-[2fr_3fr] gap-0 rounded-xl border border-gray-200/60 dark:border-white/[0.07] bg-white/60 dark:bg-white/[0.03] backdrop-blur-sm overflow-hidden hover:border-teal-300/50 dark:hover:border-teal-800/40 transition-all duration-300"
               >
                 {/* Image pane */}
                 <div className="relative overflow-hidden bg-gray-100 dark:bg-gray-800/50 aspect-[16/10] lg:aspect-auto min-h-[200px]">
@@ -99,11 +99,11 @@ export default function Blog({ posts }: { posts: PostDTO[] }) {
                       (e.target as HTMLImageElement).style.display = "none";
                     }}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-br from-emerald-900/20 to-transparent opacity-60" />
+                  <div className="absolute inset-0 bg-gradient-to-br from-teal-900/20 to-transparent opacity-60" />
 
                   {/* Category badge */}
                   <div className="absolute top-3 left-3">
-                    <span className="px-2.5 py-1 rounded-md text-[10px] font-mono tracking-[.12em] uppercase bg-emerald-500/90 text-white backdrop-blur-sm">
+                    <span className="px-2.5 py-1 rounded-md text-[10px] font-mono tracking-[.12em] uppercase bg-teal-600/90 text-white backdrop-blur-sm">
                       {post.category}
                     </span>
                   </div>
@@ -117,7 +117,7 @@ export default function Blog({ posts }: { posts: PostDTO[] }) {
                 {/* Content pane */}
                 <div className="flex flex-col p-5 sm:p-7">
                   <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1.5 mb-3">
-                    <span className="text-[10px] font-mono tracking-[.15em] uppercase text-emerald-500 dark:text-emerald-400">
+                    <span className="text-[10px] font-mono tracking-[.15em] uppercase text-teal-600 dark:text-teal-400">
                       Article · {post.category}
                     </span>
                     <div className="flex items-center gap-3 text-xs text-gray-500 dark:text-gray-400">

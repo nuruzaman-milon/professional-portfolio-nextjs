@@ -25,12 +25,6 @@ const roles = [
   "TypeScript Engineer",
 ];
 
-export const PORTFOLIO_STATS = [
-  { value: "3+", label: "Years Experience" },
-  { value: "25+", label: "Projects Shipped" },
-  { value: "15+", label: "Happy Clients" },
-];
-
 const slideUp: Variants = {
   hidden: { opacity: 0, y: 24 },
   show: {
@@ -49,7 +43,8 @@ const stagger: Variants = {
 };
 
 export default function Hero() {
-  const [currentRole, setCurrentRole] = useState(0);
+  // starts at 1 — the eyebrow already reads "Software Engineer" (roles[0])
+  const [currentRole, setCurrentRole] = useState(1);
 
   useEffect(() => {
     const id = setInterval(() => {
@@ -76,7 +71,7 @@ export default function Hero() {
           height: 480,
           borderRadius: "50%",
           background:
-            "radial-gradient(circle,rgba(16,185,129,.12) 0%,transparent 70%)",
+            "radial-gradient(circle,rgba(13,148,136,.12) 0%,transparent 70%)",
         }}
       />
       <div
@@ -88,11 +83,11 @@ export default function Hero() {
           height: 360,
           borderRadius: "50%",
           background:
-            "radial-gradient(circle,rgba(20,184,166,.10) 0%,transparent 70%)",
+            "radial-gradient(circle,rgba(15,118,110,.10) 0%,transparent 70%)",
         }}
       />
 
-      <div className="relative z-10">
+      <div className="relative z-10 w-full">
         <Container className="py-24">
           <motion.div
             variants={stagger}
@@ -106,27 +101,27 @@ export default function Hero() {
               className="flex justify-center mb-10"
             >
               <span className="tp">
-                <span className="pdot w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block" />
+                <span className="pdot w-1.5 h-1.5 rounded-full bg-teal-600 inline-block" />
                 Available for new opportunities
               </span>
             </motion.div>
 
             {/* Two-column layout */}
-            <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-20 mb-16">
+            <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-20">
               {/* Text column */}
               <div className="flex-1 text-center lg:text-left">
                 <motion.div
                   variants={slideUp}
-                  className="mb-2 text-xs font-medium tracking-[.15em] uppercase text-emerald-600 dark:text-emerald-400"
+                  className="mb-2 text-xs font-medium tracking-[.15em] uppercase text-teal-700 dark:text-teal-400"
                 >
                   Software Engineer · Dhaka, Bangladesh
                 </motion.div>
 
                 <motion.h1
                   variants={slideUp}
-                  className="pf-serif text-[clamp(3rem,16vw,3.75rem)] md:text-7xl lg:text-8xl font-normal text-gray-900 dark:text-white mb-5 leading-[1.05]"
+                  className="pf-serif text-[clamp(2rem,10vw,2.5rem)] md:text-6xl xl:text-7xl font-normal text-gray-900 dark:text-white mb-5 leading-[1.05]"
                 >
-                  Md. Nuruzaman Milon
+                  Md. Nuruzaman <span className="em-g">Milon</span>
                 </motion.h1>
 
                 {/* Role rotator */}
@@ -149,14 +144,14 @@ export default function Hero() {
                       {roles[currentRole]}
                     </motion.span>
                   </AnimatePresence>
-                  <span className="ml-1 inline-block w-px h-4 bg-emerald-500 animate-pulse" />
+                  <span className="ml-1 inline-block w-px h-4 bg-teal-600 animate-pulse" />
                 </motion.div>
 
                 <motion.p
                   variants={slideUp}
                   className="text-base text-gray-600 dark:text-gray-300 mb-10 max-w-lg mx-auto lg:mx-0 leading-relaxed"
                 >
-                  Full-stack Software Engineer with 3+ years of experience
+                  Full-stack Software Engineer with 4+ years of experience
                   building scalable web applications using React, Next.js, and
                   Node.js — from e-commerce platforms and ERP systems to
                   Web3-integrated social platforms.
@@ -203,12 +198,12 @@ export default function Hero() {
                     <a
                       key={label}
                       href={href}
-                      aria-label={label}
-                      className="soc"
+                      className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium border border-black/[0.08] bg-white/60 text-gray-600 hover:text-teal-700 hover:border-teal-700/40 hover:-translate-y-0.5 dark:border-white/[0.08] dark:bg-white/[0.04] dark:text-gray-400 dark:hover:text-teal-400 dark:hover:border-teal-400/40 transition-all duration-200"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      <Icon size={18} />
+                      <Icon size={15} />
+                      {label}
                     </a>
                   ))}
                 </motion.div>
@@ -220,85 +215,68 @@ export default function Hero() {
                 className="flex-shrink-0 flex justify-center"
               >
                 <div className="relative">
-                  <div className="pd rs" />
-                  <div className="relative w-56 h-56 md:w-64 md:h-64">
-                    <div className="ctl" />
-                    <div className="cbr" />
-                    <div className="w-full h-full rounded-2xl overflow-hidden border border-emerald-500/20 shadow-2xl">
+                  {/* soft ambient glow behind the portrait */}
+                  <div className="absolute -inset-6 rounded-[40px] bg-teal-600/15 dark:bg-teal-400/15 blur-3xl pointer-events-none" />
+                  <div className="relative w-56 h-64 md:w-72 md:h-80">
+                    {/* orbital arc — a true ellipse (rounded-[50%], matching the
+                        dots' offset-path exactly), wider but shorter than the
+                        photo so only the side sweeps show. Three dots ride the
+                        edge a third of a lap apart — with these zone sizes that
+                        guarantees at least one dot is always out from behind
+                        the photo. left/top are only a static fallback for
+                        browsers without motion paths. */}
+                    <div className="absolute top-[52%] left-1/2 -translate-x-1/2 -translate-y-1/2 rotate-[10deg] w-[145%] h-[72%] rounded-[50%] border border-teal-600/70 dark:border-teal-300/70 pointer-events-none">
+                      <div className="orbit-node absolute left-[97%] top-[67%] w-2 h-2 rounded-full bg-teal-500 dark:bg-teal-400 shadow-[0_0_10px_2px_rgba(45,212,191,0.6)]" />
+                      <div
+                        className="orbit-node absolute left-[11.7%] top-[82%] w-2.5 h-2.5 rounded-full bg-teal-400 shadow-[0_0_12px_3px_rgba(45,212,191,0.55)]"
+                        style={{ animationDelay: "-6s" }}
+                      />
+                      <div
+                        className="orbit-node absolute left-[41%] top-[1%] w-1.5 h-1.5 rounded-full bg-teal-500 dark:bg-teal-300 shadow-[0_0_8px_2px_rgba(45,212,191,0.5)]"
+                        style={{ animationDelay: "-12s" }}
+                      />
+                    </div>
+                    <div className="relative w-full h-full rounded-3xl overflow-hidden border border-teal-600/40 dark:border-teal-400/50 shadow-[0_0_45px_rgba(13,148,136,0.25)] dark:shadow-[0_0_55px_rgba(45,212,191,0.3)]">
                       <Image
                         src={myImg}
                         alt="Nuruzaman Milon — Software Engineer"
-                        width={256}
-                        height={256}
                         quality={90}
-                        sizes="(max-width: 768px) 224px, 256px"
+                        sizes="(max-width: 768px) 224px, 288px"
                         className="w-full h-full object-cover object-top"
                         priority
                       />
                     </div>
 
-                    {/* Bottom-right badge */}
-                    <div
-                      className="absolute -bottom-5 -right-6 px-4 py-2.5 rounded-lg shadow-xl"
-                      style={{
-                        background: "linear-gradient(135deg,#059669,#0d9488)",
-                        border: "1px solid rgba(16,185,129,.3)",
-                      }}
-                    >
-                      <div className="text-white text-center">
-                        <div className="text-xl font-bold leading-none">3+</div>
-                        <div className="text-[10px] font-medium opacity-90 tracking-wide uppercase mt-0.5">
-                          Yrs Exp.
-                        </div>
-                      </div>
+                    {/* Bottom-right badge — experience (dark chip on the photo, both themes) */}
+                    <div className="absolute -bottom-5 -right-6 flex items-center gap-3 px-5 py-3 rounded-2xl shadow-xl backdrop-blur-md border bg-gray-900/85 border-white/10">
+                      <span className="pf-serif text-3xl leading-none text-teal-400">
+                        4+
+                      </span>
+                      <span className="text-[9px] font-medium uppercase tracking-[.15em] leading-[1.5] text-gray-300">
+                        Years
+                        <br />
+                        Experience
+                      </span>
                     </div>
 
-                    {/* Top-left badge */}
-                    <div
-                      className="absolute -top-4 -left-6 px-3 py-2 rounded-lg shadow-lg"
-                      style={{
-                        background: "rgba(255,255,255,.92)",
-                        border: "1px solid rgba(0,0,0,.06)",
-                        backdropFilter: "blur(12px)",
-                      }}
-                    >
-                      <div className="text-[10px] text-gray-400 font-medium tracking-wide uppercase">
-                        Core Stack
-                      </div>
-                      <div className="text-xs font-bold text-gray-800 mt-0.5">
+                    {/* Top-left badge — core stack (dark pill on the photo, both themes) */}
+                    <div className="absolute -top-4 -left-6 flex items-center gap-2 px-4 py-2.5 rounded-full shadow-xl backdrop-blur-md border bg-gray-900/85 border-white/10">
+                      <span className="w-1.5 h-1.5 rounded-full bg-teal-400" />
+                      <span className="text-xs font-semibold tracking-wide text-white whitespace-nowrap">
                         Next.js · Node.js
-                      </div>
+                      </span>
                     </div>
                   </div>
                 </div>
               </motion.div>
             </div>
 
-            {/* Divider */}
-            <motion.div variants={slideUp} className="hl mb-10" />
-
-            {/* Stats */}
-            <motion.div
-              variants={slideUp}
-              className="grid grid-cols-3 gap-2 sm:gap-4 max-w-lg mx-auto lg:mx-0"
-            >
-              {PORTFOLIO_STATS.map(({ value, label }) => (
-                <div key={label} className="sc text-center lg:text-left">
-                  <div className="pf-serif text-3xl em-g font-normal mb-1">
-                    {value}
-                  </div>
-                  <div className="text-xs text-gray-500 dark:text-gray-400 font-medium tracking-wide uppercase">
-                    {label}
-                  </div>
-                </div>
-              ))}
-            </motion.div>
           </motion.div>
         </Container>
       </div>
 
-      {/* Scroll cue */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 sb">
+      {/* Scroll cue — only when the hero fits in one viewport, else it crowds the stats */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden [@media(min-width:1024px)_and_(min-height:800px)]:flex flex-col items-center gap-2 sb">
         <span className="text-[10px] tracking-[.2em] uppercase text-gray-400 font-medium">
           Scroll
         </span>

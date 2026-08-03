@@ -79,7 +79,7 @@ export default function About({
                 className="space-y-5 mb-8"
               >
                 <p className="text-base text-gray-600 dark:text-gray-300 leading-[1.85]">
-                  I'm a Full Stack Software Engineer with 3+ years of
+                  I'm a Full Stack Software Engineer with 4+ years of
                   professional experience delivering production-grade web
                   applications. I specialise in React, Next.js, and Node.js —
                   with a strong focus on performance, maintainable architecture,
@@ -103,7 +103,7 @@ export default function About({
                 className="flex flex-wrap items-center gap-4 mb-10"
               >
                 <span className="avail-chip">
-                  <span className="pdot w-2 h-2 rounded-full bg-emerald-500 inline-block" />
+                  <span className="pdot w-2 h-2 rounded-full bg-teal-600 inline-block" />
                   Open to opportunities
                 </span>
                 <a href="#contact" className="cta-link">
@@ -147,7 +147,7 @@ export default function About({
                           <span className="text-sm font-bold text-gray-800 dark:text-gray-100">
                             {company}
                           </span>
-                          <span className="text-xs font-mono text-emerald-600 dark:text-emerald-400">
+                          <span className="text-xs font-mono text-teal-700 dark:text-teal-400">
                             {role}
                           </span>
                         </div>
@@ -213,8 +213,8 @@ export default function About({
                     <div
                       className="absolute -top-4 -right-5 px-3 py-2.5 rounded-lg shadow-xl"
                       style={{
-                        background: "linear-gradient(135deg,#059669,#0d9488)",
-                        border: "1px solid rgba(16,185,129,.3)",
+                        background: "linear-gradient(135deg,#0f766e,#115e59)",
+                        border: "1px solid rgba(13,148,136,.3)",
                       }}
                     >
                       <div className="text-white text-center">

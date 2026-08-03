@@ -94,7 +94,7 @@ export default function AdminMessagesPage() {
               <div
                 key={msg._id}
                 className={`${cardCls} transition-colors ${
-                  !msg.read ? "border-emerald-300/60 dark:border-emerald-600/40" : ""
+                  !msg.read ? "border-teal-300/60 dark:border-teal-700/40" : ""
                 }`}
               >
                 {/* Row header — click to expand */}
@@ -106,7 +106,7 @@ export default function AdminMessagesPage() {
                     className={`flex-shrink-0 ${
                       msg.read
                         ? "text-gray-300 dark:text-gray-600"
-                        : "text-emerald-500"
+                        : "text-teal-600"
                     }`}
                   >
                     {msg.read ? <MailOpen size={16} /> : <Mail size={16} />}
@@ -154,13 +154,13 @@ export default function AdminMessagesPage() {
                     <div className="flex flex-wrap items-center gap-2">
                       <a
                         href={`mailto:${msg.email}?subject=${encodeURIComponent(`Re: ${msg.subject}`)}`}
-                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium bg-emerald-500 hover:bg-emerald-600 text-white transition-colors"
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium bg-teal-600 hover:bg-teal-700 text-white transition-colors"
                       >
                         <Reply size={12} /> Reply
                       </a>
                       <button
                         onClick={() => setRead(msg._id, !msg.read)}
-                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium border border-gray-200/70 dark:border-white/[0.08] text-gray-500 dark:text-gray-400 hover:border-emerald-300/50 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium border border-gray-200/70 dark:border-white/[0.08] text-gray-500 dark:text-gray-400 hover:border-teal-300/50 hover:text-teal-700 dark:hover:text-teal-400 transition-colors"
                       >
                         {msg.read ? (
                           <>

@@ -53,7 +53,7 @@ export default function Footer() {
           height: 220,
           borderRadius: "50%",
           background:
-            "radial-gradient(ellipse, rgba(16,185,129,.18) 0%, transparent 70%)",
+            "radial-gradient(ellipse, rgba(13,148,136,.18) 0%, transparent 70%)",
         }}
       />
 
@@ -68,7 +68,7 @@ export default function Footer() {
                 <div
                   className="w-8 h-8 rounded-sm flex items-center justify-center flex-shrink-0 transition-transform duration-300 group-hover:scale-110"
                   style={{
-                    background: "linear-gradient(135deg,#059669,#0d9488)",
+                    background: "linear-gradient(135deg,#0f766e,#115e59)",
                   }}
                 >
                   <span className="text-white text-xs font-bold tracking-tight">
@@ -107,7 +107,7 @@ export default function Footer() {
 
             {/* Quick links */}
             <div>
-              <p className="text-[10px] font-mono tracking-[.15em] uppercase text-emerald-500 dark:text-emerald-400 mb-5">
+              <p className="text-[10px] font-mono tracking-[.15em] uppercase text-teal-600 dark:text-teal-400 mb-5">
                 Navigation
               </p>
               <ul className="space-y-3">
@@ -115,9 +115,9 @@ export default function Footer() {
                   <li key={label}>
                     <Link
                       href={href}
-                      className="group flex items-center gap-1 text-sm text-gray-500 dark:text-gray-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors duration-200"
+                      className="group flex items-center gap-1 text-sm text-gray-500 dark:text-gray-400 hover:text-teal-700 dark:hover:text-teal-400 transition-colors duration-200"
                     >
-                      <span className="w-0 overflow-hidden group-hover:w-3 transition-all duration-200 text-emerald-500">
+                      <span className="w-0 overflow-hidden group-hover:w-3 transition-all duration-200 text-teal-600">
                         ›
                       </span>
                       {label}
@@ -129,7 +129,7 @@ export default function Footer() {
 
             {/* Services */}
             <div>
-              <p className="text-[10px] font-mono tracking-[.15em] uppercase text-emerald-500 dark:text-emerald-400 mb-5">
+              <p className="text-[10px] font-mono tracking-[.15em] uppercase text-teal-600 dark:text-teal-400 mb-5">
                 Services
               </p>
               <ul className="space-y-3">
@@ -138,7 +138,7 @@ export default function Footer() {
                     key={s}
                     className="flex items-start gap-2 text-sm text-gray-500 dark:text-gray-400"
                   >
-                    <span className="mt-2 w-1 h-1 rounded-full bg-emerald-400/60 flex-shrink-0" />
+                    <span className="mt-2 w-1 h-1 rounded-full bg-teal-400/60 flex-shrink-0" />
                     {s}
                   </li>
                 ))}
@@ -168,15 +168,15 @@ export default function Footer() {
              backdrop-blur-sm
              text-[11px] font-mono tracking-[.14em] uppercase
              text-gray-500 dark:text-gray-400
-             hover:border-emerald-400/60 dark:hover:border-emerald-600/50
-             hover:text-emerald-600 dark:hover:text-emerald-400
-             hover:bg-emerald-50/60 dark:hover:bg-emerald-500/[0.06]
+             hover:border-teal-400/60 dark:hover:border-teal-700/50
+             hover:text-teal-700 dark:hover:text-teal-400
+             hover:bg-teal-50/60 dark:hover:bg-teal-600/[0.06]
              transition-all duration-300"
             >
               <span
                 className="flex items-center justify-center w-5 h-5 rounded
                bg-gray-100 dark:bg-white/[0.06]
-               group-hover:bg-emerald-100 dark:group-hover:bg-emerald-500/20
+               group-hover:bg-teal-100 dark:group-hover:bg-teal-600/20
                transition-colors duration-300"
               >
                 {/* Arrow up icon inline — no extra import needed if ArrowUp already imported */}

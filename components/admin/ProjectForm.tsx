@@ -308,7 +308,7 @@ export default function ProjectForm({
             type="checkbox"
             checked={form.published}
             onChange={(e) => set("published", e.target.checked)}
-            className="accent-emerald-500 w-4 h-4"
+            className="accent-teal-600 w-4 h-4"
           />
           <span className="text-sm text-gray-700 dark:text-gray-300">
             Published (visible on the site)

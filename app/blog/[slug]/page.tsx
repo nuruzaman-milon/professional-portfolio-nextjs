@@ -79,7 +79,7 @@ export default async function BlogPost({
           </h1>
           <Link
             href="/blog"
-            className="inline-flex items-center gap-2 text-sm text-emerald-500 hover:text-emerald-400 transition-colors"
+            className="inline-flex items-center gap-2 text-sm text-teal-600 hover:text-teal-400 transition-colors"
           >
             <ArrowLeft size={15} /> Back to Blog
           </Link>
@@ -104,7 +104,7 @@ export default async function BlogPost({
           height: 480,
           borderRadius: "50%",
           background:
-            "radial-gradient(circle, rgba(16,185,129,.15) 0%, transparent 70%)",
+            "radial-gradient(circle, rgba(13,148,136,.15) 0%, transparent 70%)",
         }}
       />
 
@@ -118,7 +118,7 @@ export default async function BlogPost({
           height: 360,
           borderRadius: "50%",
           background:
-            "radial-gradient(circle, rgba(16,185,129,.12) 0%, transparent 70%)",
+            "radial-gradient(circle, rgba(13,148,136,.12) 0%, transparent 70%)",
         }}
       />
 
@@ -127,7 +127,7 @@ export default async function BlogPost({
           {/* ── Back link ── */}
           <Link
             href="/blog"
-            className="inline-flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors duration-200 mb-14"
+            className="inline-flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 hover:text-teal-600 dark:hover:text-teal-400 transition-colors duration-200 mb-14"
           >
             <ArrowLeft size={15} /> Back to Blog
           </Link>
@@ -136,7 +136,7 @@ export default async function BlogPost({
           <header className="mb-10">
             {/* Category + Tags */}
             <div className="flex flex-wrap items-center gap-2 mb-5">
-              <span className="px-3 py-1 bg-emerald-600 text-white text-[11px] font-mono tracking-wide rounded-md">
+              <span className="px-3 py-1 bg-teal-700 text-white text-[11px] font-mono tracking-wide rounded-md">
                 {post.category}
               </span>
               {post.tags.map((tag) => (
@@ -179,7 +179,7 @@ export default async function BlogPost({
                   className="h-8 px-3 rounded-lg border border-gray-200/70 dark:border-white/[0.08]
                              bg-white/70 dark:bg-white/[0.04] text-xs font-mono
                              text-gray-500 dark:text-gray-400
-                             hover:border-emerald-400/60 hover:text-emerald-600 dark:hover:text-emerald-400
+                             hover:border-teal-400/60 hover:text-teal-700 dark:hover:text-teal-400
                              flex items-center gap-1.5 transition-colors duration-200"
                 >
                   <Heart size={12} /> 24
@@ -188,7 +188,7 @@ export default async function BlogPost({
                   className="h-8 px-3 rounded-lg border border-gray-200/70 dark:border-white/[0.08]
                              bg-white/70 dark:bg-white/[0.04] text-xs font-mono
                              text-gray-500 dark:text-gray-400
-                             hover:border-emerald-400/60 hover:text-emerald-600 dark:hover:text-emerald-400
+                             hover:border-teal-400/60 hover:text-teal-700 dark:hover:text-teal-400
                              flex items-center gap-1.5 transition-colors duration-200"
                 >
                   <MessageCircle size={12} /> 8
@@ -223,7 +223,7 @@ export default async function BlogPost({
                 prose-h3:text-xl prose-h3:mt-6 prose-h3:mb-3
                 prose-p:text-gray-600 dark:prose-p:text-gray-300 prose-p:leading-relaxed
                 prose-strong:text-gray-900 dark:prose-strong:text-white prose-strong:font-semibold
-                prose-code:text-emerald-600 dark:prose-code:text-emerald-400
+                prose-code:text-teal-700 dark:prose-code:text-teal-400
                 prose-code:bg-gray-100/80 dark:prose-code:bg-white/[0.06]
                 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md prose-code:text-[13px]
                 prose-pre:bg-gray-50 dark:prose-pre:bg-white/[0.04]
@@ -231,14 +231,14 @@ export default async function BlogPost({
                 prose-pre:rounded-xl prose-pre:text-sm
                 prose-li:text-gray-600 dark:prose-li:text-gray-300
                 prose-ul:my-4
-                prose-a:text-emerald-600 dark:prose-a:text-emerald-400 prose-a:no-underline hover:prose-a:underline"
+                prose-a:text-teal-700 dark:prose-a:text-teal-400 prose-a:no-underline hover:prose-a:underline"
               dangerouslySetInnerHTML={{ __html: post.content }}
             />
           </div>
 
           {/* ── Author card ── */}
           <div className="rounded-xl border border-gray-200/60 dark:border-white/[0.07] bg-white/60 dark:bg-white/[0.03] backdrop-blur-sm p-5 sm:p-7 mb-16 flex items-center gap-4 sm:gap-5">
-            <div className="w-14 h-14 rounded-full overflow-hidden border border-emerald-400/30 flex-shrink-0">
+            <div className="w-14 h-14 rounded-full overflow-hidden border border-teal-400/30 flex-shrink-0">
               <Image
                 src="/images/me/nuruzaman-milon1.webp"
                 alt={post.author}
@@ -248,14 +248,14 @@ export default async function BlogPost({
               />
             </div>
             <div>
-              <p className="text-[10px] font-mono tracking-[.15em] uppercase text-emerald-500 dark:text-emerald-400 mb-1">
+              <p className="text-[10px] font-mono tracking-[.15em] uppercase text-teal-600 dark:text-teal-400 mb-1">
                 Author
               </p>
               <h3 className="text-base font-bold text-gray-900 dark:text-white mb-1">
                 {post.author}
               </h3>
               <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
-                Full Stack Developer with 3+ years of experience in MERN stack
+                Full Stack Developer with 4+ years of experience in MERN stack
                 development. Passionate about sharing knowledge and building
                 great products.
               </p>
@@ -265,7 +265,7 @@ export default async function BlogPost({
           {/* ── Related articles ── */}
           {related.length > 0 && (
             <div>
-              <p className="text-[10px] font-mono tracking-[.15em] uppercase text-emerald-500 dark:text-emerald-400 mb-6">
+              <p className="text-[10px] font-mono tracking-[.15em] uppercase text-teal-600 dark:text-teal-400 mb-6">
                 Related Articles
               </p>
               <div className="grid md:grid-cols-2 gap-5">
@@ -274,12 +274,12 @@ export default async function BlogPost({
                     <Link
                       key={rel.id}
                       href={`/blog/${rel.slug}`}
-                      className="group rounded-xl border border-gray-200/60 dark:border-white/[0.07] bg-white/60 dark:bg-white/[0.03] backdrop-blur-sm p-6 hover:border-emerald-300/50 dark:hover:border-emerald-700/40 transition-colors duration-300"
+                      className="group rounded-xl border border-gray-200/60 dark:border-white/[0.07] bg-white/60 dark:bg-white/[0.03] backdrop-blur-sm p-6 hover:border-teal-300/50 dark:hover:border-teal-800/40 transition-colors duration-300"
                     >
-                      <span className="inline-block px-2.5 py-1 bg-emerald-600 text-white text-[10px] font-mono tracking-wide rounded-md mb-3">
+                      <span className="inline-block px-2.5 py-1 bg-teal-700 text-white text-[10px] font-mono tracking-wide rounded-md mb-3">
                         {rel.category}
                       </span>
-                      <h4 className="text-base font-bold text-gray-900 dark:text-white mb-2 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors leading-snug">
+                      <h4 className="text-base font-bold text-gray-900 dark:text-white mb-2 group-hover:text-teal-700 dark:group-hover:text-teal-400 transition-colors leading-snug">
                         {rel.title}
                       </h4>
                       <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed line-clamp-2">
@@ -306,7 +306,7 @@ export default async function BlogPost({
           <div className="mt-20 pt-10 border-t border-gray-200/40 dark:border-white/[0.06]">
             <Link
               href="/blog"
-              className="inline-flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors duration-200"
+              className="inline-flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 hover:text-teal-600 dark:hover:text-teal-400 transition-colors duration-200"
             >
               <ArrowLeft size={15} /> Back to Blog
             </Link>
@@ -316,7 +316,7 @@ export default async function BlogPost({
 
       {/* Mobile floating share */}
       <div className="fixed bottom-6 right-6 md:hidden z-40">
-        <div className="bg-emerald-600 hover:bg-emerald-700 text-white p-3 rounded-full shadow-lg hover:scale-110 transition-all duration-300">
+        <div className="bg-teal-700 hover:bg-teal-800 text-white p-3 rounded-full shadow-lg hover:scale-110 transition-all duration-300">
           <ShareButton
             title={post.title}
             url={`/blog/${slug}`}

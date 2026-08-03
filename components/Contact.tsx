@@ -114,7 +114,7 @@ export default function Contact() {
           height: 460,
           borderRadius: "50%",
           background:
-            "radial-gradient(circle, rgba(16,185,129,.15) 0%, transparent 70%)",
+            "radial-gradient(circle, rgba(13,148,136,.15) 0%, transparent 70%)",
         }}
       />
 
@@ -153,16 +153,16 @@ export default function Contact() {
                   key={label}
                   href={href}
                   target="_blank"
-                  className="group flex items-center gap-4 rounded-xl border border-gray-200/60 dark:border-white/[0.07] bg-white/60 dark:bg-white/[0.03] backdrop-blur-sm p-5 hover:border-emerald-300/50 dark:hover:border-emerald-700/40 transition-all duration-300"
+                  className="group flex items-center gap-4 rounded-xl border border-gray-200/60 dark:border-white/[0.07] bg-white/60 dark:bg-white/[0.03] backdrop-blur-sm p-5 hover:border-teal-300/50 dark:hover:border-teal-800/40 transition-all duration-300"
                 >
                   {/* Icon */}
-                  <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200/60 dark:border-emerald-500/20 flex items-center justify-center text-emerald-600 dark:text-emerald-400 group-hover:bg-emerald-500 group-hover:text-white group-hover:border-emerald-500 transition-all duration-300">
+                  <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-teal-50 dark:bg-teal-600/10 border border-teal-200/60 dark:border-teal-600/20 flex items-center justify-center text-teal-700 dark:text-teal-400 group-hover:bg-teal-600 group-hover:text-white group-hover:border-teal-600 transition-all duration-300">
                     <Icon size={16} />
                   </div>
 
                   {/* Text */}
                   <div className="min-w-0">
-                    <div className="text-[10px] font-mono tracking-[.15em] uppercase text-emerald-500 dark:text-emerald-400 mb-0.5">
+                    <div className="text-[10px] font-mono tracking-[.15em] uppercase text-teal-600 dark:text-teal-400 mb-0.5">
                       {mono}
                       {label}
                     </div>
@@ -173,7 +173,7 @@ export default function Contact() {
 
                   <ArrowUpRight
                     size={13}
-                    className="ml-auto flex-shrink-0 text-gray-300 dark:text-gray-600 group-hover:text-emerald-500 transition-colors"
+                    className="ml-auto flex-shrink-0 text-gray-300 dark:text-gray-600 group-hover:text-teal-600 transition-colors"
                   />
                 </a>
               ))}
@@ -182,10 +182,10 @@ export default function Contact() {
               <div className="mt-2 rounded-xl border border-gray-200/60 dark:border-white/[0.07] bg-white/60 dark:bg-white/[0.03] backdrop-blur-sm p-5">
                 <div className="flex items-center gap-2 mb-2">
                   <span className="relative flex h-2 w-2">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75" />
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-teal-600" />
                   </span>
-                  <span className="text-[10px] font-mono tracking-[.15em] uppercase text-emerald-500 dark:text-emerald-400">
+                  <span className="text-[10px] font-mono tracking-[.15em] uppercase text-teal-600 dark:text-teal-400">
                     Available for work
                   </span>
                 </div>
@@ -203,7 +203,7 @@ export default function Contact() {
             >
               {sent ? (
                 <div className="h-full flex flex-col items-center justify-center gap-4 text-center py-12">
-                  <div className="w-12 h-12 rounded-full bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 flex items-center justify-center text-emerald-500">
+                  <div className="w-12 h-12 rounded-full bg-teal-50 dark:bg-teal-600/10 border border-teal-200 dark:border-teal-600/20 flex items-center justify-center text-teal-600">
                     <Send size={18} />
                   </div>
                   <h3 className="text-lg font-bold text-gray-900 dark:text-white">
@@ -266,7 +266,7 @@ export default function Contact() {
                           value={formData[id as keyof typeof formData]}
                           onChange={handleChange}
                           placeholder={placeholder}
-                          className="w-full rounded-lg border border-gray-200/80 dark:border-white/[0.08] bg-gray-50/80 dark:bg-white/[0.04] px-3.5 py-2.5 text-sm text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-600 focus:outline-none focus:border-emerald-400 dark:focus:border-emerald-600 transition-colors duration-200"
+                          className="w-full rounded-lg border border-gray-200/80 dark:border-white/[0.08] bg-gray-50/80 dark:bg-white/[0.04] px-3.5 py-2.5 text-sm text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-600 focus:outline-none focus:border-teal-400 dark:focus:border-teal-700 transition-colors duration-200"
                         />
                       </div>
                     ))}
@@ -288,7 +288,7 @@ export default function Contact() {
                       value={formData.subject}
                       onChange={handleChange}
                       placeholder="Project Discussion"
-                      className="w-full rounded-lg border border-gray-200/80 dark:border-white/[0.08] bg-gray-50/80 dark:bg-white/[0.04] px-3.5 py-2.5 text-sm text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-600 focus:outline-none focus:border-emerald-400 dark:focus:border-emerald-600 transition-colors duration-200"
+                      className="w-full rounded-lg border border-gray-200/80 dark:border-white/[0.08] bg-gray-50/80 dark:bg-white/[0.04] px-3.5 py-2.5 text-sm text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-600 focus:outline-none focus:border-teal-400 dark:focus:border-teal-700 transition-colors duration-200"
                     />
                   </div>
 
@@ -308,7 +308,7 @@ export default function Contact() {
                       value={formData.message}
                       onChange={handleChange}
                       placeholder="Tell me about your project..."
-                      className="w-full rounded-lg border border-gray-200/80 dark:border-white/[0.08] bg-gray-50/80 dark:bg-white/[0.04] px-3.5 py-2.5 text-sm text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-600 focus:outline-none focus:border-emerald-400 dark:focus:border-emerald-600 transition-colors duration-200 resize-none"
+                      className="w-full rounded-lg border border-gray-200/80 dark:border-white/[0.08] bg-gray-50/80 dark:bg-white/[0.04] px-3.5 py-2.5 text-sm text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-600 focus:outline-none focus:border-teal-400 dark:focus:border-teal-700 transition-colors duration-200 resize-none"
                     />
                   </div>
 

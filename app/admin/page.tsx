@@ -80,7 +80,7 @@ export default function AdminDashboard() {
                 Database not connected
               </h2>
               <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
-                Set <code className="text-emerald-600 dark:text-emerald-400 font-mono text-xs">MONGODB_URI</code> in{" "}
+                Set <code className="text-teal-700 dark:text-teal-400 font-mono text-xs">MONGODB_URI</code> in{" "}
                 <code className="font-mono text-xs">.env.local</code> (get a free
                 cluster at MongoDB Atlas), restart the dev server, then come back
                 here and click <strong>Import existing content</strong>. Until
@@ -93,10 +93,10 @@ export default function AdminDashboard() {
       )}
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
-        <Link href="/admin/posts" className={`${cardCls} p-6 hover:border-emerald-300/50 dark:hover:border-emerald-700/40 transition-colors`}>
+        <Link href="/admin/posts" className={`${cardCls} p-6 hover:border-teal-300/50 dark:hover:border-teal-800/40 transition-colors`}>
           <div className="flex items-center gap-3 mb-2">
-            <FileText size={16} className="text-emerald-500" />
-            <span className="text-[10px] font-mono tracking-[.15em] uppercase text-emerald-500 dark:text-emerald-400">
+            <FileText size={16} className="text-teal-600" />
+            <span className="text-[10px] font-mono tracking-[.15em] uppercase text-teal-600 dark:text-teal-400">
               Blog Posts
             </span>
           </div>
@@ -105,10 +105,10 @@ export default function AdminDashboard() {
           </div>
         </Link>
 
-        <Link href="/admin/projects" className={`${cardCls} p-6 hover:border-emerald-300/50 dark:hover:border-emerald-700/40 transition-colors`}>
+        <Link href="/admin/projects" className={`${cardCls} p-6 hover:border-teal-300/50 dark:hover:border-teal-800/40 transition-colors`}>
           <div className="flex items-center gap-3 mb-2">
-            <FolderKanban size={16} className="text-emerald-500" />
-            <span className="text-[10px] font-mono tracking-[.15em] uppercase text-emerald-500 dark:text-emerald-400">
+            <FolderKanban size={16} className="text-teal-600" />
+            <span className="text-[10px] font-mono tracking-[.15em] uppercase text-teal-600 dark:text-teal-400">
               Projects
             </span>
           </div>
@@ -117,10 +117,10 @@ export default function AdminDashboard() {
           </div>
         </Link>
 
-        <Link href="/admin/experiences" className={`${cardCls} p-6 hover:border-emerald-300/50 dark:hover:border-emerald-700/40 transition-colors`}>
+        <Link href="/admin/experiences" className={`${cardCls} p-6 hover:border-teal-300/50 dark:hover:border-teal-800/40 transition-colors`}>
           <div className="flex items-center gap-3 mb-2">
-            <Briefcase size={16} className="text-emerald-500" />
-            <span className="text-[10px] font-mono tracking-[.15em] uppercase text-emerald-500 dark:text-emerald-400">
+            <Briefcase size={16} className="text-teal-600" />
+            <span className="text-[10px] font-mono tracking-[.15em] uppercase text-teal-600 dark:text-teal-400">
               Experience
             </span>
           </div>
@@ -129,14 +129,14 @@ export default function AdminDashboard() {
           </div>
         </Link>
 
-        <Link href="/admin/messages" className={`${cardCls} p-6 hover:border-emerald-300/50 dark:hover:border-emerald-700/40 transition-colors`}>
+        <Link href="/admin/messages" className={`${cardCls} p-6 hover:border-teal-300/50 dark:hover:border-teal-800/40 transition-colors`}>
           <div className="flex items-center gap-3 mb-2">
-            <Mail size={16} className="text-emerald-500" />
-            <span className="text-[10px] font-mono tracking-[.15em] uppercase text-emerald-500 dark:text-emerald-400">
+            <Mail size={16} className="text-teal-600" />
+            <span className="text-[10px] font-mono tracking-[.15em] uppercase text-teal-600 dark:text-teal-400">
               Messages
             </span>
             {messageStats && messageStats.unread > 0 && (
-              <span className="ml-auto px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500 text-white leading-none">
+              <span className="ml-auto px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-teal-600 text-white leading-none">
                 {messageStats.unread}
               </span>
             )}
@@ -167,7 +167,7 @@ export default function AdminDashboard() {
           {seeding ? "Importing…" : "Import existing content"}
         </button>
         {seedResult && (
-          <p className="mt-3 text-sm text-emerald-600 dark:text-emerald-400">
+          <p className="mt-3 text-sm text-teal-700 dark:text-teal-400">
             {seedResult}
           </p>
         )}

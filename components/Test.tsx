@@ -226,7 +226,7 @@ export default function Tests() {
                 <p className="text-xs text-gray-400 mt-1">{group.tagline}</p>
 
                 {/* 🔥 Highlight */}
-                <p className="text-xs text-emerald-500 mt-2">
+                <p className="text-xs text-teal-600 mt-2">
                   {group.highlight}
                 </p>
               </div>

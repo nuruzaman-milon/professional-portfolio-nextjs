@@ -129,7 +129,7 @@ export default function PostForm({ initial }: { initial?: PostFormData }) {
           <button
             type="button"
             onClick={() => setHtmlMode((v) => !v)}
-            className="text-[10px] font-mono tracking-wide uppercase text-gray-400 dark:text-gray-500 hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors"
+            className="text-[10px] font-mono tracking-wide uppercase text-gray-400 dark:text-gray-500 hover:text-teal-600 dark:hover:text-teal-400 transition-colors"
           >
             {htmlMode ? "← Visual editor" : "Edit as HTML"}
           </button>
@@ -217,7 +217,7 @@ export default function PostForm({ initial }: { initial?: PostFormData }) {
           type="checkbox"
           checked={form.published}
           onChange={(e) => set("published", e.target.checked)}
-          className="accent-emerald-500 w-4 h-4"
+          className="accent-teal-600 w-4 h-4"
         />
         <span className="text-sm text-gray-700 dark:text-gray-300">
           Published (visible on the site)

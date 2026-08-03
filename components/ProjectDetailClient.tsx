@@ -46,8 +46,8 @@ function SectionLabel({
 }) {
   return (
     <div className="flex items-center gap-2 mb-4">
-      <Icon size={13} className="text-emerald-500" />
-      <span className="text-[10px] font-mono tracking-[.18em] uppercase text-emerald-500 dark:text-emerald-400">
+      <Icon size={13} className="text-teal-600" />
+      <span className="text-[10px] font-mono tracking-[.18em] uppercase text-teal-600 dark:text-teal-400">
         {label}
       </span>
     </div>
@@ -92,7 +92,7 @@ export default function ProjectDetailClient({
           height: 500,
           borderRadius: "50%",
           background:
-            "radial-gradient(circle, rgba(16,185,129,.18) 0%, transparent 70%)",
+            "radial-gradient(circle, rgba(13,148,136,.18) 0%, transparent 70%)",
         }}
       />
 
@@ -107,7 +107,7 @@ export default function ProjectDetailClient({
           >
             <Link
               href="/projects"
-              className="inline-flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors duration-200"
+              className="inline-flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 hover:text-teal-600 dark:hover:text-teal-400 transition-colors duration-200"
             >
               <ArrowLeft size={15} />
               Back to projects
@@ -122,7 +122,7 @@ export default function ProjectDetailClient({
             className="mb-16"
           >
             <motion.div variants={fadeUp}>
-              <span className="text-[10px] font-mono tracking-[.18em] uppercase text-emerald-500 dark:text-emerald-400">
+              <span className="text-[10px] font-mono tracking-[.18em] uppercase text-teal-600 dark:text-teal-400">
                 {project.label}
               </span>
             </motion.div>
@@ -166,7 +166,7 @@ export default function ProjectDetailClient({
                   href={project.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-gray-100/80 dark:bg-white/[0.05] text-gray-600 dark:text-gray-300 border border-gray-200/60 dark:border-white/[0.08] hover:border-emerald-300/50 dark:hover:border-emerald-700/40 transition-all duration-200"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-gray-100/80 dark:bg-white/[0.05] text-gray-600 dark:text-gray-300 border border-gray-200/60 dark:border-white/[0.08] hover:border-teal-300/50 dark:hover:border-teal-800/40 transition-all duration-200"
                 >
                   <Github size={15} />
                   View Code
@@ -177,7 +177,7 @@ export default function ProjectDetailClient({
                   href={project.live}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-emerald-500 hover:bg-emerald-600 text-white transition-all duration-200"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-teal-600 hover:bg-teal-700 text-white transition-all duration-200"
                 >
                   <ExternalLink size={15} />
                   Live Site
@@ -231,7 +231,7 @@ export default function ProjectDetailClient({
                         key={f}
                         className="flex items-start gap-3 text-sm text-gray-600 dark:text-gray-300"
                       >
-                        <span className="mt-2 w-1 h-1 rounded-full bg-emerald-400/70 flex-shrink-0" />
+                        <span className="mt-2 w-1 h-1 rounded-full bg-teal-400/70 flex-shrink-0" />
                         {f}
                       </li>
                     ))}
@@ -246,7 +246,7 @@ export default function ProjectDetailClient({
                     {project.challenges.map((c, i) => (
                       <li key={i} className="flex gap-4">
                         <span
-                          className="mt-0.5 flex-shrink-0 font-mono text-[10px] text-emerald-500 dark:text-emerald-400"
+                          className="mt-0.5 flex-shrink-0 font-mono text-[10px] text-teal-600 dark:text-teal-400"
                           style={{ minWidth: 20 }}
                         >
                           {String(i + 1).padStart(2, "0")}
@@ -267,7 +267,7 @@ export default function ProjectDetailClient({
                     {project.learnings.map((l, i) => (
                       <li key={i} className="flex gap-4">
                         <span
-                          className="mt-0.5 flex-shrink-0 font-mono text-[10px] text-emerald-500 dark:text-emerald-400"
+                          className="mt-0.5 flex-shrink-0 font-mono text-[10px] text-teal-600 dark:text-teal-400"
                           style={{ minWidth: 20 }}
                         >
                           {String(i + 1).padStart(2, "0")}
@@ -309,7 +309,7 @@ export default function ProjectDetailClient({
                         key={h}
                         className="flex items-start gap-2.5 text-sm text-gray-600 dark:text-gray-300"
                       >
-                        <span className="mt-2 w-1 h-1 rounded-full bg-emerald-400/70 flex-shrink-0" />
+                        <span className="mt-2 w-1 h-1 rounded-full bg-teal-400/70 flex-shrink-0" />
                         {h}
                       </li>
                     ))}
@@ -348,7 +348,7 @@ export default function ProjectDetailClient({
                         <dd className="text-xs text-gray-600 dark:text-gray-300 text-right">
                           {value}
                           {label === "Status" && value === "Live" && (
-                            <span className="inline-block ml-1.5 w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                            <span className="inline-block ml-1.5 w-1.5 h-1.5 rounded-full bg-teal-400 animate-pulse" />
                           )}
                         </dd>
                       </div>
@@ -360,7 +360,7 @@ export default function ProjectDetailClient({
                       href={project.live}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="mt-5 w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-xs font-medium bg-emerald-500 hover:bg-emerald-600 text-white transition-all duration-200"
+                      className="mt-5 w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-xs font-medium bg-teal-600 hover:bg-teal-700 text-white transition-all duration-200"
                     >
                       <ExternalLink size={13} />
                       Visit Live Site
@@ -382,7 +382,7 @@ export default function ProjectDetailClient({
           >
             <Link
               href="/projects"
-              className="inline-flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors duration-200"
+              className="inline-flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 hover:text-teal-600 dark:hover:text-teal-400 transition-colors duration-200"
             >
               <ArrowLeft size={15} />
               All projects

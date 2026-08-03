@@ -118,7 +118,7 @@ export default function Navbar() {
               <div
                 className="w-8 h-8 rounded-sm flex items-center justify-center flex-shrink-0 transition-transform duration-300 group-hover:scale-110"
                 style={{
-                  background: "linear-gradient(135deg,#059669,#0d9488)",
+                  background: "linear-gradient(135deg,#0f766e,#115e59)",
                 }}
               >
                 <span className="text-white text-xs font-bold tracking-tight">
@@ -147,17 +147,17 @@ export default function Navbar() {
                     onClick={() => handleNavClick(item.id)}
                     className={`relative text-sm transition-colors duration-300 group ${
                       isActive
-                        ? "text-emerald-600 dark:text-emerald-400 font-semibold"
+                        ? "text-teal-700 dark:text-teal-400 font-semibold"
                         : scrolled
-                          ? "text-gray-700 dark:text-gray-200 hover:text-emerald-600 dark:hover:text-emerald-400"
-                          : "text-gray-600 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400"
+                          ? "text-gray-700 dark:text-gray-200 hover:text-teal-700 dark:hover:text-teal-400"
+                          : "text-gray-600 dark:text-gray-300 hover:text-teal-700 dark:hover:text-teal-400"
                     }`}
                     style={{ transitionDelay: `${i * 30}ms` }}
                   >
                     {item.label}
                     {/* Underline indicator — single indicator, no dot */}
                     <span
-                      className={`absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-emerald-600 to-teal-500 dark:from-emerald-400 dark:to-teal-400 transition-all duration-300 ${
+                      className={`absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-teal-700 to-teal-800 dark:from-teal-400 dark:to-teal-300 transition-all duration-300 ${
                         isActive ? "w-full" : "w-0 group-hover:w-full"
                       }`}
                     />
@@ -179,7 +179,7 @@ export default function Navbar() {
                   scrolled
                     ? "text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
                     : "text-gray-900 dark:text-white hover:bg-white/10"
-                } hover:text-emerald-600 dark:hover:text-emerald-400`}
+                } hover:text-teal-700 dark:hover:text-teal-400`}
               >
                 {/* Single animated icon swap */}
                 <div className="relative w-6 h-6">
@@ -233,13 +233,13 @@ export default function Navbar() {
                         onClick={() => handleNavClick(item.id)}
                         className={`flex items-center justify-between py-2.5 px-3 rounded-lg text-sm transition-colors duration-200 ${
                           isActive
-                            ? "text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/20 font-semibold"
-                            : "text-gray-700 dark:text-gray-200 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 hover:text-emerald-600 dark:hover:text-emerald-400"
+                            ? "text-teal-700 dark:text-teal-400 bg-teal-50 dark:bg-teal-900/20 font-semibold"
+                            : "text-gray-700 dark:text-gray-200 hover:bg-teal-50 dark:hover:bg-teal-900/20 hover:text-teal-700 dark:hover:text-teal-400"
                         }`}
                       >
                         <span>{item.label}</span>
                         {isActive && (
-                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 dark:bg-emerald-400" />
+                          <span className="w-1.5 h-1.5 rounded-full bg-teal-600 dark:bg-teal-400" />
                         )}
                       </Link>
                     </motion.div>

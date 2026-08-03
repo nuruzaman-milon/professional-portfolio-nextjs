@@ -108,14 +108,20 @@ body {
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
-   PORTFOLIO — EMERALD GRADIENT TEXT
+   PORTFOLIO — TEAL GRADIENT TEXT
    ───────────────────────────────────────────────────────────────────────── */
 .em-g,
 .gradient-text {
-  background: linear-gradient(135deg, #059669 0%, #0d9488 50%, #10b981 100%);
+  background: linear-gradient(135deg, #0f766e 0%, #115e59 50%, #0d9488 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+/* background-image only — the shorthand would reset background-clip and
+   un-mask the text */
+.dark .em-g,
+.dark .gradient-text {
+  background-image: linear-gradient(135deg, #0d9488 0%, #14b8a6 50%, #2dd4bf 100%);
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
@@ -143,17 +149,17 @@ body {
   background-image:
     radial-gradient(
       ellipse 80% 60% at 20% 20%,
-      rgba(16, 185, 129, 0.12) 0%,
+      rgba(13, 148, 136, 0.12) 0%,
       transparent 60%
     ),
     radial-gradient(
       ellipse 60% 50% at 80% 80%,
-      rgba(20, 184, 166, 0.1) 0%,
+      rgba(15, 118, 110, 0.1) 0%,
       transparent 55%
     ),
     radial-gradient(
       ellipse 40% 40% at 50% 50%,
-      rgba(5, 150, 105, 0.06) 0%,
+      rgba(15, 118, 110, 0.06) 0%,
       transparent 70%
     );
   isolation: isolate;
@@ -163,17 +169,17 @@ body {
   background-image:
     radial-gradient(
       ellipse 80% 60% at 20% 20%,
-      rgba(16, 185, 129, 0.08) 0%,
+      rgba(13, 148, 136, 0.08) 0%,
       transparent 60%
     ),
     radial-gradient(
       ellipse 60% 50% at 80% 80%,
-      rgba(20, 184, 166, 0.07) 0%,
+      rgba(15, 118, 110, 0.07) 0%,
       transparent 55%
     ),
     radial-gradient(
       ellipse 40% 40% at 50% 50%,
-      rgba(5, 150, 105, 0.04) 0%,
+      rgba(15, 118, 110, 0.04) 0%,
       transparent 70%
     );
   isolation: isolate;
@@ -185,12 +191,12 @@ body {
   background-image:
     radial-gradient(
       ellipse 70% 50% at 90% 10%,
-      rgba(16, 185, 129, 0.1) 0%,
+      rgba(13, 148, 136, 0.1) 0%,
       transparent 60%
     ),
     radial-gradient(
       ellipse 50% 40% at 10% 90%,
-      rgba(20, 184, 166, 0.08) 0%,
+      rgba(15, 118, 110, 0.08) 0%,
       transparent 60%
     );
 }
@@ -199,12 +205,12 @@ body {
   background-image:
     radial-gradient(
       ellipse 70% 50% at 90% 10%,
-      rgba(16, 185, 129, 0.07) 0%,
+      rgba(13, 148, 136, 0.07) 0%,
       transparent 60%
     ),
     radial-gradient(
       ellipse 50% 40% at 10% 90%,
-      rgba(20, 184, 166, 0.05) 0%,
+      rgba(15, 118, 110, 0.05) 0%,
       transparent 60%
     );
 }
@@ -214,25 +220,25 @@ body {
    ───────────────────────────────────────────────────────────────────────── */
 .pf-grid {
   background-image:
-    linear-gradient(rgba(16, 185, 129, 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(16, 185, 129, 0.06) 1px, transparent 1px);
+    linear-gradient(rgba(13, 148, 136, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(13, 148, 136, 0.06) 1px, transparent 1px);
   background-size: 60px 60px;
 }
 .dark .pf-grid {
   background-image:
-    linear-gradient(rgba(16, 185, 129, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(16, 185, 129, 0.04) 1px, transparent 1px);
+    linear-gradient(rgba(13, 148, 136, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(13, 148, 136, 0.04) 1px, transparent 1px);
 }
 .ab-grid {
   background-image:
-    linear-gradient(rgba(16, 185, 129, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(16, 185, 129, 0.05) 1px, transparent 1px);
+    linear-gradient(rgba(13, 148, 136, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(13, 148, 136, 0.05) 1px, transparent 1px);
   background-size: 60px 60px;
 }
 .dark .ab-grid {
   background-image:
-    linear-gradient(rgba(16, 185, 129, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(16, 185, 129, 0.03) 1px, transparent 1px);
+    linear-gradient(rgba(13, 148, 136, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(13, 148, 136, 0.03) 1px, transparent 1px);
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
@@ -246,17 +252,17 @@ body {
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #059669;
+  color: #0f766e;
 }
 .sec-label::before {
   content: "";
   display: block;
   width: 24px;
   height: 1.5px;
-  background: linear-gradient(90deg, #059669, #0d9488);
+  background: linear-gradient(90deg, #0f766e, #115e59);
 }
 .dark .sec-label {
-  color: #34d399;
+  color: #2dd4bf;
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
@@ -267,7 +273,7 @@ body {
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(5, 150, 105, 0.2),
+    rgba(15, 118, 110, 0.2),
     transparent
   );
 }
@@ -284,14 +290,14 @@ body {
 .ctl {
   top: -1px;
   left: -1px;
-  border-top: 2px solid #059669;
-  border-left: 2px solid #059669;
+  border-top: 2px solid #0f766e;
+  border-left: 2px solid #0f766e;
 }
 .cbr {
   bottom: -1px;
   right: -1px;
-  border-bottom: 2px solid #059669;
-  border-right: 2px solid #059669;
+  border-bottom: 2px solid #0f766e;
+  border-right: 2px solid #0f766e;
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
@@ -310,7 +316,7 @@ body {
   background: rgba(255, 255, 255, 0.03);
 }
 .sc:hover {
-  border-color: rgba(5, 150, 105, 0.25);
+  border-color: rgba(15, 118, 110, 0.25);
   transform: translateY(-3px);
 }
 @media (min-width: 640px) {
@@ -331,9 +337,9 @@ body {
   font-size: 12px;
   font-weight: 500;
   letter-spacing: 0.03em;
-  border: 1px solid rgba(5, 150, 105, 0.2);
-  background: rgba(5, 150, 105, 0.06);
-  color: #059669;
+  border: 1px solid rgba(15, 118, 110, 0.2);
+  background: rgba(15, 118, 110, 0.06);
+  color: #0f766e;
 }
 .avail-chip {
   display: inline-flex;
@@ -343,22 +349,22 @@ body {
   border-radius: 6px;
   font-size: 12px;
   font-weight: 500;
-  border: 1px solid rgba(5, 150, 105, 0.2);
-  background: rgba(5, 150, 105, 0.06);
-  color: #059669;
+  border: 1px solid rgba(15, 118, 110, 0.2);
+  background: rgba(15, 118, 110, 0.06);
+  color: #0f766e;
 }
 .dark .tp,
 .dark .avail-chip {
-  color: #34d399;
-  border-color: rgba(52, 211, 153, 0.2);
-  background: rgba(52, 211, 153, 0.05);
+  color: #2dd4bf;
+  border-color: rgba(45, 212, 191, 0.2);
+  background: rgba(45, 212, 191, 0.05);
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
    PORTFOLIO — BUTTONS
    ───────────────────────────────────────────────────────────────────────── */
 .btn-p {
-  background: linear-gradient(135deg, #059669, #0d9488);
+  background: linear-gradient(135deg, #0f766e, #115e59);
   color: #fff;
   padding: 14px 32px;
   border-radius: 4px;
@@ -388,12 +394,12 @@ body {
 }
 .btn-p:hover {
   transform: translateY(-2px);
-  box-shadow: 0 12px 32px rgba(5, 150, 105, 0.35);
+  box-shadow: 0 12px 32px rgba(15, 118, 110, 0.35);
 }
 
 .btn-g {
   background: transparent;
-  color: #059669;
+  color: #0f766e;
   padding: 13px 32px;
   border-radius: 4px;
   font-size: 13px;
@@ -404,16 +410,16 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  border: 1.5px solid rgba(5, 150, 105, 0.35);
+  border: 1.5px solid rgba(15, 118, 110, 0.35);
   cursor: pointer;
 }
 .dark .btn-g {
-  color: #34d399;
-  border-color: rgba(52, 211, 153, 0.3);
+  color: #2dd4bf;
+  border-color: rgba(45, 212, 191, 0.3);
 }
 .btn-g:hover {
-  border-color: #059669;
-  background: rgba(5, 150, 105, 0.06);
+  border-color: #0f766e;
+  background: rgba(15, 118, 110, 0.06);
   transform: translateY(-2px);
 }
 
@@ -439,10 +445,10 @@ body {
   color: #9ca3af;
 }
 .soc:hover {
-  color: #059669;
-  border-color: rgba(5, 150, 105, 0.4);
+  color: #0f766e;
+  border-color: rgba(15, 118, 110, 0.4);
   transform: translateY(-3px);
-  background: rgba(5, 150, 105, 0.05);
+  background: rgba(15, 118, 110, 0.05);
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
@@ -451,7 +457,7 @@ body {
 .ph-frame {
   border-radius: 12px;
   overflow: hidden;
-  border: 1px solid rgba(5, 150, 105, 0.18);
+  border: 1px solid rgba(15, 118, 110, 0.18);
   box-shadow:
     0 24px 64px rgba(0, 0, 0, 0.12),
     0 0 0 1px rgba(255, 255, 255, 0.5) inset;
@@ -467,7 +473,7 @@ body {
   position: absolute;
   inset: -8px;
   border-radius: 50%;
-  border: 1.5px dashed rgba(16, 185, 129, 0.3);
+  border: 1.5px dashed rgba(13, 148, 136, 0.3);
 }
 .rs {
   animation: spins 14s linear infinite;
@@ -509,18 +515,18 @@ body {
   width: 1.5px;
   background: linear-gradient(
     180deg,
-    rgba(5, 150, 105, 0.4) 0%,
-    rgba(5, 150, 105, 0.1) 100%
+    rgba(15, 118, 110, 0.4) 0%,
+    rgba(15, 118, 110, 0.1) 100%
   );
 }
 .tl-dot {
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #059669, #0d9488);
+  background: linear-gradient(135deg, #0f766e, #115e59);
   flex-shrink: 0;
   margin-top: 3px;
-  box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.15);
+  box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.15);
 }
 .tl-card {
   padding: 16px 18px;
@@ -535,7 +541,7 @@ body {
   background: rgba(255, 255, 255, 0.03);
 }
 .tl-card:hover {
-  border-color: rgba(5, 150, 105, 0.25);
+  border-color: rgba(15, 118, 110, 0.25);
   transform: translateX(3px);
 }
 
@@ -550,17 +556,17 @@ body {
   font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: #059669;
-  border-bottom: 1px solid rgba(5, 150, 105, 0.3);
+  color: #0f766e;
+  border-bottom: 1px solid rgba(15, 118, 110, 0.3);
   padding-bottom: 2px;
   transition: all 0.25s ease;
 }
 .dark .cta-link {
-  color: #34d399;
-  border-color: rgba(52, 211, 153, 0.3);
+  color: #2dd4bf;
+  border-color: rgba(45, 212, 191, 0.3);
 }
 .cta-link:hover {
-  border-color: #059669;
+  border-color: #0f766e;
   gap: 10px;
 }
 
@@ -588,7 +594,7 @@ body {
   --tw-prose-body: #374151;
   --tw-prose-headings: #111827;
   --tw-prose-lead: #4b5563;
-  --tw-prose-links: #059669;
+  --tw-prose-links: #0f766e;
   --tw-prose-bold: #111827;
   --tw-prose-counters: #6b7280;
   --tw-prose-bullets: #d1d5db;
@@ -596,7 +602,7 @@ body {
   --tw-prose-quotes: #111827;
   --tw-prose-quote-borders: #e5e7eb;
   --tw-prose-captions: #6b7280;
-  --tw-prose-code: #059669;
+  --tw-prose-code: #0f766e;
   --tw-prose-pre-code: #e5e7eb;
   --tw-prose-pre-bg: #f9fafb;
   --tw-prose-th-borders: #d1d5db;
@@ -618,10 +624,10 @@ body {
 
 @keyframes glow {
   from {
-    box-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
+    box-shadow: 0 0 20px rgba(13, 148, 136, 0.5);
   }
   to {
-    box-shadow: 0 0 30px rgba(16, 185, 129, 0.8);
+    box-shadow: 0 0 30px rgba(13, 148, 136, 0.8);
   }
 }
 
@@ -731,6 +737,27 @@ body {
   }
 }
 
+@keyframes orbit {
+  from {
+    offset-distance: 0%;
+  }
+  to {
+    offset-distance: 100%;
+  }
+}
+
+@keyframes orbit-pulse {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.25);
+  }
+}
+
 /* ─────────────────────────────────────────────────────────────────────────────
    TAILWIND ANIMATION UTILITIES  (kept from original + new)
    ───────────────────────────────────────────────────────────────────────── */
@@ -757,6 +784,21 @@ body {
   }
   .sb {
     animation: sb 2s ease-in-out infinite;
+  }
+
+  /* Hero orbit — dot rides the parent's elliptical edge; offset-path resolves
+     against the containing block, so the parent must BE a true ellipse
+     (border-radius: 50%, NOT rounded-full which draws a pill on wide boxes) */
+  .orbit-node {
+    offset-path: ellipse(50% 50% at 50% 50%);
+    animation:
+      orbit 18s linear infinite,
+      orbit-pulse 2.4s ease-in-out infinite;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .orbit-node {
+      animation: none;
+    }
   }
 
   /* Text switch */

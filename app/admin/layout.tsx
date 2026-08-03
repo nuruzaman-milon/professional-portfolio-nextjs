@@ -54,8 +54,8 @@ export default function AdminLayout({
                   href={href}
                   className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-lg text-sm transition-colors duration-200 border ${
                     active
-                      ? "border-emerald-400/60 dark:border-emerald-600/50 text-emerald-600 dark:text-emerald-400 bg-emerald-50/60 dark:bg-emerald-500/[0.06] font-semibold"
-                      : "border-gray-200/70 dark:border-white/[0.08] text-gray-600 dark:text-gray-300 bg-white/70 dark:bg-white/[0.04] hover:border-emerald-300/50 hover:text-emerald-600 dark:hover:text-emerald-400"
+                      ? "border-teal-400/60 dark:border-teal-700/50 text-teal-700 dark:text-teal-400 bg-teal-50/60 dark:bg-teal-600/[0.06] font-semibold"
+                      : "border-gray-200/70 dark:border-white/[0.08] text-gray-600 dark:text-gray-300 bg-white/70 dark:bg-white/[0.04] hover:border-teal-300/50 hover:text-teal-700 dark:hover:text-teal-400"
                   }`}
                 >
                   <Icon size={14} />

@@ -152,7 +152,7 @@ export default function ProjectsListClient({
           height: 480,
           borderRadius: "50%",
           background:
-            "radial-gradient(circle, rgba(16,185,129,.15) 0%, transparent 70%)",
+            "radial-gradient(circle, rgba(13,148,136,.15) 0%, transparent 70%)",
         }}
       />
       <div
@@ -164,7 +164,7 @@ export default function ProjectsListClient({
           height: 360,
           borderRadius: "50%",
           background:
-            "radial-gradient(circle, rgba(16,185,129,.12) 0%, transparent 70%)",
+            "radial-gradient(circle, rgba(13,148,136,.12) 0%, transparent 70%)",
         }}
       />
 
@@ -179,7 +179,7 @@ export default function ProjectsListClient({
           >
             <Link
               href="/"
-              className="inline-flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors duration-200"
+              className="inline-flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 hover:text-teal-600 dark:hover:text-teal-400 transition-colors duration-200"
             >
               <ArrowLeft size={15} /> Back to home
             </Link>
@@ -208,7 +208,7 @@ export default function ProjectsListClient({
                            bg-white/80 dark:bg-white/[0.04] backdrop-blur-sm
                            text-sm text-gray-900 dark:text-white
                            placeholder:text-gray-400 dark:placeholder:text-gray-600
-                           focus:outline-none focus:border-emerald-400 dark:focus:border-emerald-600
+                           focus:outline-none focus:border-teal-400 dark:focus:border-teal-700
                            transition-colors duration-200"
                 />
                 {isSearching ? (
@@ -216,7 +216,7 @@ export default function ProjectsListClient({
                     {[0, 1, 2].map((d) => (
                       <span
                         key={d}
-                        className="w-1 h-1 rounded-full bg-emerald-400 animate-bounce"
+                        className="w-1 h-1 rounded-full bg-teal-400 animate-bounce"
                         style={{ animationDelay: `${d * 0.12}s` }}
                       />
                     ))}
@@ -239,7 +239,7 @@ export default function ProjectsListClient({
                 className="h-10 px-3 pr-7 rounded-lg border border-gray-200/80 dark:border-white/[0.08]
                          bg-white/80 dark:bg-white/[0.04] backdrop-blur-sm
                          text-[11px] font-mono tracking-wide text-gray-600 dark:text-gray-400
-                         focus:outline-none focus:border-emerald-400 dark:focus:border-emerald-600
+                         focus:outline-none focus:border-teal-400 dark:focus:border-teal-700
                          transition-colors duration-200 cursor-pointer appearance-none"
                 style={{
                   backgroundImage:
@@ -262,14 +262,14 @@ export default function ProjectsListClient({
                           flex items-center gap-2 transition-colors duration-200
                           ${
                             filtersOpen || activeStack
-                              ? "border-emerald-400/60 dark:border-emerald-600/50 text-emerald-600 dark:text-emerald-400 bg-emerald-50/60 dark:bg-emerald-500/[0.06]"
-                              : "border-gray-200/80 dark:border-white/[0.08] text-gray-500 dark:text-gray-400 bg-white/80 dark:bg-white/[0.04] hover:border-emerald-400/40"
+                              ? "border-teal-400/60 dark:border-teal-700/50 text-teal-700 dark:text-teal-400 bg-teal-50/60 dark:bg-teal-600/[0.06]"
+                              : "border-gray-200/80 dark:border-white/[0.08] text-gray-500 dark:text-gray-400 bg-white/80 dark:bg-white/[0.04] hover:border-teal-400/40"
                           }`}
               >
                 <SlidersHorizontal size={13} />
                 Filter
                 {activeStack && (
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-teal-600" />
                 )}
               </button>
               </div>
@@ -286,8 +286,8 @@ export default function ProjectsListClient({
                       className={`px-3 py-1.5 rounded-md text-[11px] font-medium transition-colors duration-150 border
                               ${
                                 activeStack === tech
-                                  ? "border-emerald-400/70 bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
-                                  : "border-gray-200/70 dark:border-white/[0.08] bg-white/70 dark:bg-white/[0.04] text-gray-500 dark:text-gray-400 hover:border-emerald-300/50 hover:text-emerald-600 dark:hover:text-emerald-400"
+                                  ? "border-teal-400/70 bg-teal-50 dark:bg-teal-600/10 text-teal-700 dark:text-teal-400"
+                                  : "border-gray-200/70 dark:border-white/[0.08] bg-white/70 dark:bg-white/[0.04] text-gray-500 dark:text-gray-400 hover:border-teal-300/50 hover:text-teal-700 dark:hover:text-teal-400"
                               }`}
                     >
                       {tech}
@@ -307,14 +307,14 @@ export default function ProjectsListClient({
                   {activeStack && (
                     <>
                       {" "}
-                      · <span className="text-emerald-500">{activeStack}</span>
+                      · <span className="text-teal-600">{activeStack}</span>
                     </>
                   )}
                   {debouncedQuery && <> · "{debouncedQuery}"</>}
                 </span>
                 <button
                   onClick={clearAll}
-                  className="flex items-center gap-1 text-gray-400 hover:text-emerald-500 transition-colors duration-150"
+                  className="flex items-center gap-1 text-gray-400 hover:text-teal-600 transition-colors duration-150"
                 >
                   <X size={11} /> Clear all
                 </button>
@@ -345,7 +345,7 @@ export default function ProjectsListClient({
                       variants={cardVariants}
                       initial="hidden"
                       animate="show"
-                      className="group grid lg:grid-cols-[2fr_3fr] gap-0 rounded-xl border border-gray-200/60 dark:border-white/[0.07] bg-white/60 dark:bg-white/[0.03] backdrop-blur-sm overflow-hidden hover:border-emerald-300/50 dark:hover:border-emerald-700/40 transition-colors duration-300"
+                      className="group grid lg:grid-cols-[2fr_3fr] gap-0 rounded-xl border border-gray-200/60 dark:border-white/[0.07] bg-white/60 dark:bg-white/[0.03] backdrop-blur-sm overflow-hidden hover:border-teal-300/50 dark:hover:border-teal-800/40 transition-colors duration-300"
                     >
                       <ImageCarousel
                         images={project.images}
@@ -355,7 +355,7 @@ export default function ProjectsListClient({
 
                       <div className="flex flex-col p-5 sm:p-7">
                         <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1.5 mb-3">
-                          <span className="text-[10px] font-mono tracking-[.15em] uppercase text-emerald-500 dark:text-emerald-400">
+                          <span className="text-[10px] font-mono tracking-[.15em] uppercase text-teal-600 dark:text-teal-400">
                             {project.label}
                           </span>
                           <div className="flex items-center gap-2">
@@ -397,7 +397,7 @@ export default function ProjectsListClient({
                               key={h}
                               className="flex items-start gap-2 text-sm text-gray-600 dark:text-gray-300"
                             >
-                              <span className="mt-2 w-1 h-1 rounded-full bg-emerald-400/70 flex-shrink-0" />
+                              <span className="mt-2 w-1 h-1 rounded-full bg-teal-400/70 flex-shrink-0" />
                               {h}
                             </li>
                           ))}
@@ -414,8 +414,8 @@ export default function ProjectsListClient({
                               className={`px-2.5 py-1 rounded-md text-[11px] font-medium transition-colors duration-150 border cursor-pointer
                                         ${
                                           activeStack === tech
-                                            ? "border-emerald-400/70 bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
-                                            : "border-gray-200/60 dark:border-white/[0.08] bg-gray-100/80 dark:bg-white/[0.05] text-gray-600 dark:text-gray-400 hover:border-emerald-300/50 hover:text-emerald-500"
+                                            ? "border-teal-400/70 bg-teal-50 dark:bg-teal-600/10 text-teal-700 dark:text-teal-400"
+                                            : "border-gray-200/60 dark:border-white/[0.08] bg-gray-100/80 dark:bg-white/[0.05] text-gray-600 dark:text-gray-400 hover:border-teal-300/50 hover:text-teal-600"
                                         }`}
                             >
                               {tech}
@@ -479,7 +479,7 @@ export default function ProjectsListClient({
           >
             <Link
               href="/"
-              className="inline-flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors duration-200"
+              className="inline-flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 hover:text-teal-600 dark:hover:text-teal-400 transition-colors duration-200"
             >
               <ArrowLeft size={15} /> Back to home
             </Link>

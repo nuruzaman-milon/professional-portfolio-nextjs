@@ -35,14 +35,14 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   title: "Nuruzaman Milon - Software Engineer",
   description:
-    "Full-stack Software Engineer with 3+ years of experience building scalable web applications using React, Next.js, and Node.js.",
+    "Full-stack Software Engineer with 4+ years of experience building scalable web applications using React, Next.js, and Node.js.",
   keywords:
     "Full Stack Developer, React, Next.js, Node.js, TypeScript, Web3, MongoDB, PostgreSQL",
   authors: [{ name: "Nuruzaman Milon" }],
   openGraph: {
     title: "Nuruzaman Milon - Software Engineer",
     description:
-      "Full-stack Software Engineer with 3+ years of experience building scalable web applications using React, Next.js, and Node.js.",
+      "Full-stack Software Engineer with 4+ years of experience building scalable web applications using React, Next.js, and Node.js.",
     url: "https://nuruzaman-milon.vercel.app",
     siteName: "Nuruzaman Milon - Software Engineer",
     images: [
@@ -60,7 +60,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Nuruzaman Milon - Software Engineer",
     description:
-      "Full-stack Software Engineer with 3+ years of experience building scalable web applications using React, Next.js, and Node.js.",
+      "Full-stack Software Engineer with 4+ years of experience building scalable web applications using React, Next.js, and Node.js.",
     images: [
       "https://nuruzaman-milon.vercel.app/images/nuruzaman-milon-profile-photo.png",
     ],

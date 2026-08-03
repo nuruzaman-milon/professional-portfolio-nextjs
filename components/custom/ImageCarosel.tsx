@@ -50,7 +50,7 @@ function Dots({
   count,
   current,
   onGoto,
-  accent = "#34d399",
+  accent = "#2dd4bf",
 }: {
   count: number;
   current: number;
@@ -335,7 +335,7 @@ export default function ImageCarousel({
   title,
   index: cardIndex = 0,
   interval = 3500,
-  accent = "#34d399",
+  accent = "#2dd4bf",
   className = "",
 }: ImageCarouselProps) {
   const [current, setCurrent] = useState(0);
@@ -443,7 +443,7 @@ export default function ImageCarousel({
           className="absolute inset-0 z-10 pointer-events-none"
           style={{
             background:
-              "linear-gradient(135deg, rgba(16,185,129,0.18) 0%, transparent 70%)",
+              "linear-gradient(135deg, rgba(13,148,136,0.18) 0%, transparent 70%)",
             opacity: 0.6,
           }}
         />

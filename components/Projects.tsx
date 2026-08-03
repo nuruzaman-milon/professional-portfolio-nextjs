@@ -36,7 +36,7 @@ export default function Projects({ projects }: { projects: ProjectDTO[] }) {
         className="absolute pointer-events-none z-0 opacity-20 right-0 top-32 w-72 h-72 rounded-full blur-3xl"
         style={{
           background:
-            "radial-gradient(circle, rgba(16,185,129,.12) 0%, transparent 70%)",
+            "radial-gradient(circle, rgba(13,148,136,.12) 0%, transparent 70%)",
         }}
       />
 
@@ -77,7 +77,7 @@ export default function Projects({ projects }: { projects: ProjectDTO[] }) {
                           border border-gray-200/60 dark:border-white/[0.06]
                           bg-white/75 dark:bg-zinc-900/60
                           transition-[border-color] duration-300
-                          hover:border-emerald-300/40 dark:hover:border-emerald-700/30"
+                          hover:border-teal-300/40 dark:hover:border-teal-800/30"
               >
                 {/* Image Pane */}
                 <div className="relative overflow-hidden bg-gray-100 dark:bg-white/[0.02] aspect-video lg:aspect-auto lg:min-h-[240px]">
@@ -95,7 +95,7 @@ export default function Projects({ projects }: { projects: ProjectDTO[] }) {
                 {/* Content Pane */}
                 <div className="flex flex-col p-5 sm:p-7">
                   <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1.5 mb-3">
-                    <span className="text-[10px] font-mono tracking-[.15em] uppercase text-emerald-500 dark:text-emerald-400">
+                    <span className="text-[10px] font-mono tracking-[.15em] uppercase text-teal-600 dark:text-teal-400">
                       {project.label}
                     </span>
                     <div className="flex items-center gap-2">
@@ -138,7 +138,7 @@ export default function Projects({ projects }: { projects: ProjectDTO[] }) {
                         key={highlight}
                         className="flex items-start gap-2 text-sm text-gray-600 dark:text-gray-300"
                       >
-                        <span className="mt-2 w-1 h-1 rounded-full bg-emerald-400/70 flex-shrink-0" />
+                        <span className="mt-2 w-1 h-1 rounded-full bg-teal-400/70 flex-shrink-0" />
                         {highlight}
                       </li>
                     ))}

@@ -62,7 +62,7 @@ export default function AdminPostsPage() {
       ) : posts.length === 0 && !error ? (
         <div className={`${cardCls} p-8 text-center text-sm text-gray-500 dark:text-gray-400`}>
           No posts in the database yet. Use{" "}
-          <Link href="/admin" className="text-emerald-500 hover:underline">
+          <Link href="/admin" className="text-teal-600 hover:underline">
             Import existing content
           </Link>{" "}
           or create a new post.

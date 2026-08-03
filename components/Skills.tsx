@@ -165,7 +165,7 @@ export default function Skills() {
           height: 500,
           borderRadius: "50%",
           background:
-            "radial-gradient(circle, rgba(16,185,129,.18) 0%, transparent 65%)",
+            "radial-gradient(circle, rgba(13,148,136,.18) 0%, transparent 65%)",
         }}
       />
 
@@ -203,14 +203,14 @@ export default function Skills() {
                 transition={{ delay: gi * 0.09 }}
                 className="rounded-xl border border-gray-200/60 dark:border-white/[0.07]
                          bg-white/60 dark:bg-white/[0.03] backdrop-blur-sm overflow-hidden
-                         hover:border-emerald-300/50 dark:hover:border-emerald-700/40
+                         hover:border-teal-300/50 dark:hover:border-teal-800/40
                          transition-colors duration-300"
               >
                 {/* ── Group header ── */}
                 <div className="px-4 sm:px-6 pt-5 pb-4 border-b border-gray-100/80 dark:border-white/[0.05]">
                   <div className="flex items-start justify-between gap-4 mb-3">
                     <div className="flex items-center gap-3 min-w-0">
-                      <span className="text-[10px] font-mono tracking-[.18em] text-emerald-500 dark:text-emerald-400 flex-shrink-0">
+                      <span className="text-[10px] font-mono tracking-[.18em] text-teal-600 dark:text-teal-400 flex-shrink-0">
                         {group.index}
                       </span>
                       <div className="min-w-0">
@@ -228,12 +228,12 @@ export default function Skills() {
                   </div>
 
                   {/* Highlight callout */}
-                  <div className="flex items-start gap-2 px-3 py-2 rounded-md bg-emerald-50/60 dark:bg-emerald-900/15 border border-emerald-100 dark:border-emerald-800/30">
+                  <div className="flex items-start gap-2 px-3 py-2 rounded-md bg-teal-50/60 dark:bg-teal-900/15 border border-teal-100 dark:border-teal-800/30">
                     <Sparkles
                       size={11}
-                      className="text-emerald-500 dark:text-emerald-400 flex-shrink-0 mt-0.5"
+                      className="text-teal-600 dark:text-teal-400 flex-shrink-0 mt-0.5"
                     />
-                    <p className="text-[11px] text-emerald-700 dark:text-emerald-300 font-medium leading-relaxed">
+                    <p className="text-[11px] text-teal-800 dark:text-teal-300 font-medium leading-relaxed">
                       {group.highlight}
                     </p>
                   </div>
@@ -252,10 +252,10 @@ export default function Skills() {
                       key={skill.name}
                       variants={rowVariant}
                       className="flex flex-wrap items-center gap-x-4 gap-y-1 px-4 sm:px-6 py-3
-                               hover:bg-emerald-50/25 dark:hover:bg-emerald-900/10
+                               hover:bg-teal-50/25 dark:hover:bg-teal-900/10
                                transition-colors duration-150"
                     >
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400/60 dark:bg-emerald-500/50 flex-shrink-0" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-teal-400/60 dark:bg-teal-600/50 flex-shrink-0" />
                       <span className="text-sm font-semibold text-gray-800 dark:text-gray-100 w-36 flex-shrink-0">
                         {skill.name}
                       </span>
@@ -284,7 +284,7 @@ export default function Skills() {
               All skills used in{" "}
               <a
                 href="#projects"
-                className="text-emerald-600 dark:text-emerald-400 hover:underline underline-offset-2"
+                className="text-teal-700 dark:text-teal-400 hover:underline underline-offset-2"
               >
                 production projects
               </a>

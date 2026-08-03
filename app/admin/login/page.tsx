@@ -34,7 +34,7 @@ function LoginForm() {
   return (
     <form onSubmit={handleSubmit} className={`${cardCls} w-full max-w-sm p-7`}>
       <div className="flex items-center gap-3 mb-6">
-        <div className="w-10 h-10 rounded-lg bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200/60 dark:border-emerald-500/20 flex items-center justify-center text-emerald-600 dark:text-emerald-400">
+        <div className="w-10 h-10 rounded-lg bg-teal-50 dark:bg-teal-600/10 border border-teal-200/60 dark:border-teal-600/20 flex items-center justify-center text-teal-700 dark:text-teal-400">
           <Lock size={16} />
         </div>
         <div>

@@ -91,7 +91,7 @@ export default function BlogListClient({ posts }: { posts: PostDTO[] }) {
           height: 480,
           borderRadius: "50%",
           background:
-            "radial-gradient(circle, rgba(16,185,129,.15) 0%, transparent 70%)",
+            "radial-gradient(circle, rgba(13,148,136,.15) 0%, transparent 70%)",
         }}
       />
 
@@ -105,7 +105,7 @@ export default function BlogListClient({ posts }: { posts: PostDTO[] }) {
           height: 360,
           borderRadius: "50%",
           background:
-            "radial-gradient(circle, rgba(16,185,129,.12) 0%, transparent 70%)",
+            "radial-gradient(circle, rgba(13,148,136,.12) 0%, transparent 70%)",
         }}
       />
 
@@ -115,7 +115,7 @@ export default function BlogListClient({ posts }: { posts: PostDTO[] }) {
           {/* Back link */}
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors duration-200 mb-14"
+            className="inline-flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 hover:text-teal-600 dark:hover:text-teal-400 transition-colors duration-200 mb-14"
           >
             <ArrowLeft size={15} /> Back to home
           </Link>
@@ -150,7 +150,7 @@ export default function BlogListClient({ posts }: { posts: PostDTO[] }) {
                              bg-white/80 dark:bg-white/[0.04] backdrop-blur-sm
                              text-sm text-gray-900 dark:text-white
                              placeholder:text-gray-400 dark:placeholder:text-gray-600
-                             focus:outline-none focus:border-emerald-400 dark:focus:border-emerald-600
+                             focus:outline-none focus:border-teal-400 dark:focus:border-teal-700
                              transition-colors duration-200"
                 />
                 {searchQuery && (
@@ -171,7 +171,7 @@ export default function BlogListClient({ posts }: { posts: PostDTO[] }) {
                 className="h-10 px-3 pr-7 rounded-lg border border-gray-200/80 dark:border-white/[0.08]
                            bg-white/80 dark:bg-white/[0.04] backdrop-blur-sm
                            text-[11px] font-mono tracking-wide text-gray-600 dark:text-gray-400
-                           focus:outline-none focus:border-emerald-400 dark:focus:border-emerald-600
+                           focus:outline-none focus:border-teal-400 dark:focus:border-teal-700
                            transition-colors duration-200 cursor-pointer appearance-none"
                 style={{
                   backgroundImage:
@@ -195,14 +195,14 @@ export default function BlogListClient({ posts }: { posts: PostDTO[] }) {
                               showFilters ||
                               selectedCategory !== "All" ||
                               selectedTag !== "All"
-                                ? "border-emerald-400/60 dark:border-emerald-600/50 text-emerald-600 dark:text-emerald-400 bg-emerald-50/60 dark:bg-emerald-500/[0.06]"
-                                : "border-gray-200/80 dark:border-white/[0.08] text-gray-500 dark:text-gray-400 bg-white/80 dark:bg-white/[0.04] hover:border-emerald-400/40"
+                                ? "border-teal-400/60 dark:border-teal-700/50 text-teal-700 dark:text-teal-400 bg-teal-50/60 dark:bg-teal-600/[0.06]"
+                                : "border-gray-200/80 dark:border-white/[0.08] text-gray-500 dark:text-gray-400 bg-white/80 dark:bg-white/[0.04] hover:border-teal-400/40"
                             }`}
               >
                 <Filter size={13} />
                 Filter
                 {(selectedCategory !== "All" || selectedTag !== "All") && (
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-teal-600" />
                 )}
               </button>
               </div>
@@ -213,7 +213,7 @@ export default function BlogListClient({ posts }: { posts: PostDTO[] }) {
               <div className="space-y-3 pt-1">
                 {/* Categories */}
                 <div className="flex flex-wrap gap-2 items-center">
-                  <span className="text-[10px] font-mono tracking-[.15em] uppercase text-emerald-500 dark:text-emerald-400 mr-1">
+                  <span className="text-[10px] font-mono tracking-[.15em] uppercase text-teal-600 dark:text-teal-400 mr-1">
                     Category
                   </span>
                   {categories.map((category) => (
@@ -223,8 +223,8 @@ export default function BlogListClient({ posts }: { posts: PostDTO[] }) {
                       className={`px-3 py-1.5 rounded-md text-[11px] font-medium transition-colors duration-150 border
                                   ${
                                     selectedCategory === category
-                                      ? "border-emerald-400/70 bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
-                                      : "border-gray-200/70 dark:border-white/[0.08] bg-white/70 dark:bg-white/[0.04] text-gray-500 dark:text-gray-400 hover:border-emerald-300/50 hover:text-emerald-600 dark:hover:text-emerald-400"
+                                      ? "border-teal-400/70 bg-teal-50 dark:bg-teal-600/10 text-teal-700 dark:text-teal-400"
+                                      : "border-gray-200/70 dark:border-white/[0.08] bg-white/70 dark:bg-white/[0.04] text-gray-500 dark:text-gray-400 hover:border-teal-300/50 hover:text-teal-700 dark:hover:text-teal-400"
                                   }`}
                     >
                       {category}
@@ -234,7 +234,7 @@ export default function BlogListClient({ posts }: { posts: PostDTO[] }) {
 
                 {/* Tags */}
                 <div className="flex flex-wrap gap-2 items-center">
-                  <span className="text-[10px] font-mono tracking-[.15em] uppercase text-emerald-500 dark:text-emerald-400 mr-1">
+                  <span className="text-[10px] font-mono tracking-[.15em] uppercase text-teal-600 dark:text-teal-400 mr-1">
                     Tag
                   </span>
                   {allTags.map((tag) => (
@@ -244,8 +244,8 @@ export default function BlogListClient({ posts }: { posts: PostDTO[] }) {
                       className={`px-3 py-1.5 rounded-md text-[11px] font-medium transition-colors duration-150 border
                                   ${
                                     selectedTag === tag
-                                      ? "border-emerald-400/70 bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
-                                      : "border-gray-200/70 dark:border-white/[0.08] bg-white/70 dark:bg-white/[0.04] text-gray-500 dark:text-gray-400 hover:border-emerald-300/50 hover:text-emerald-600 dark:hover:text-emerald-400"
+                                      ? "border-teal-400/70 bg-teal-50 dark:bg-teal-600/10 text-teal-700 dark:text-teal-400"
+                                      : "border-gray-200/70 dark:border-white/[0.08] bg-white/70 dark:bg-white/[0.04] text-gray-500 dark:text-gray-400 hover:border-teal-300/50 hover:text-teal-700 dark:hover:text-teal-400"
                                   }`}
                     >
                       {tag}
@@ -265,7 +265,7 @@ export default function BlogListClient({ posts }: { posts: PostDTO[] }) {
                     <>
                       {" "}
                       ·{" "}
-                      <span className="text-emerald-500">
+                      <span className="text-teal-600">
                         {selectedCategory}
                       </span>
                     </>
@@ -273,14 +273,14 @@ export default function BlogListClient({ posts }: { posts: PostDTO[] }) {
                   {selectedTag !== "All" && (
                     <>
                       {" "}
-                      · <span className="text-emerald-500">{selectedTag}</span>
+                      · <span className="text-teal-600">{selectedTag}</span>
                     </>
                   )}
                   {searchQuery && <> · "{searchQuery}"</>}
                 </span>
                 <button
                   onClick={clearFilters}
-                  className="flex items-center gap-1 text-gray-400 hover:text-emerald-500 transition-colors duration-150"
+                  className="flex items-center gap-1 text-gray-400 hover:text-teal-600 transition-colors duration-150"
                 >
                   <X size={11} /> Clear all
                 </button>
@@ -290,7 +290,7 @@ export default function BlogListClient({ posts }: { posts: PostDTO[] }) {
 
           {/* Featured Post */}
           {!hasActiveFilters && filteredPosts.length > 0 && (
-            <div className="group rounded-xl border border-gray-200/60 dark:border-white/[0.07] bg-white/60 dark:bg-white/[0.03] backdrop-blur-sm overflow-hidden hover:border-emerald-300/50 dark:hover:border-emerald-700/40 transition-colors duration-300 mb-10">
+            <div className="group rounded-xl border border-gray-200/60 dark:border-white/[0.07] bg-white/60 dark:bg-white/[0.03] backdrop-blur-sm overflow-hidden hover:border-teal-300/50 dark:hover:border-teal-800/40 transition-colors duration-300 mb-10">
               <div className="md:flex">
                 <div className="md:w-1/2">
                   <Image
@@ -303,10 +303,10 @@ export default function BlogListClient({ posts }: { posts: PostDTO[] }) {
                 </div>
                 <div className="md:w-1/2 p-5 sm:p-8 flex flex-col justify-center">
                   <div className="flex items-center gap-2 mb-4">
-                    <span className="px-3 py-1 bg-emerald-600 text-white text-[11px] font-mono tracking-wide rounded-md">
+                    <span className="px-3 py-1 bg-teal-700 text-white text-[11px] font-mono tracking-wide rounded-md">
                       Featured
                     </span>
-                    <span className="px-3 py-1 border border-emerald-400/50 text-emerald-500 dark:text-emerald-400 text-[11px] font-mono tracking-wide rounded-md">
+                    <span className="px-3 py-1 border border-teal-400/50 text-teal-600 dark:text-teal-400 text-[11px] font-mono tracking-wide rounded-md">
                       {filteredPosts[0].category}
                     </span>
                   </div>
@@ -346,7 +346,7 @@ export default function BlogListClient({ posts }: { posts: PostDTO[] }) {
                 (post) => (
                   <article
                     key={post.id}
-                    className="group rounded-xl border border-gray-200/60 dark:border-white/[0.07] bg-white/60 dark:bg-white/[0.03] backdrop-blur-sm overflow-hidden hover:border-emerald-300/50 dark:hover:border-emerald-700/40 transition-colors duration-300 flex flex-col"
+                    className="group rounded-xl border border-gray-200/60 dark:border-white/[0.07] bg-white/60 dark:bg-white/[0.03] backdrop-blur-sm overflow-hidden hover:border-teal-300/50 dark:hover:border-teal-800/40 transition-colors duration-300 flex flex-col"
                   >
                     <div className="relative overflow-hidden">
                       <Image
@@ -357,7 +357,7 @@ export default function BlogListClient({ posts }: { posts: PostDTO[] }) {
                         className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500"
                       />
                       <div className="absolute top-3 left-3">
-                        <span className="px-2.5 py-1 bg-emerald-600 text-white text-[10px] font-mono tracking-wide rounded-md">
+                        <span className="px-2.5 py-1 bg-teal-700 text-white text-[10px] font-mono tracking-wide rounded-md">
                           {post.category}
                         </span>
                       </div>
@@ -377,7 +377,7 @@ export default function BlogListClient({ posts }: { posts: PostDTO[] }) {
                         </div>
                       </div>
 
-                      <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-3 line-clamp-2 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors leading-snug">
+                      <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-3 line-clamp-2 group-hover:text-teal-700 dark:group-hover:text-teal-400 transition-colors leading-snug">
                         {post.title}
                       </h3>
 
@@ -396,8 +396,8 @@ export default function BlogListClient({ posts }: { posts: PostDTO[] }) {
                             className={`px-2.5 py-1 rounded-md text-[11px] font-medium transition-colors duration-150 border cursor-pointer
                                         ${
                                           selectedTag === tag
-                                            ? "border-emerald-400/70 bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
-                                            : "border-gray-200/60 dark:border-white/[0.08] bg-gray-100/80 dark:bg-white/[0.05] text-gray-600 dark:text-gray-400 hover:border-emerald-300/50 hover:text-emerald-500"
+                                            ? "border-teal-400/70 bg-teal-50 dark:bg-teal-600/10 text-teal-700 dark:text-teal-400"
+                                            : "border-gray-200/60 dark:border-white/[0.08] bg-gray-100/80 dark:bg-white/[0.05] text-gray-600 dark:text-gray-400 hover:border-teal-300/50 hover:text-teal-600"
                                         }`}
                           >
                             {tag}
@@ -439,7 +439,7 @@ export default function BlogListClient({ posts }: { posts: PostDTO[] }) {
           <div className="mt-20 pt-10 border-t border-gray-200/40 dark:border-white/[0.06]">
             <Link
               href="/"
-              className="inline-flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors duration-200"
+              className="inline-flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 hover:text-teal-600 dark:hover:text-teal-400 transition-colors duration-200"
             >
               <ArrowLeft size={15} /> Back to home
             </Link>

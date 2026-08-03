@@ -64,7 +64,7 @@ export default function AdminExperiencesPage() {
       ) : experiences.length === 0 && !error ? (
         <div className={`${cardCls} p-8 text-center text-sm text-gray-500 dark:text-gray-400`}>
           No experiences in the database yet. Use{" "}
-          <Link href="/admin" className="text-emerald-500 hover:underline">
+          <Link href="/admin" className="text-teal-600 hover:underline">
             Import existing content
           </Link>{" "}
           or add one.
@@ -81,7 +81,7 @@ export default function AdminExperiencesPage() {
                   <h2 className="text-sm font-bold text-gray-900 dark:text-white">
                     {exp.company}
                   </h2>
-                  <span className="text-xs font-mono text-emerald-600 dark:text-emerald-400">
+                  <span className="text-xs font-mono text-teal-700 dark:text-teal-400">
                     {exp.role}
                   </span>
                   {!exp.published && (

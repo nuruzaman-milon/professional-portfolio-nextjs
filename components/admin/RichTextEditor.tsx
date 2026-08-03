@@ -46,7 +46,7 @@ function ToolbarButton({
       title={label}
       className={`w-8 h-8 rounded-md flex items-center justify-center transition-colors duration-150 disabled:opacity-40 disabled:cursor-not-allowed ${
         active
-          ? "bg-emerald-100 dark:bg-emerald-500/15 text-emerald-600 dark:text-emerald-400"
+          ? "bg-teal-100 dark:bg-teal-600/15 text-teal-700 dark:text-teal-400"
           : "text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/[0.06] hover:text-gray-800 dark:hover:text-gray-200"
       }`}
     >
@@ -78,8 +78,8 @@ export default function RichTextEditor({
       attributes: {
         class:
           "prose prose-sm sm:prose-base prose-gray dark:prose-invert max-w-none focus:outline-none min-h-[320px] px-4 py-3 " +
-          "prose-headings:font-bold prose-code:text-emerald-600 dark:prose-code:text-emerald-400 " +
-          "prose-a:text-emerald-600 dark:prose-a:text-emerald-400",
+          "prose-headings:font-bold prose-code:text-teal-700 dark:prose-code:text-teal-400 " +
+          "prose-a:text-teal-700 dark:prose-a:text-teal-400",
       },
     },
   });
@@ -110,7 +110,7 @@ export default function RichTextEditor({
   };
 
   return (
-    <div className="rounded-lg border border-gray-200/80 dark:border-white/[0.08] bg-gray-50/80 dark:bg-white/[0.04] focus-within:border-emerald-400 dark:focus-within:border-emerald-600 transition-colors duration-200 overflow-hidden">
+    <div className="rounded-lg border border-gray-200/80 dark:border-white/[0.08] bg-gray-50/80 dark:bg-white/[0.04] focus-within:border-teal-400 dark:focus-within:border-teal-700 transition-colors duration-200 overflow-hidden">
       {/* Toolbar */}
       <div className="flex flex-wrap items-center gap-0.5 px-2 py-1.5 border-b border-gray-200/80 dark:border-white/[0.08] bg-white/60 dark:bg-white/[0.03]">
         <ToolbarButton label="Bold" active={editor.isActive("bold")} onClick={() => editor.chain().focus().toggleBold().run()}>
