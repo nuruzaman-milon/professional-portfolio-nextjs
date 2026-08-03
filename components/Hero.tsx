@@ -248,7 +248,7 @@ export default function Hero() {
                     </div>
 
                     {/* Bottom-right badge — experience (dark chip on the photo, both themes) */}
-                    <div className="absolute -bottom-5 -right-6 flex items-center gap-3 px-5 py-3 rounded-2xl shadow-xl backdrop-blur-md border bg-gray-900/85 border-white/10">
+                    <div className="absolute -bottom-5 -right-6 flex items-center gap-3 px-5 py-3 rounded-2xl shadow-[-6px_0_18px_rgba(45,212,191,0.22),inset_3px_0_12px_rgba(45,212,191,0.12),0_10px_28px_rgba(0,0,0,0.35)] backdrop-blur-md border bg-gray-900/85 border-white/10">
                       <span className="pf-serif text-3xl leading-none text-teal-400">
                         4+
                       </span>
@@ -260,8 +260,8 @@ export default function Hero() {
                     </div>
 
                     {/* Top-left badge — core stack (dark pill on the photo, both themes) */}
-                    <div className="absolute -top-4 -left-6 flex items-center gap-2 px-4 py-2.5 rounded-full shadow-xl backdrop-blur-md border bg-gray-900/85 border-white/10">
-                      <span className="w-1.5 h-1.5 rounded-full bg-teal-400" />
+                    <div className="absolute -top-4 -left-6 flex items-center gap-2 px-4 py-2.5 rounded-full shadow-[-6px_0_18px_rgba(45,212,191,0.22),inset_3px_0_12px_rgba(45,212,191,0.12),0_10px_28px_rgba(0,0,0,0.35)] backdrop-blur-md border bg-gray-900/85 border-white/10">
+                      <span className="pdot w-1.5 h-1.5 rounded-full bg-teal-400" />
                       <span className="text-xs font-semibold tracking-wide text-white whitespace-nowrap">
                         Next.js · Node.js
                       </span>
