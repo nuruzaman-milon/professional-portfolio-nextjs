@@ -7,6 +7,7 @@ import { ArrowUpRight, Github, ExternalLink } from "lucide-react";
 
 import type { ProjectDTO } from "@/lib/content";
 import Container from "./Container";
+import Button from "./Button";
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 14 },
@@ -181,9 +182,9 @@ export default function Projects({ projects }: { projects: ProjectDTO[] }) {
             className="mt-14 flex flex-col items-center gap-5"
           >
             <div className="hl w-full" />
-            <Link href="/projects" className="btn-g">
+            <Button variant="ghost" href="/projects">
               View all projects <ArrowUpRight size={14} />
-            </Link>
+            </Button>
           </motion.div>
         </Container>
       </div>

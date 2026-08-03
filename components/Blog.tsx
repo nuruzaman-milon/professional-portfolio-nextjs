@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion, type Variants } from "framer-motion";
 import { ArrowUpRight, Calendar, Clock } from "lucide-react";
 import Container from "./Container";
+import Button from "./Button";
 import type { PostDTO } from "@/lib/content";
 
 const fadeUp: Variants = {
@@ -174,9 +175,9 @@ export default function Blog({ posts }: { posts: PostDTO[] }) {
             className="mt-14 flex flex-col items-center gap-5"
           >
             <div className="hl w-full" />
-            <Link href="/blog" className="btn-g">
+            <Button variant="ghost" href="/blog">
               View all posts <ArrowUpRight size={14} />
-            </Link>
+            </Button>
           </motion.div>
         </Container>
       </div>

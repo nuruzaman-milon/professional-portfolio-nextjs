@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 import type { Variants } from "framer-motion";
 import Container from "./Container";
-import Link from "next/link";
+import Button from "./Button";
 import myImg from "@/public/images/me/nuruzaman-milon1.webp";
 
 const roles = [
@@ -161,17 +161,17 @@ export default function Hero() {
                   variants={slideUp}
                   className="flex flex-wrap gap-3 justify-center lg:justify-start mb-10"
                 >
-                  <Link href="/projects" className="btn-p">
+                  <Button href="/projects">
                     View My Work <ArrowUpRight size={14} />
-                  </Link>
-                  <a
+                  </Button>
+                  <Button
+                    variant="ghost"
                     href="/resume/Nuruzaman-milon-resume.pdf"
                     download="Nuruzaman-Milon-Resume.pdf"
-                    className="btn-g flex items-center gap-2"
                   >
                     <Download size={14} />
                     Download Resume
-                  </a>
+                  </Button>
                 </motion.div>
 
                 <motion.div

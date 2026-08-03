@@ -46,7 +46,7 @@ Public pages are server components with `revalidate = 300`; every admin mutation
 ### Theming & styling
 
 - Dark/light mode via **custom** `ThemeProvider` in `contexts/ThemeContext.tsx` (class-based, localStorage) + anti-flash inline script in `app/layout.tsx`. `components/theme-provider.tsx` (next-themes) is unwired shadcn leftover — don't use it. Dark is default; style both modes explicitly (`dark:` variants).
-- `app/globals.css` is the active stylesheet (`styles/globals.css` is unused scaffold). Custom `pf-*` classes (`pf-mesh`, `pf-noise`, `pf-grid`, `pf-serif`) form the background/texture system; `.sc`, `.soc`, `.btn-p/.btn-g`, `.cta-link` etc. are the button/card primitives.
+- `app/globals.css` is the active stylesheet (`styles/globals.css` is unused scaffold). Custom `pf-*` classes (`pf-mesh`, `pf-noise`, `pf-grid`, `pf-serif`) form the background/texture system; `.sc`, `.soc`, `.cta-link` etc. are the card/link primitives. CTA buttons are the reusable `components/Button.tsx` (Tailwind-styled, `variant="primary" | "ghost"`, renders `Link`/`a`/`button` based on props).
 - Fonts via `next/font` in the layout: Plus Jakarta Sans (`--font-sans`), Instrument Serif (`--font-serif`, display headings via `.pf-serif`), JetBrains Mono (`--font-mono`). Body text convention: `text-gray-600 dark:text-gray-300`, normal weight (no `font-light`); 10–11px sizes are reserved for ornamental mono labels.
 - `components/ui/` is the full shadcn/ui set but most sections use raw Tailwind + framer-motion; match the existing section style.
 - Sections must NOT add their own horizontal padding — `components/Container.tsx` provides `px-4 sm:px-6 lg:px-8`.

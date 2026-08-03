@@ -361,69 +361,6 @@ body {
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
-   PORTFOLIO — BUTTONS
-   ───────────────────────────────────────────────────────────────────────── */
-.btn-p {
-  background: linear-gradient(135deg, #0f766e, #115e59);
-  color: #fff;
-  padding: 14px 32px;
-  border-radius: 4px;
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  border: none;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-}
-.btn-p::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(255, 255, 255, 0.1);
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-.btn-p:hover::after {
-  opacity: 1;
-}
-.btn-p:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 32px rgba(15, 118, 110, 0.35);
-}
-
-.btn-g {
-  background: transparent;
-  color: #0f766e;
-  padding: 13px 32px;
-  border-radius: 4px;
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  border: 1.5px solid rgba(15, 118, 110, 0.35);
-  cursor: pointer;
-}
-.dark .btn-g {
-  color: #2dd4bf;
-  border-color: rgba(45, 212, 191, 0.3);
-}
-.btn-g:hover {
-  border-color: #0f766e;
-  background: rgba(15, 118, 110, 0.06);
-  transform: translateY(-2px);
-}
-
-/* ─────────────────────────────────────────────────────────────────────────────
    PORTFOLIO — SOCIAL ICON BUTTONS
    ───────────────────────────────────────────────────────────────────────── */
 .soc {

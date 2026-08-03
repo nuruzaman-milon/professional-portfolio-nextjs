@@ -6,6 +6,7 @@ import { motion, useInView, type Variants } from "framer-motion";
 import { useRef } from "react";
 import { Mail, Phone, MapPin, Send, ArrowUpRight } from "lucide-react";
 import Container from "./Container";
+import Button from "./Button";
 
 // ─── Variants — identical to Projects & Blog ──────────────────────────────────
 const fadeUp: Variants = {
@@ -320,10 +321,11 @@ export default function Contact() {
                   )}
 
                   {/* Submit */}
-                  <button
+                  <Button
+                    variant="ghost"
                     type="submit"
                     disabled={sending}
-                    className="btn-g w-full flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
+                    className="w-full disabled:opacity-60 disabled:cursor-not-allowed"
                   >
                     {sending ? (
                       <>
@@ -335,7 +337,7 @@ export default function Contact() {
                         Send message <Send size={14} />
                       </>
                     )}
-                  </button>
+                  </Button>
                 </form>
               )}
             </motion.div>
