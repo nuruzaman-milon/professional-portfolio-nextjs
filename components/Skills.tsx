@@ -1,125 +1,149 @@
 "use client";
 
 import { motion, type Variants } from "framer-motion";
-import { Sparkles } from "lucide-react";
+import { Boxes } from "lucide-react";
+import type { ComponentType } from "react";
+import {
+  SiReact,
+  SiNextdotjs,
+  SiTypescript,
+  SiNodedotjs,
+  SiExpress,
+  SiMongodb,
+  SiPostgresql,
+  SiTailwindcss,
+  SiFramer,
+  SiShadcnui,
+  SiRedux,
+  SiSolana,
+  SiJsonwebtokens,
+  SiGithub,
+  SiDocker,
+  SiVercel,
+  SiGithubactions,
+} from "react-icons/si";
 import Container from "./Container";
 
-const deliverables = [
+type IconComponent = ComponentType<{ className?: string }>;
+
+type Skill = {
+  name: string;
+  // brand icon + its color class; some tools have no official mark
+  Icon?: IconComponent;
+  iconClass?: string;
+};
+
+type SkillGroup = { label: string; note: string; skills: Skill[] };
+
+const skillGroups: SkillGroup[] = [
   {
-    index: "01",
-    capability: "Build scalable full-stack systems",
-    tagline:
-      "From idea to production — handling real users, data, and performance",
-    highlight:
-      "Built SWOP — a Web2/Web3 social platform with social feed, wallet integration, and reward system",
+    label: "Core Stack",
+    note: "Full-stack systems from idea to production",
     skills: [
-      {
-        name: "React",
-        context: "3 yrs · complex UI systems (SWOP, ERP, e-commerce)",
-      },
+      { name: "React", Icon: SiReact, iconClass: "text-[#61DAFB]" },
       {
         name: "Next.js",
-        context: "App Router, SSR, performance optimization (SWOP)",
+        Icon: SiNextdotjs,
+        iconClass: "text-gray-900 dark:text-white",
       },
       {
         name: "TypeScript",
-        context: "Strict typing across frontend & backend systems",
+        Icon: SiTypescript,
+        iconClass: "text-[#3178C6] dark:text-[#5c9fd8]",
       },
-      {
-        name: "Node.js",
-        context: "REST APIs, business logic, reward system (SWOP)",
-      },
+      { name: "Node.js", Icon: SiNodedotjs, iconClass: "text-[#5FA04E]" },
       {
         name: "Express.js",
-        context: "Routing, middleware, scalable API structure",
+        Icon: SiExpress,
+        iconClass: "text-gray-900 dark:text-white",
       },
-      {
-        name: "MongoDB",
-        context: "Aggregation, indexing for feed & analytics",
-      },
+      { name: "MongoDB", Icon: SiMongodb, iconClass: "text-[#47A248]" },
       {
         name: "PostgreSQL",
-        context: "Relational data, joins, structured workflows",
+        Icon: SiPostgresql,
+        iconClass: "text-[#336791] dark:text-[#6f9fc8]",
       },
     ],
   },
   {
-    index: "02",
-    capability: "Engineer modern frontend experiences",
-    tagline:
-      "High-performance UI with state management, animation, and accessibility",
-    highlight:
-      "Delivered responsive, animation-driven UIs for SaaS, ERP, and marketing platforms",
+    label: "Frontend Craft",
+    note: "High-performance UI, animation & state",
     skills: [
       {
         name: "Tailwind CSS",
-        context: "Utility-first scalable UI across all projects",
+        Icon: SiTailwindcss,
+        iconClass: "text-[#06B6D4]",
       },
       {
         name: "Framer Motion",
-        context: "Page transitions, micro-interactions, UX polish",
+        Icon: SiFramer,
+        iconClass: "text-[#0055FF] dark:text-[#4d85ff]",
       },
-      { name: "shadcn/ui", context: "Accessible component system & theming" },
+      {
+        name: "shadcn/ui",
+        Icon: SiShadcnui,
+        iconClass: "text-gray-900 dark:text-white",
+      },
       {
         name: "Zustand",
-        context: "Lightweight state for social feed & builder (SWOP)",
+        Icon: Boxes,
+        iconClass: "text-gray-500 dark:text-gray-400",
       },
-      { name: "Redux", context: "Complex state management in ERP modules" },
+      {
+        name: "Redux",
+        Icon: SiRedux,
+        iconClass: "text-[#764ABC] dark:text-[#9a76d0]",
+      },
     ],
   },
   {
-    index: "03",
-    capability: "Develop Web3-enabled applications",
-    tagline:
-      "Wallet auth, on-chain actions, and cross-chain integrations in production",
-    highlight:
-      "Integrated Solana wallet, token transfers, swaps, and on-chain tipping in SWOP",
+    label: "Web3 & Integrations",
+    note: "Wallets, on-chain actions, payments & email",
     skills: [
-      { name: "Privy", context: "Authentication + wallet connection (SWOP)" },
-      { name: "LI.FI SDK", context: "Cross-chain token swaps (SWOP)" },
       {
         name: "Solana",
-        context: "Wallet actions, transfers, on-chain interactions",
+        Icon: SiSolana,
+        iconClass: "text-[#9945FF] dark:text-[#a866ff]",
       },
-      {
-        name: "SSL Commerce",
-        context: "Payment gateway integration (e-commerce)",
-      },
-      { name: "SendGrid", context: "Transactional email & notifications" },
+      { name: "Privy" },
+      { name: "LI.FI SDK" },
+      { name: "SSL Commerce" },
+      { name: "SendGrid" },
     ],
   },
   {
-    index: "04",
-    capability: "Design production-ready backend systems",
-    tagline: "Secure APIs, authentication, and scalable architecture design",
-    highlight:
-      "Designed REST APIs with JWT auth, validation, and modular architecture",
+    label: "Backend & APIs",
+    note: "Secure, modular, production-ready services",
     skills: [
+      { name: "REST API Design" },
       {
-        name: "REST API Design",
-        context: "Versioning, error handling, scalable endpoints",
+        name: "JWT Auth",
+        Icon: SiJsonwebtokens,
+        iconClass: "text-gray-900 dark:text-white",
       },
-      { name: "JWT Auth", context: "Secure authentication & session handling" },
-      {
-        name: "API Architecture",
-        context: "Modular services, middleware layering",
-      },
+      { name: "API Architecture" },
     ],
   },
   {
-    index: "05",
-    capability: "Ship with DevOps & reliability",
-    tagline:
-      "CI/CD pipelines, deployments, and production environment management",
-    highlight: "Automated deployments and ensured stable production releases",
+    label: "DevOps & Tooling",
+    note: "CI/CD, containers, deployments",
     skills: [
       {
         name: "Git & GitHub",
-        context: "Branching, PRs, collaborative workflows",
+        Icon: SiGithub,
+        iconClass: "text-gray-900 dark:text-white",
       },
-      { name: "Docker", context: "Containerised environments, local parity" },
-      { name: "Vercel", context: "Deployment, previews, edge configuration" },
-      { name: "GitHub Actions", context: "CI/CD pipelines & automation" },
+      { name: "Docker", Icon: SiDocker, iconClass: "text-[#2496ED]" },
+      {
+        name: "Vercel",
+        Icon: SiVercel,
+        iconClass: "text-gray-900 dark:text-white",
+      },
+      {
+        name: "GitHub Actions",
+        Icon: SiGithubactions,
+        iconClass: "text-[#2088FF]",
+      },
     ],
   },
 ];
@@ -130,20 +154,6 @@ const fadeUp: Variants = {
     opacity: 1,
     y: 0,
     transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
-  },
-};
-
-const stagger: Variants = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.06 } },
-};
-
-const rowVariant: Variants = {
-  hidden: { opacity: 0, x: -10 },
-  show: {
-    opacity: 1,
-    x: 0,
-    transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] },
   },
 };
 
@@ -171,101 +181,75 @@ export default function Skills() {
 
       <div className="relative z-10">
         <Container>
-          {/* ── Header ── */}
+          {/* ── Header — mirrors the About section's header anatomy ── */}
           <motion.div
             variants={fadeUp}
             initial="hidden"
             whileInView="show"
             viewport={{ once: true, margin: "-40px", amount: 0.1 }}
-            className="mb-20 flex flex-col items-center text-center gap-3"
+            className="mb-12"
           >
             <span className="sec-label">Skills</span>
-            <h2 className="pf-serif text-4xl md:text-5xl font-normal text-gray-900 dark:text-white leading-tight">
-              What I can
+            <h2 className="pf-serif font-normal leading-[1.08] text-gray-900 dark:text-white text-5xl md:text-6xl mt-3 mb-5">
+              What I
               <br />
-              <span className="em-g italic">deliver for you</span>
+              <span className="em-g">build</span>{" "}
+              <span className="pf-script font-medium text-4xl md:text-5xl relative inline-block -rotate-2 align-middle ml-1">
+                with.
+                {/* hand-drawn underline swoosh */}
+                <svg
+                  className="absolute -bottom-1.5 left-0 w-full text-teal-500 dark:text-teal-400"
+                  viewBox="0 0 120 8"
+                  fill="none"
+                  preserveAspectRatio="none"
+                  aria-hidden
+                >
+                  <path
+                    d="M2 6 C 30 2, 62 7, 118 3"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </span>
             </h2>
-            <p className="text-sm text-gray-500 dark:text-gray-400 max-w-sm leading-relaxed mt-1">
-              Not just a list of tools — but what I've actually built with them,
-              in production, for real users.
+            <p className="text-base text-gray-600 dark:text-gray-300 leading-[1.85] max-w-md">
+              Every tool here has shipped to production — across SWOP, ERP
+              systems, and e-commerce platforms.
             </p>
           </motion.div>
 
-          {/* ── Groups ── */}
-          <div className="space-y-4">
-            {deliverables.map((group, gi) => (
+          {/* ── Category rows — label left, chips right, hairline dividers ── */}
+          <div className="border-y border-gray-200/60 dark:border-white/[0.06] divide-y divide-gray-200/60 dark:divide-white/[0.06]">
+            {skillGroups.map((group, gi) => (
               <motion.div
-                key={group.index}
+                key={group.label}
                 variants={fadeUp}
                 initial="hidden"
                 whileInView="show"
                 viewport={{ once: true, margin: "-40px", amount: 0.1 }}
-                transition={{ delay: gi * 0.09 }}
-                className="rounded-xl border border-gray-200/60 dark:border-white/[0.07]
-                         bg-white/60 dark:bg-white/[0.03] backdrop-blur-sm overflow-hidden
-                         hover:border-teal-300/50 dark:hover:border-teal-800/40
-                         transition-colors duration-300"
+                transition={{ delay: gi * 0.06 }}
+                className="grid md:grid-cols-[230px_1fr] gap-x-10 gap-y-3 py-7 items-start"
               >
-                {/* ── Group header ── */}
-                <div className="px-4 sm:px-6 pt-5 pb-4 border-b border-gray-100/80 dark:border-white/[0.05]">
-                  <div className="flex items-start justify-between gap-4 mb-3">
-                    <div className="flex items-center gap-3 min-w-0">
-                      <span className="text-[10px] font-mono tracking-[.18em] text-teal-600 dark:text-teal-400 flex-shrink-0">
-                        {group.index}
-                      </span>
-                      <div className="min-w-0">
-                        <h3 className="text-sm font-bold text-gray-900 dark:text-white leading-snug">
-                          {group.capability}
-                        </h3>
-                        <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
-                          {group.tagline}
-                        </p>
-                      </div>
-                    </div>
-                    <span className="text-[10px] font-mono text-gray-300 dark:text-gray-600 flex-shrink-0 mt-0.5">
-                      {group.skills.length} skills
-                    </span>
+                <div>
+                  <div className="flex items-center gap-2 text-[11px] font-semibold tracking-[.18em] uppercase text-teal-700 dark:text-teal-400">
+                    <span className="w-1.5 h-1.5 rounded-full bg-teal-600 dark:bg-teal-400" />
+                    {group.label}
                   </div>
-
-                  {/* Highlight callout */}
-                  <div className="flex items-start gap-2 px-3 py-2 rounded-md bg-teal-50/60 dark:bg-teal-900/15 border border-teal-100 dark:border-teal-800/30">
-                    <Sparkles
-                      size={11}
-                      className="text-teal-600 dark:text-teal-400 flex-shrink-0 mt-0.5"
-                    />
-                    <p className="text-[11px] text-teal-800 dark:text-teal-300 font-medium leading-relaxed">
-                      {group.highlight}
-                    </p>
-                  </div>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-1.5 leading-relaxed">
+                    {group.note}
+                  </p>
                 </div>
-
-                {/* ── Skill rows ── */}
-                <motion.div
-                  variants={stagger}
-                  initial="hidden"
-                  whileInView="show"
-                  viewport={{ once: true, margin: "-40px", amount: 0.1 }}
-                  className="divide-y divide-gray-100/60 dark:divide-white/[0.04]"
-                >
-                  {group.skills.map((skill) => (
-                    <motion.div
-                      key={skill.name}
-                      variants={rowVariant}
-                      className="flex flex-wrap items-center gap-x-4 gap-y-1 px-4 sm:px-6 py-3
-                               hover:bg-teal-50/25 dark:hover:bg-teal-900/10
-                               transition-colors duration-150"
-                    >
-                      <span className="w-1.5 h-1.5 rounded-full bg-teal-400/60 dark:bg-teal-600/50 flex-shrink-0" />
-                      <span className="text-sm font-semibold text-gray-800 dark:text-gray-100 w-36 flex-shrink-0">
-                        {skill.name}
-                      </span>
-                      <span className="hidden sm:block w-px h-3 bg-gray-200 dark:bg-white/10 flex-shrink-0" />
-                      <span className="text-[13px] text-gray-500 dark:text-gray-400 grow basis-40">
-                        {skill.context}
-                      </span>
-                    </motion.div>
+                <div className="flex flex-wrap gap-2">
+                  {group.skills.map(({ name, Icon, iconClass }) => (
+                    <span key={name} className="tech-pill">
+                      {Icon ? (
+                        <Icon className={`w-3.5 h-3.5 ${iconClass ?? ""}`} />
+                      ) : null}
+                      {name}
+                    </span>
                   ))}
-                </motion.div>
+                </div>
               </motion.div>
             ))}
           </div>
