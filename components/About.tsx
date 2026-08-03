@@ -283,20 +283,52 @@ export default function About({
                       strokeOpacity="0.22"
                       strokeWidth="1"
                     >
-                      <polyline points="60,40 140,14 260,26 380,10 452,60" />
-                      <polyline points="452,60 470,150 430,260 462,380" />
-                      <polyline points="60,40 24,140 48,240 20,360 70,470" />
-                      <polyline points="380,10 430,260" />
+                      {(
+                        [
+                          ["60,40 140,14 260,26 380,10 452,60", 0.2],
+                          ["452,60 470,150 430,260 462,380", 0.5],
+                          ["60,40 24,140 48,240 20,360 70,470", 0.8],
+                          ["380,10 430,260", 1.1],
+                        ] as const
+                      ).map(([points, delay]) => (
+                        <motion.polyline
+                          key={points}
+                          points={points}
+                          initial={{ pathLength: 0 }}
+                          whileInView={{ pathLength: [0, 1] }}
+                          viewport={{ once: true }}
+                          transition={{
+                            duration: 1.6,
+                            ease: "easeInOut",
+                            delay,
+                            repeat: Infinity,
+                            repeatDelay: 8.4,
+                          }}
+                        />
+                      ))}
                     </g>
                     <g fill="currentColor">
-                      <circle cx="140" cy="14" r="2.5" opacity=".9" />
-                      <circle cx="380" cy="10" r="3" opacity=".8" />
-                      <circle cx="452" cy="60" r="2.5" opacity=".9" />
-                      <circle cx="430" cy="260" r="3" opacity=".7" />
-                      <circle cx="462" cy="380" r="2.5" opacity=".8" />
-                      <circle cx="24" cy="140" r="2.5" opacity=".8" />
-                      <circle cx="48" cy="240" r="2" opacity=".6" />
-                      <circle cx="20" cy="360" r="2.5" opacity=".8" />
+                      {(
+                        [
+                          [140, 14, 2.5, 0],
+                          [380, 10, 3, 0.4],
+                          [452, 60, 2.5, 0.9],
+                          [430, 260, 3, 1.3],
+                          [462, 380, 2.5, 1.8],
+                          [24, 140, 2.5, 0.6],
+                          [48, 240, 2, 1.5],
+                          [20, 360, 2.5, 2.1],
+                        ] as const
+                      ).map(([cx, cy, r, delay]) => (
+                        <circle
+                          key={`${cx}-${cy}`}
+                          className="tw-dot"
+                          cx={cx}
+                          cy={cy}
+                          r={r}
+                          style={{ animationDelay: `${delay}s` }}
+                        />
+                      ))}
                     </g>
                   </svg>
 
@@ -310,26 +342,57 @@ export default function About({
                     />
                   </div>
 
-                  {/* Top-left badge — current role (dark chip, both themes) */}
-                  <div className="absolute -top-5 -left-3 px-4 py-2.5 rounded-2xl shadow-[-6px_0_18px_rgba(45,212,191,0.22),inset_3px_0_12px_rgba(45,212,191,0.12),0_10px_28px_rgba(0,0,0,0.35)] backdrop-blur-md border bg-gray-900/85 border-white/10">
-                    <div className="flex items-center gap-1.5 text-[9px] font-medium uppercase tracking-[.15em] text-gray-400">
-                      <span className="pdot w-1.5 h-1.5 rounded-full bg-teal-400" />
-                      Currently at
+                  {/* Top-left badge — current role (dark chip, both themes).
+                      Outer motion.div = spring entrance, inner div = CSS float;
+                      separate elements because both animate transform */}
+                  <motion.div
+                    className="absolute -top-5 -left-3"
+                    initial={{ opacity: 0, y: 12, scale: 0.9 }}
+                    whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                    viewport={viewportOnce}
+                    transition={{
+                      type: "spring",
+                      stiffness: 260,
+                      damping: 20,
+                      delay: 0.5,
+                    }}
+                  >
+                    <div className="badge-float px-4 py-2.5 rounded-2xl shadow-[-6px_0_18px_rgba(45,212,191,0.22),inset_3px_0_12px_rgba(45,212,191,0.12),0_10px_28px_rgba(0,0,0,0.35)] backdrop-blur-md border bg-gray-900/85 border-white/10">
+                      <div className="flex items-center gap-1.5 text-[9px] font-medium uppercase tracking-[.15em] text-gray-400">
+                        <span className="pdot w-1.5 h-1.5 rounded-full bg-teal-400" />
+                        Currently at
+                      </div>
+                      <div className="text-xs font-semibold text-teal-400 mt-0.5 whitespace-nowrap">
+                        Global 360 Ventures
+                      </div>
                     </div>
-                    <div className="text-xs font-semibold text-teal-400 mt-0.5 whitespace-nowrap">
-                      Global 360 Ventures
-                    </div>
-                  </div>
+                  </motion.div>
 
                   {/* Bottom-right badge — education (dark chip, both themes) */}
-                  <div className="absolute -bottom-5 right-6 px-4 py-2.5 rounded-2xl shadow-[-6px_0_18px_rgba(45,212,191,0.22),inset_3px_0_12px_rgba(45,212,191,0.12),0_10px_28px_rgba(0,0,0,0.35)] backdrop-blur-md border bg-gray-900/85 border-white/10">
-                    <div className="text-[9px] font-medium uppercase tracking-[.15em] text-gray-400">
-                      Education
+                  <motion.div
+                    className="absolute -bottom-5 right-6"
+                    initial={{ opacity: 0, y: 12, scale: 0.9 }}
+                    whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                    viewport={viewportOnce}
+                    transition={{
+                      type: "spring",
+                      stiffness: 260,
+                      damping: 20,
+                      delay: 0.7,
+                    }}
+                  >
+                    <div
+                      className="badge-float px-4 py-2.5 rounded-2xl shadow-[-6px_0_18px_rgba(45,212,191,0.22),inset_3px_0_12px_rgba(45,212,191,0.12),0_10px_28px_rgba(0,0,0,0.35)] backdrop-blur-md border bg-gray-900/85 border-white/10"
+                      style={{ animationDelay: "-2.5s" }}
+                    >
+                      <div className="text-[9px] font-medium uppercase tracking-[.15em] text-gray-400">
+                        Education
+                      </div>
+                      <div className="text-xs font-semibold text-white mt-0.5 whitespace-nowrap">
+                        BSc CSE · IUBAT &rsquo;21
+                      </div>
                     </div>
-                    <div className="text-xs font-semibold text-white mt-0.5 whitespace-nowrap">
-                      BSc CSE · IUBAT &rsquo;21
-                    </div>
-                  </div>
+                  </motion.div>
                 </div>
               </motion.div>
 

@@ -698,6 +698,28 @@ body {
   }
 }
 
+@keyframes badge-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.35);
+  }
+}
+
 @keyframes orbit-pulse {
   0%,
   100% {
@@ -747,8 +769,23 @@ body {
       orbit 18s linear infinite,
       orbit-pulse 2.4s ease-in-out infinite;
   }
+
+  /* Constellation nodes (About photo) — staggered via animation-delay */
+  .tw-dot {
+    animation: twinkle 3s ease-in-out infinite;
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+
+  /* Floating photo badges (About) */
+  .badge-float {
+    animation: badge-float 5s ease-in-out infinite;
+  }
+
   @media (prefers-reduced-motion: reduce) {
-    .orbit-node {
+    .orbit-node,
+    .tw-dot,
+    .badge-float {
       animation: none;
     }
   }

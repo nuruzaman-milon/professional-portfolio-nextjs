@@ -247,25 +247,53 @@ export default function Hero() {
                       />
                     </div>
 
-                    {/* Bottom-right badge — experience (dark chip on the photo, both themes) */}
-                    <div className="absolute -bottom-5 -right-6 flex items-center gap-3 px-5 py-3 rounded-2xl shadow-[-6px_0_18px_rgba(45,212,191,0.22),inset_3px_0_12px_rgba(45,212,191,0.12),0_10px_28px_rgba(0,0,0,0.35)] backdrop-blur-md border bg-gray-900/85 border-white/10">
-                      <span className="pf-serif text-3xl leading-none text-teal-400">
-                        4+
-                      </span>
-                      <span className="text-[9px] font-medium uppercase tracking-[.15em] leading-[1.5] text-gray-300">
-                        Years
-                        <br />
-                        Experience
-                      </span>
-                    </div>
+                    {/* Bottom-right badge — experience (dark chip on the photo, both themes).
+                        Outer motion.div = spring entrance, inner div = CSS float */}
+                    <motion.div
+                      className="absolute -bottom-5 -right-6"
+                      initial={{ opacity: 0, y: 12, scale: 0.9 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 260,
+                        damping: 20,
+                        delay: 1.1,
+                      }}
+                    >
+                      <div
+                        className="badge-float flex items-center gap-3 px-5 py-3 rounded-2xl shadow-[-6px_0_18px_rgba(45,212,191,0.22),inset_3px_0_12px_rgba(45,212,191,0.12),0_10px_28px_rgba(0,0,0,0.35)] backdrop-blur-md border bg-gray-900/85 border-white/10"
+                        style={{ animationDelay: "-2.5s" }}
+                      >
+                        <span className="pf-serif text-3xl leading-none text-teal-400">
+                          4+
+                        </span>
+                        <span className="text-[9px] font-medium uppercase tracking-[.15em] leading-[1.5] text-gray-300">
+                          Years
+                          <br />
+                          Experience
+                        </span>
+                      </div>
+                    </motion.div>
 
                     {/* Top-left badge — core stack (dark pill on the photo, both themes) */}
-                    <div className="absolute -top-4 -left-6 flex items-center gap-2 px-4 py-2.5 rounded-full shadow-[-6px_0_18px_rgba(45,212,191,0.22),inset_3px_0_12px_rgba(45,212,191,0.12),0_10px_28px_rgba(0,0,0,0.35)] backdrop-blur-md border bg-gray-900/85 border-white/10">
-                      <span className="pdot w-1.5 h-1.5 rounded-full bg-teal-400" />
-                      <span className="text-xs font-semibold tracking-wide text-white whitespace-nowrap">
-                        Next.js · Node.js
-                      </span>
-                    </div>
+                    <motion.div
+                      className="absolute -top-4 -left-6"
+                      initial={{ opacity: 0, y: 12, scale: 0.9 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 260,
+                        damping: 20,
+                        delay: 0.9,
+                      }}
+                    >
+                      <div className="badge-float flex items-center gap-2 px-4 py-2.5 rounded-full shadow-[-6px_0_18px_rgba(45,212,191,0.22),inset_3px_0_12px_rgba(45,212,191,0.12),0_10px_28px_rgba(0,0,0,0.35)] backdrop-blur-md border bg-gray-900/85 border-white/10">
+                        <span className="pdot w-1.5 h-1.5 rounded-full bg-teal-400" />
+                        <span className="text-xs font-semibold tracking-wide text-white whitespace-nowrap">
+                          Next.js · Node.js
+                        </span>
+                      </div>
+                    </motion.div>
                   </div>
                 </div>
               </motion.div>
