@@ -270,67 +270,33 @@ export default function About({
                 className="flex justify-center"
               >
                 <div className="relative w-full max-w-[280px]">
-                  {/* constellation decoration */}
-                  <svg
-                    className="absolute -inset-10 w-[calc(100%+80px)] h-[calc(100%+80px)] pointer-events-none text-teal-600/70 dark:text-teal-400"
-                    viewBox="0 0 480 520"
-                    preserveAspectRatio="none"
-                    fill="none"
-                    aria-hidden
+                  {/* offset hairline frame — echoes the photo, slides out from
+                      behind it on scroll-in. radius = photo 28px + 8px offset,
+                      so the top-right corner curves concentric */}
+                  <motion.div
+                    className="absolute inset-0 rounded-[36px] border border-teal-600/40 dark:border-teal-400/35 pointer-events-none"
+                    initial={{ x: 0, y: 0, opacity: 0 }}
+                    whileInView={{ x: 8, y: -8, opacity: 1 }}
+                    viewport={viewportOnce}
+                    transition={{
+                      duration: 0.8,
+                      ease: [0.22, 1, 0.36, 1],
+                      delay: 0.4,
+                    }}
                   >
-                    <g
-                      stroke="currentColor"
-                      strokeOpacity="0.22"
-                      strokeWidth="1"
-                    >
-                      {(
-                        [
-                          ["60,40 140,14 260,26 380,10 452,60", 0.2],
-                          ["452,60 470,150 430,260 462,380", 0.5],
-                          ["60,40 24,140 48,240 20,360 70,470", 0.8],
-                          ["380,10 430,260", 1.1],
-                        ] as const
-                      ).map(([points, delay]) => (
-                        <motion.polyline
-                          key={points}
-                          points={points}
-                          initial={{ pathLength: 0 }}
-                          whileInView={{ pathLength: [0, 1] }}
-                          viewport={{ once: true }}
-                          transition={{
-                            duration: 1.6,
-                            ease: "easeInOut",
-                            delay,
-                            repeat: Infinity,
-                            repeatDelay: 8.4,
-                          }}
-                        />
-                      ))}
-                    </g>
-                    <g fill="currentColor">
-                      {(
-                        [
-                          [140, 14, 2.5, 0],
-                          [380, 10, 3, 0.4],
-                          [452, 60, 2.5, 0.9],
-                          [430, 260, 3, 1.3],
-                          [462, 380, 2.5, 1.8],
-                          [24, 140, 2.5, 0.6],
-                          [48, 240, 2, 1.5],
-                          [20, 360, 2.5, 2.1],
-                        ] as const
-                      ).map(([cx, cy, r, delay]) => (
-                        <circle
-                          key={`${cx}-${cy}`}
-                          className="tw-dot"
-                          cx={cx}
-                          cy={cy}
-                          r={r}
-                          style={{ animationDelay: `${delay}s` }}
-                        />
-                      ))}
-                    </g>
-                  </svg>
+                    {/* glowing dot riding the frame edge; hides behind the
+                        photo on the covered sides, like the hero orbit */}
+                    <div className="frame-node absolute left-[97%] top-[3%] w-2 h-2 rounded-full bg-teal-500 dark:bg-teal-400 shadow-[0_0_10px_2px_rgba(45,212,191,0.6)]" />
+                  </motion.div>
+                  {/* left-edge accent rules — static fade line + traveling beam */}
+                  <div className="absolute -left-4 top-[22%] w-[2px] h-32 rounded-full overflow-hidden bg-gradient-to-b from-transparent via-teal-600/40 to-transparent dark:via-teal-400/35 pointer-events-none">
+                    <div className="beam absolute inset-0" />
+                  </div>
+                  <div className="absolute -left-7 top-[36%] w-px h-16 rounded-full overflow-hidden bg-gradient-to-b from-transparent via-teal-600/30 to-transparent dark:via-teal-400/25 pointer-events-none">
+                    <div className="beam absolute inset-0" style={{ animationDelay: "-2s" }} />
+                  </div>
+                  {/* dot-grid patch — drifts diagonally, one cell per loop */}
+                  <div className="dots-drift absolute -bottom-6 -left-7 w-28 h-20 pointer-events-none text-teal-600/50 dark:text-teal-400/40 [background-image:radial-gradient(currentColor_1.5px,transparent_1.5px)] [background-size:12px_12px]" />
 
                   <div className="relative aspect-[9/10] rounded-[28px] overflow-hidden border border-teal-600/40 dark:border-teal-400/40 shadow-[0_0_45px_rgba(13,148,136,0.22)] dark:shadow-[0_0_45px_rgba(45,212,191,0.25)]">
                     <Image

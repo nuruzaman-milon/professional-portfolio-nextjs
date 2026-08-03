@@ -698,6 +698,24 @@ body {
   }
 }
 
+@keyframes beam-glide {
+  from {
+    background-position: 0 -150%;
+  }
+  to {
+    background-position: 0 250%;
+  }
+}
+
+@keyframes dots-drift {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 12px 12px;
+  }
+}
+
 @keyframes badge-float {
   0%,
   100% {
@@ -705,18 +723,6 @@ body {
   }
   50% {
     transform: translateY(-5px);
-  }
-}
-
-@keyframes twinkle {
-  0%,
-  100% {
-    opacity: 0.35;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1.35);
   }
 }
 
@@ -770,22 +776,51 @@ body {
       orbit-pulse 2.4s ease-in-out infinite;
   }
 
-  /* Constellation nodes (About photo) — staggered via animation-delay */
-  .tw-dot {
-    animation: twinkle 3s ease-in-out infinite;
-    transform-box: fill-box;
-    transform-origin: center;
-  }
-
-  /* Floating photo badges (About) */
+  /* Floating photo badges (hero + About) */
   .badge-float {
     animation: badge-float 5s ease-in-out infinite;
   }
 
+  /* Dot riding the About offset-frame's rounded-rect edge (hero-style) */
+  .frame-node {
+    offset-path: inset(0 round 36px);
+    animation:
+      orbit 16s linear infinite,
+      orbit-pulse 2.4s ease-in-out infinite;
+  }
+
+  /* Light pulse traveling down the About photo's accent rules */
+  .beam {
+    background-image: linear-gradient(
+      to bottom,
+      transparent,
+      rgba(13, 148, 136, 0.9),
+      transparent
+    );
+    background-size: 100% 50%;
+    background-repeat: no-repeat;
+    animation: beam-glide 4s linear infinite;
+  }
+  .dark .beam {
+    background-image: linear-gradient(
+      to bottom,
+      transparent,
+      rgba(45, 212, 191, 0.9),
+      transparent
+    );
+  }
+
+  /* Dot grid drifting one cell diagonally = seamless loop */
+  .dots-drift {
+    animation: dots-drift 7s linear infinite;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .orbit-node,
-    .tw-dot,
-    .badge-float {
+    .frame-node,
+    .badge-float,
+    .beam,
+    .dots-drift {
       animation: none;
     }
   }
