@@ -100,29 +100,52 @@ export default function Projects({ projects }: { projects: ProjectDTO[] }) {
                           transition-[border-color] duration-300
                           hover:border-teal-300/40 dark:hover:border-teal-800/30`}
               >
-                {/* Image Pane — alternates sides per card on desktop */}
+                {/* Image Pane — browser-frame screenshot, centered with
+                    breathing room instead of full-bleed */}
                 <div
-                  className={`relative overflow-hidden bg-gray-100 dark:bg-white/[0.02] aspect-video lg:aspect-auto lg:min-h-[240px] ${flipped ? "lg:order-2" : ""}`}
+                  className={`relative flex items-center p-5 sm:p-7 ${flipped ? "lg:order-2" : ""}`}
                 >
-                  <Image
-                    src={project.images[0]}
-                    alt={project.title}
-                    fill
-                    priority={false}
-                    sizes="(max-width: 1024px) 100vw, 40vw"
-                    className="object-cover object-top transition-transform duration-700 group-hover:scale-[1.04]"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-teal-900/15 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  {/* index chip — dark glass, same badge language as hero/About */}
-                  <div className="absolute top-3 left-3 px-2.5 py-1 rounded-lg bg-gray-900/80 backdrop-blur-md border border-white/10 text-[10px] font-mono tracking-[.18em] text-teal-300">
-                    {String(i + 1).padStart(2, "0")}
+                  {/* soft glow behind the window */}
+                  <div className="absolute inset-8 rounded-full bg-teal-500/15 dark:bg-teal-400/15 blur-3xl pointer-events-none" />
+                  <div className="relative w-full rounded-xl overflow-hidden border border-gray-200/70 dark:border-white/10 shadow-2xl bg-white dark:bg-gray-900">
+                    {/* browser chrome */}
+                    <div className="flex items-center gap-1.5 px-3 py-2 bg-gray-100/90 dark:bg-white/[0.06] border-b border-gray-200/70 dark:border-white/[0.06]">
+                      <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f57]" />
+                      <span className="w-2.5 h-2.5 rounded-full bg-[#febc2e]" />
+                      <span className="w-2.5 h-2.5 rounded-full bg-[#28c840]" />
+                      <span className="ml-2 flex-1 truncate rounded-md bg-white/80 dark:bg-white/[0.06] px-2.5 py-0.5 text-[10px] font-mono text-gray-400 dark:text-gray-500">
+                        {project.live
+                          ? project.live
+                              .replace(/^https?:\/\//, "")
+                              .replace(/\/.*$/, "")
+                          : project.slug}
+                      </span>
+                    </div>
+                    <div className="relative aspect-[16/10] overflow-hidden">
+                      <Image
+                        src={project.images[0]}
+                        alt={project.title}
+                        fill
+                        priority={false}
+                        sizes="(max-width: 1024px) 100vw, 40vw"
+                        className="object-cover object-top transition-transform duration-700 group-hover:scale-[1.03]"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-teal-900/15 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    </div>
                   </div>
                 </div>
 
                 {/* Content Pane */}
                 <div
-                  className={`flex flex-col p-5 sm:p-7 ${flipped ? "lg:order-1" : ""}`}
+                  className={`relative flex flex-col p-5 sm:p-7 ${flipped ? "lg:order-1" : ""}`}
                 >
+                  {/* ghost index number */}
+                  <span
+                    className="pointer-events-none select-none absolute top-4 right-6 pf-serif text-6xl leading-none text-teal-900/[0.07] dark:text-white/[0.05]"
+                    aria-hidden
+                  >
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
                   <span className="text-[10px] font-mono tracking-[.15em] uppercase text-teal-600 dark:text-teal-400 mb-3">
                     {project.label}
                   </span>
