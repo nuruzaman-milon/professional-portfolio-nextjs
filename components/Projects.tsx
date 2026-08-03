@@ -27,7 +27,7 @@ export default function Projects({ projects }: { projects: ProjectDTO[] }) {
   return (
     <section
       id="projects"
-      className="pf-mesh pf-noise relative overflow-hidden py-28"
+      className="pf-mesh pf-noise relative overflow-hidden py-14"
     >
       {/* Grid Overlay */}
       <div className="pf-grid absolute inset-0 z-0" />

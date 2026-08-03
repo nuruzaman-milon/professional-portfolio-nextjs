@@ -34,7 +34,7 @@ export default function Blog({ posts }: { posts: PostDTO[] }) {
   return (
     <section
       id="blog"
-      className="pf-mesh pf-noise relative overflow-hidden py-28"
+      className="pf-mesh pf-noise relative overflow-hidden py-14"
     >
       <div className="pf-grid absolute inset-0 z-0" />
 

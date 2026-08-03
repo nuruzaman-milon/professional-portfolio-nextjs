@@ -43,7 +43,7 @@ export default function About({
   return (
     <section
       id="about"
-      className="ab-bg pf-noise relative overflow-hidden py-28"
+      className="ab-bg pf-noise relative overflow-hidden py-14"
     >
       {/* Grid overlay */}
       <div className="ab-grid absolute inset-0 z-0" />

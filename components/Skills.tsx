@@ -151,7 +151,7 @@ export default function Skills() {
   return (
     <section
       id="skills"
-      className="ab-bg pf-noise relative overflow-hidden py-28"
+      className="ab-bg pf-noise relative overflow-hidden py-14"
     >
       <div className="ab-grid absolute inset-0 z-0" />
 

@@ -101,7 +101,7 @@ export default function Contact() {
     <section
       ref={ref}
       id="contact"
-      className="pf-mesh pf-noise relative overflow-hidden py-28"
+      className="pf-mesh pf-noise relative overflow-hidden py-14"
     >
       <div className="pf-grid absolute inset-0 z-0" />
 
