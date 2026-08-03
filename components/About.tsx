@@ -8,19 +8,29 @@ import myImg from "@/public/images/me/nuruzaman-milon.webp";
 import type { ExperienceDTO } from "@/lib/content";
 
 const techStack = [
-  { label: "JavaScript", bg: "#f7df1e", text: "#000" },
-  { label: "TypeScript", bg: "#3178c6", text: "#fff" },
-  { label: "React", bg: "#61dafb", text: "#000" },
-  { label: "Next.js", bg: "#000000", text: "#fff" },
-  { label: "Node.js", bg: "#339933", text: "#fff" },
-  { label: "Express.js", bg: "#404040", text: "#fff" },
-  { label: "MongoDB", bg: "#47a248", text: "#fff" },
-  { label: "Prisma", bg: "#4790a2", text: "#fff" },
-  { label: "PostgreSQL", bg: "#336791", text: "#fff" },
-  { label: "Tailwind CSS", bg: "#06b6d4", text: "#fff" },
-  { label: "Framer Motion", bg: "#ff0050", text: "#fff" },
-  { label: "Zustand", bg: "#443e38", text: "#fff" },
-  { label: "Docker", bg: "#2496ed", text: "#fff" },
+  "JavaScript",
+  "TypeScript",
+  "React",
+  "Next.js",
+  "Node.js",
+  "Express.js",
+  "MongoDB",
+  "Prisma",
+  "PostgreSQL",
+  "Tailwind CSS",
+  "Framer Motion",
+  "Zustand",
+  "Docker",
+];
+
+const quickFacts: { label: string; value: string; href?: string }[] = [
+  { label: "Location", value: "Dhaka, Bangladesh" },
+  { label: "Phone", value: "+880 1303 746 940", href: "tel:+8801303746940" },
+  {
+    label: "Email",
+    value: "nuruzaman.milon@gmail.com",
+    href: "mailto:nuruzaman.milon@gmail.com",
+  },
 ];
 
 const fadeUp: Variants = {
@@ -56,7 +66,7 @@ export default function About({
             initial="hidden"
             whileInView="show"
             viewport={{ once: true, margin: "-40px", amount: 0.1 }}
-            className="mb-16 flex flex-col items-center text-center gap-3"
+            className="mb-12 flex flex-col items-center text-center gap-3"
           >
             <span className="sec-label">About Me</span>
             <h2 className="pf-serif text-4xl md:text-5xl font-normal text-gray-900 dark:text-white leading-tight">
@@ -79,17 +89,18 @@ export default function About({
                 className="space-y-5 mb-8"
               >
                 <p className="text-base text-gray-600 dark:text-gray-300 leading-[1.85]">
-                  I'm a Full Stack Software Engineer with 4+ years of
-                  professional experience delivering production-grade web
-                  applications. I specialise in React, Next.js, and Node.js —
-                  with a strong focus on performance, maintainable architecture,
-                  and clean user experiences.
+                  These days I'm a Software Engineer at Global 360 Ventures,
+                  where I own the entire frontend of Build 360, an e-commerce
+                  platform — from UI architecture and component systems to
+                  performance across the storefront.
                 </p>
                 <p className="text-base text-gray-600 dark:text-gray-300 leading-[1.85]">
-                  My work spans e-commerce platforms, ERP systems, and
-                  Web3-integrated social platforms. I care about translating
-                  complex requirements into reliable features that hold up in
-                  production.
+                  I care about the unglamorous parts of engineering:
+                  maintainable architecture, honest error handling, and
+                  performance that survives past the demo. Before this I led
+                  the frontend of SWOP — a Web2/Web3 social platform with
+                  Solana wallet integration — from idea to production. I hold a
+                  BSc in CSE from IUBAT (&rsquo;21).
                 </p>
               </motion.div>
 
@@ -176,11 +187,10 @@ export default function About({
                 className="flex justify-center lg:justify-start"
               >
                 <div className="relative">
+                  {/* soft ambient glow — quieter sibling of the hero frame */}
+                  <div className="absolute -inset-5 rounded-[32px] bg-teal-600/10 dark:bg-teal-400/10 blur-2xl pointer-events-none" />
                   <div className="relative w-64 h-72">
-                    <div className="ctl" />
-                    <div className="cbr" />
-                    <div className="ph-frame w-full h-full">
-                      {/* ✅ Fix: সঠিক size ও sizes prop */}
+                    <div className="w-full h-full rounded-3xl overflow-hidden border border-teal-600/30 dark:border-teal-400/30 shadow-[0_24px_64px_rgba(0,0,0,0.12)] dark:shadow-[0_24px_64px_rgba(0,0,0,0.4)]">
                       <Image
                         src={myImg}
                         alt="Nuruzaman Milon — Software Engineer"
@@ -192,41 +202,23 @@ export default function About({
                       />
                     </div>
 
-                    {/* Bottom-left badge */}
-                    <div
-                      className="absolute -bottom-4 -left-5 px-3 py-2.5 rounded-lg shadow-lg"
-                      style={{
-                        background: "rgba(255,255,255,.92)",
-                        border: "1px solid rgba(0,0,0,.06)",
-                        backdropFilter: "blur(12px)",
-                      }}
-                    >
-                      <div className="text-[10px] text-gray-400 font-medium tracking-wide uppercase">
+                    {/* Bottom-left badge — education (dark chip, both themes) */}
+                    <div className="absolute -bottom-4 -left-5 px-4 py-2.5 rounded-2xl shadow-[-6px_0_18px_rgba(45,212,191,0.22),inset_3px_0_12px_rgba(45,212,191,0.12),0_10px_28px_rgba(0,0,0,0.35)] backdrop-blur-md border bg-gray-900/85 border-white/10">
+                      <div className="text-[9px] font-medium uppercase tracking-[.15em] text-gray-400">
                         Education
                       </div>
-                      <div className="text-xs font-bold text-gray-800 mt-0.5">
+                      <div className="text-xs font-semibold text-white mt-0.5 whitespace-nowrap">
                         BSc CSE · IUBAT &rsquo;21
                       </div>
                     </div>
 
-                    {/* Top-right badge */}
-                    <div
-                      className="absolute -top-4 -right-5 px-3 py-2.5 rounded-lg shadow-xl"
-                      style={{
-                        background: "linear-gradient(135deg,#0f766e,#115e59)",
-                        border: "1px solid rgba(13,148,136,.3)",
-                      }}
-                    >
-                      <div className="text-white text-center">
-                        <div className="text-[10px] font-medium opacity-80 tracking-wide uppercase">
-                          Currently at
-                        </div>
-                        <div className="text-xs font-bold leading-tight mt-0.5">
-                          Bayshore
-                        </div>
-                        <div className="text-[10px] font-medium opacity-80 tracking-wide mt-0.5">
-                          Comm.
-                        </div>
+                    {/* Top-right badge — current role (dark chip, both themes) */}
+                    <div className="absolute -top-4 -right-5 px-4 py-2.5 rounded-2xl shadow-[-6px_0_18px_rgba(45,212,191,0.22),inset_3px_0_12px_rgba(45,212,191,0.12),0_10px_28px_rgba(0,0,0,0.35)] backdrop-blur-md border bg-gray-900/85 border-white/10">
+                      <div className="text-[9px] font-medium uppercase tracking-[.15em] text-gray-400">
+                        Currently at
+                      </div>
+                      <div className="text-xs font-semibold text-teal-400 mt-0.5 whitespace-nowrap">
+                        Global 360 Ventures
                       </div>
                     </div>
                   </div>
@@ -245,12 +237,8 @@ export default function About({
                   Tech Stack
                 </div>
                 <div className="flex flex-wrap gap-2">
-                  {techStack.map(({ label, bg, text }) => (
-                    <span
-                      key={label}
-                      className="tech-pill"
-                      style={{ background: bg, color: text }}
-                    >
+                  {techStack.map((label) => (
+                    <span key={label} className="tech-pill">
                       {label}
                     </span>
                   ))}
@@ -269,18 +257,23 @@ export default function About({
                   Quick Facts
                 </div>
                 <div className="space-y-2">
-                  {[
-                    { label: "Location", value: "Dhaka, Bangladesh" },
-                    { label: "Phone", value: "+880 1303 746 940" },
-                    { label: "Email", value: "nuruzaman.milon@gmail.com" },
-                  ].map(({ label, value }) => (
+                  {quickFacts.map(({ label, value, href }) => (
                     <div key={label} className="flex gap-3 text-sm">
                       <span className="text-gray-400 dark:text-gray-500 font-medium w-20 flex-shrink-0">
                         {label}
                       </span>
-                      <span className="text-gray-600 dark:text-gray-300 break-all">
-                        {value}
-                      </span>
+                      {href ? (
+                        <a
+                          href={href}
+                          className="text-gray-600 dark:text-gray-300 break-all hover:text-teal-700 dark:hover:text-teal-400 transition-colors duration-200"
+                        >
+                          {value}
+                        </a>
+                      ) : (
+                        <span className="text-gray-600 dark:text-gray-300 break-all">
+                          {value}
+                        </span>
+                      )}
                     </div>
                   ))}
                 </div>

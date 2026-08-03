@@ -8,7 +8,13 @@ export type ExperienceItem = {
 // Static fallback — served when the database is not configured or empty.
 export const experiences: ExperienceItem[] = [
   {
-    period: "Mar 2023 – Present",
+    period: "Jul 2026 – Present",
+    company: "Global 360 Ventures",
+    role: "Software Engineer",
+    desc: "Owning the entire frontend of Build 360, an e-commerce platform — UI architecture, feature delivery, and performance across the storefront.",
+  },
+  {
+    period: "Mar 2023 – Jun 2026",
     company: "Bayshore Communication",
     role: "Software Engineer",
     desc: "Leading frontend of SWOP — a Web2/Web3 social platform — with wallet integration, social feed, and SmartSite builder. Also built a full-stack e-commerce platform from scratch.",
