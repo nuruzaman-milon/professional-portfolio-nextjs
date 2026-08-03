@@ -1,17 +1,18 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, type MouseEvent } from "react";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import ThemeToggle from "./ThemeToggle";
 import Container from "./Container";
+import Button from "./Button";
 
-// ─── Site config — change name/initials here only ───────────────────────────
+// ─── Site config — change name here only ────────────────────────────────────
 const SITE = {
-  name: "Nuruzaman Milon",
-  initials: "NM",
+  first: "Nuruzaman",
+  last: "Milon",
 };
 
 const navItems = [
@@ -20,15 +21,17 @@ const navItems = [
   { href: "#skills", label: "Skills", id: "skills" },
   { href: "#projects", label: "Projects", id: "projects" },
   { href: "#blog", label: "Blog", id: "blog" },
-  { href: "#contact", label: "Contact", id: "contact" },
 ];
+
+// tracked sections — contact stays here (it's the CTA, not a nav link) so no
+// link remains highlighted while the contact section is in view
+const sectionIds = [...navItems.map((i) => i.id), "contact"];
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
   const pathname = usePathname();
-  const router = useRouter();
 
   // ── Scroll → active section + scrolled state ──────────────────────────────
   useEffect(() => {
@@ -37,7 +40,7 @@ export default function Navbar() {
 
       if (pathname !== "/") return;
 
-      const ids = navItems.map((i) => i.id);
+      const ids = sectionIds;
       let current = "home";
 
       for (let i = ids.length - 1; i >= 0; i--) {
@@ -80,32 +83,32 @@ export default function Navbar() {
   }, [pathname]);
 
   // ── Click handler — smooth scroll + mobile close ──────────────────────────
-  const handleNavClick = (id: string) => {
-    console.log("nav id", id);
-
+  // preventDefault so the browser's instant hash-jump doesn't race the
+  // smooth scroll; navigation is fully handled here
+  const handleNavClick = (e: MouseEvent, id: string) => {
+    e.preventDefault();
     setIsOpen(false);
 
     if (pathname === "/") {
-      // Already on home — just smooth scroll
       document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
       return;
     }
 
-    // On any other route — navigate to home with the hash
-    // Next.js router.push will load the page, then the browser
-    // will scroll to the anchor automatically
-    // Force a full navigation to home with hash — clears the current route
+    // On other routes: full navigation to home with the hash
     window.location.href = `/#${id}`;
   };
 
   return (
     <nav className="fixed top-0 w-full z-50">
       {/* ── Background layer ── */}
+      {/* border-b is always present (transparent when unscrolled) — without it,
+          transition-all animates border-color from preflight's gray-200 default,
+          flashing a white line in dark mode */}
       <div
-        className={`absolute inset-0 transition-all duration-700 ease-out ${
+        className={`absolute inset-0 border-b transition-all duration-700 ease-out ${
           scrolled
-            ? "bg-white/95 dark:bg-[#0C1014] backdrop-blur-md shadow-lg border-b border-gray-200/50 dark:border-gray-700/50"
-            : "bg-transparent"
+            ? "bg-white/95 dark:bg-[#0a0a0f]/95 backdrop-blur-md shadow-lg border-gray-200/50 dark:border-gray-700/50"
+            : "bg-transparent border-transparent"
         }`}
       />
 
@@ -113,38 +116,23 @@ export default function Navbar() {
       <div className="relative">
         <Container>
           <div className="flex justify-between items-center h-16">
-            {/* Logo */}
-            <Link href="/" className="flex items-center gap-2.5 group">
-              <div
-                className="w-8 h-8 rounded-sm flex items-center justify-center flex-shrink-0 transition-transform duration-300 group-hover:scale-110"
-                style={{
-                  background: "linear-gradient(135deg,#0f766e,#115e59)",
-                }}
-              >
-                <span className="text-white text-xs font-bold tracking-tight">
-                  {SITE.initials}
-                </span>
-              </div>
-              <span
-                className={`text-base font-semibold transition-colors duration-300 ${
-                  scrolled
-                    ? "text-gray-900 dark:text-white"
-                    : "text-gray-900 dark:text-white"
-                }`}
-              >
-                {SITE.name}
-              </span>
+            {/* Logo — serif wordmark, echoes the hero name */}
+            <Link
+              href="/"
+              className="pf-serif text-xl leading-none text-gray-900 dark:text-white transition-opacity duration-200 hover:opacity-80"
+            >
+              {SITE.first} <span className="em-g">{SITE.last}</span>
             </Link>
 
             {/* ── Desktop nav ── */}
             <div className="hidden md:flex items-center gap-8">
-              {navItems.map((item, i) => {
+              {navItems.map((item) => {
                 const isActive = activeSection === item.id;
                 return (
                   <Link
                     key={item.id}
-                    href={item.href} // ✅ no leading "/" — was "/${item.href}" before
-                    onClick={() => handleNavClick(item.id)}
+                    href={item.href}
+                    onClick={(e) => handleNavClick(e, item.id)}
                     className={`relative text-sm transition-colors duration-300 group ${
                       isActive
                         ? "text-teal-700 dark:text-teal-400 font-semibold"
@@ -152,21 +140,26 @@ export default function Navbar() {
                           ? "text-gray-700 dark:text-gray-200 hover:text-teal-700 dark:hover:text-teal-400"
                           : "text-gray-600 dark:text-gray-300 hover:text-teal-700 dark:hover:text-teal-400"
                     }`}
-                    style={{ transitionDelay: `${i * 30}ms` }}
                   >
                     {item.label}
-                    {/* Underline indicator — single indicator, no dot */}
+                    {/* Underline indicator */}
                     <span
-                      className={`absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-teal-700 to-teal-800 dark:from-teal-400 dark:to-teal-300 transition-all duration-300 ${
+                      className={`absolute -bottom-1 left-0 h-0.5 bg-teal-700 dark:bg-teal-400 transition-all duration-300 ${
                         isActive ? "w-full" : "w-0 group-hover:w-full"
                       }`}
                     />
                   </Link>
                 );
               })}
-              <div className="ml-2">
-                <ThemeToggle />
-              </div>
+              <Button
+                variant="ghost"
+                href="#contact"
+                onClick={(e) => handleNavClick(e, "contact")}
+                className="px-4 py-1.5 text-[13px]"
+              >
+                Let's talk
+              </Button>
+              <ThemeToggle />
             </div>
 
             {/* ── Mobile: theme toggle + hamburger ── */}
@@ -230,7 +223,7 @@ export default function Navbar() {
                     >
                       <Link
                         href={item.href}
-                        onClick={() => handleNavClick(item.id)}
+                        onClick={(e) => handleNavClick(e, item.id)}
                         className={`flex items-center justify-between py-2.5 px-3 rounded-lg text-sm transition-colors duration-200 ${
                           isActive
                             ? "text-teal-700 dark:text-teal-400 bg-teal-50 dark:bg-teal-900/20 font-semibold"
@@ -245,6 +238,25 @@ export default function Navbar() {
                     </motion.div>
                   );
                 })}
+                <motion.div
+                  initial={{ opacity: 0, x: -12 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{
+                    duration: 0.2,
+                    delay: navItems.length * 0.04,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                  className="mt-2 pt-3 border-t border-gray-200/60 dark:border-white/10"
+                >
+                  <Button
+                    variant="ghost"
+                    href="#contact"
+                    onClick={(e) => handleNavClick(e, "contact")}
+                    className="w-full py-2.5"
+                  >
+                    Let's talk
+                  </Button>
+                </motion.div>
               </motion.div>
             )}
           </AnimatePresence>
