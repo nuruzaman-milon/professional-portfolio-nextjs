@@ -274,7 +274,7 @@ export default function About({
                       behind it on scroll-in. radius = photo 28px + 8px offset,
                       so the top-right corner curves concentric */}
                   <motion.div
-                    className="absolute inset-0 rounded-[36px] border border-teal-600/40 dark:border-teal-400/35 pointer-events-none"
+                    className="absolute inset-0 pointer-events-none"
                     initial={{ x: 0, y: 0, opacity: 0 }}
                     whileInView={{ x: 8, y: -8, opacity: 1 }}
                     viewport={viewportOnce}
@@ -284,7 +284,11 @@ export default function About({
                       delay: 0.4,
                     }}
                   >
-                    {/* glowing dot riding the frame edge; hides behind the
+                    {/* fading corner arc — the frame outline masked to its
+                        top-right sweep, dissolving along both ends. The mask
+                        sits on this inner div only, so the dot isn't clipped */}
+                    <div className="absolute inset-0 rounded-[36px] border-[1.5px] border-teal-600/60 dark:border-teal-400/50 [mask-image:radial-gradient(circle_at_100%_0%,black_30%,transparent_65%)]" />
+                    {/* glowing dot rides the full frame rect; hides behind the
                         photo on the covered sides, like the hero orbit */}
                     <div className="frame-node absolute left-[97%] top-[3%] w-2 h-2 rounded-full bg-teal-500 dark:bg-teal-400 shadow-[0_0_10px_2px_rgba(45,212,191,0.6)]" />
                   </motion.div>
