@@ -60,15 +60,33 @@ export default function Blog({ posts }: { posts: PostDTO[] }) {
             initial="hidden"
             whileInView="show"
             viewport={{ once: true, margin: "-40px", amount: 0.1 }}
-            className="mb-20 flex flex-col items-center text-center gap-3"
+            className="mb-12"
           >
             <span className="sec-label">Blog</span>
-            <h2 className="pf-serif text-4xl md:text-5xl font-normal text-gray-900 dark:text-white leading-tight">
+            <h2 className="pf-serif font-normal leading-[1.08] text-gray-900 dark:text-white text-5xl md:text-6xl mt-3 mb-5">
               Things I've
               <br />
-              <span className="em-g italic">written and shared</span>
+              <span className="em-g">written</span>{" "}
+              <span className="pf-script font-medium text-4xl md:text-5xl relative inline-block -rotate-2 align-middle ml-1">
+                &amp; shared.
+                {/* hand-drawn underline swoosh */}
+                <svg
+                  className="absolute -bottom-1.5 left-0 w-full text-teal-500 dark:text-teal-400"
+                  viewBox="0 0 120 8"
+                  fill="none"
+                  preserveAspectRatio="none"
+                  aria-hidden
+                >
+                  <path
+                    d="M2 6 C 30 2, 62 7, 118 3"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </span>
             </h2>
-            <p className="text-sm text-gray-500 dark:text-gray-400 max-w-sm leading-relaxed mt-1">
+            <p className="text-base text-gray-600 dark:text-gray-300 leading-[1.85] max-w-md">
               Thoughts on engineering, architecture, and lessons learned
               building in public.
             </p>
@@ -82,83 +100,72 @@ export default function Blog({ posts }: { posts: PostDTO[] }) {
             viewport={{ once: true, margin: "-40px", amount: 0.1 }}
             className="space-y-6"
           >
-            {posts.map((post, i) => (
+            {posts.map((post) => (
               <motion.article
                 key={post.id}
                 variants={fadeUp}
-                className="group grid lg:grid-cols-[2fr_3fr] gap-0 rounded-xl border border-gray-200/60 dark:border-white/[0.07] bg-white/60 dark:bg-white/[0.03] backdrop-blur-sm overflow-hidden hover:border-teal-300/50 dark:hover:border-teal-800/40 transition-all duration-300"
+                className="group grid lg:grid-cols-[2fr_3fr] rounded-xl border border-gray-200/60 dark:border-white/[0.07] bg-white/60 dark:bg-white/[0.03] backdrop-blur-sm overflow-hidden hover:border-teal-300/50 dark:hover:border-teal-800/40 transition-[border-color] duration-300"
               >
-                {/* Image pane */}
-                <div className="relative overflow-hidden bg-gray-100 dark:bg-gray-800/50 aspect-[16/10] lg:aspect-auto min-h-[200px]">
-                  <Image
-                    src={post.image}
-                    alt={post.title}
-                    fill
-                    sizes="(max-width: 1024px) 100vw, 40vw"
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    onError={(e) => {
-                      (e.target as HTMLImageElement).style.display = "none";
-                    }}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-br from-teal-900/20 to-transparent opacity-60" />
+                {/* Image pane — framed and centered, not stretched full height */}
+                <div className="relative flex items-center p-4 sm:p-5">
+                  <div className="relative w-full aspect-[16/10] rounded-xl overflow-hidden border border-gray-200/70 dark:border-white/10 bg-gray-100 dark:bg-gray-800/50">
+                    <Image
+                      src={post.image}
+                      alt={post.title}
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 40vw"
+                      className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).style.display = "none";
+                      }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-teal-900/15 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-                  {/* Category badge */}
-                  <div className="absolute top-3 left-3">
-                    <span className="px-2.5 py-1 rounded-md text-[10px] font-mono tracking-[.12em] uppercase bg-teal-600/90 text-white backdrop-blur-sm">
+                    {/* Category badge — dark glass, site badge language */}
+                    <div className="absolute top-3 left-3 px-2.5 py-1 rounded-lg bg-gray-900/80 backdrop-blur-md border border-white/10 text-[10px] font-mono tracking-[.12em] uppercase text-teal-300">
                       {post.category}
-                    </span>
-                  </div>
-
-                  {/* Index watermark */}
-                  <div className="absolute bottom-3 left-4 text-[10px] font-mono tracking-[.18em] text-white/40">
-                    {String(i + 1).padStart(2, "0")}
+                    </div>
                   </div>
                 </div>
 
-                {/* Content pane */}
-                <div className="flex flex-col p-5 sm:p-7">
-                  <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1.5 mb-3">
-                    <span className="text-[10px] font-mono tracking-[.15em] uppercase text-teal-600 dark:text-teal-400">
-                      Article · {post.category}
-                    </span>
-                    <div className="flex items-center gap-3 text-xs text-gray-500 dark:text-gray-400">
-                      <span className="flex items-center gap-1">
-                        <Calendar size={11} />
-                        {formatDate(post.date)}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <Clock size={11} />
-                        {post.readTime}
-                      </span>
-                    </div>
-                  </div>
+                {/* Content */}
+                <div className="flex flex-col grow p-5 sm:p-7 lg:pl-2">
+                  {/* serif title, links to the article */}
+                  <Link
+                    href={`/blog/${post.slug}`}
+                    className="group/title inline-flex items-start gap-2 mb-2.5 self-start"
+                  >
+                    <h3 className="pf-serif text-xl sm:text-2xl font-normal text-gray-900 dark:text-white leading-snug group-hover/title:text-teal-700 dark:group-hover/title:text-teal-300 transition-colors duration-200">
+                      {post.title}
+                    </h3>
+                    <ArrowUpRight
+                      size={18}
+                      className="mt-1.5 flex-shrink-0 text-gray-400 group-hover/title:text-teal-600 dark:group-hover/title:text-teal-400 group-hover/title:translate-x-0.5 group-hover/title:-translate-y-0.5 transition-all duration-200"
+                    />
+                  </Link>
 
-                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 leading-snug">
-                    {post.title}
-                  </h3>
-
-                  <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed mb-5">
+                  <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed mb-4 line-clamp-3">
                     {post.excerpt}
                   </p>
 
-                  <div className="flex flex-wrap gap-1.5 mb-6">
+                  <div className="flex flex-wrap gap-1.5 mb-5">
                     {post.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="px-2.5 py-1 rounded-md text-[11px] font-medium
-                                 bg-gray-100/80 dark:bg-white/[0.05]
-                                 text-gray-600 dark:text-gray-400
-                                 border border-gray-200/60 dark:border-white/[0.08]"
-                      >
+                      <span key={tag} className="tech-pill">
                         {tag}
                       </span>
                     ))}
                   </div>
 
-                  <div className="mt-auto">
-                    <Link href={`/blog/${post.slug}`} className="cta-link">
-                      Read article <ArrowUpRight size={13} />
-                    </Link>
+                  {/* footer — date + read time */}
+                  <div className="mt-auto pt-4 border-t border-gray-200/60 dark:border-white/[0.06] flex items-center gap-4 text-xs text-gray-500 dark:text-gray-400">
+                    <span className="flex items-center gap-1.5">
+                      <Calendar size={12} />
+                      {formatDate(post.date)}
+                    </span>
+                    <span className="flex items-center gap-1.5">
+                      <Clock size={12} />
+                      {post.readTime}
+                    </span>
                   </div>
                 </div>
               </motion.article>
