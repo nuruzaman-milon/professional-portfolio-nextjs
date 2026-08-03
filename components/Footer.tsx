@@ -6,8 +6,8 @@ import Container from "./Container";
 
 // ─── Site config — match with Navbar ─────────────────────────────────────────
 const SITE = {
-  name: "Nuruzaman Milon",
-  initials: "NM",
+  first: "Nuruzaman",
+  last: "Milon",
   tagline: "Full-stack engineer crafting Web2 & Web3 experiences.",
 };
 
@@ -41,7 +41,7 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="relative overflow-hidden border-t border-gray-200/60 dark:border-white/[0.07] bg-white/60 dark:bg-[#0C1014] backdrop-blur-sm">
+    <footer className="relative overflow-hidden border-t border-gray-200/60 dark:border-white/[0.07] bg-white/60 dark:bg-[#0a0a0f] backdrop-blur-sm">
       {/* Subtle ambient orb */}
       <div
         className="absolute pointer-events-none opacity-20"
@@ -63,21 +63,12 @@ export default function Footer() {
           <div className="grid md:grid-cols-[2fr_1fr_1fr] gap-12 mb-14">
             {/* Brand col */}
             <div className="flex flex-col gap-5">
-              {/* Logo — same as Navbar */}
-              <Link href="/" className="flex items-center gap-2.5 group w-fit">
-                <div
-                  className="w-8 h-8 rounded-sm flex items-center justify-center flex-shrink-0 transition-transform duration-300 group-hover:scale-110"
-                  style={{
-                    background: "linear-gradient(135deg,#0f766e,#115e59)",
-                  }}
-                >
-                  <span className="text-white text-xs font-bold tracking-tight">
-                    {SITE.initials}
-                  </span>
-                </div>
-                <span className="text-base font-semibold text-gray-900 dark:text-white">
-                  {SITE.name}
-                </span>
+              {/* Logo — serif wordmark, same as Navbar */}
+              <Link
+                href="/"
+                className="pf-serif text-xl leading-none text-gray-900 dark:text-white transition-opacity duration-200 hover:opacity-80 w-fit"
+              >
+                {SITE.first} <span className="em-g">{SITE.last}</span>
               </Link>
 
               <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed max-w-xs">
@@ -91,7 +82,7 @@ export default function Footer() {
                     key={label}
                     href={href}
                     aria-label={label}
-                    className="soc"
+                    className="w-9 h-9 rounded-lg border border-black/[0.08] bg-white/60 text-gray-500 hover:text-teal-700 hover:border-teal-700/40 dark:border-white/[0.08] dark:bg-white/[0.04] dark:text-gray-400 dark:hover:text-teal-400 dark:hover:border-teal-400/40 flex items-center justify-center transition-colors duration-200"
                     target={href.startsWith("http") ? "_blank" : undefined}
                     rel={
                       href.startsWith("http")
@@ -99,7 +90,7 @@ export default function Footer() {
                         : undefined
                     }
                   >
-                    <Icon size={14} />
+                    <Icon size={15} />
                   </a>
                 ))}
               </div>
@@ -152,7 +143,7 @@ export default function Footer() {
           {/* ── Bottom bar ── */}
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <p className="text-[11px] font-mono text-gray-400 dark:text-gray-600 tracking-wide">
-              © {year} {SITE.name}. All rights reserved.
+              © {year} {SITE.first} {SITE.last}. All rights reserved.
             </p>
 
             <button
