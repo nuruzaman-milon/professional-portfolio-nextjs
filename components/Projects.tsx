@@ -49,15 +49,33 @@ export default function Projects({ projects }: { projects: ProjectDTO[] }) {
             initial="hidden"
             whileInView="show"
             viewport={{ once: true, margin: "-40px", amount: 0.1 }}
-            className="mb-20 flex flex-col items-center text-center gap-3"
+            className="mb-12"
           >
             <span className="sec-label">Projects</span>
-            <h2 className="pf-serif text-4xl md:text-5xl font-normal text-gray-900 dark:text-white leading-tight">
+            <h2 className="pf-serif font-normal leading-[1.08] text-gray-900 dark:text-white text-5xl md:text-6xl mt-3 mb-5">
               Things I've
               <br />
-              <span className="em-g italic">built and shipped</span>
+              <span className="em-g">built</span>{" "}
+              <span className="pf-script font-medium text-4xl md:text-5xl relative inline-block -rotate-2 align-middle ml-1">
+                &amp; shipped.
+                {/* hand-drawn underline swoosh */}
+                <svg
+                  className="absolute -bottom-1.5 left-0 w-full text-teal-500 dark:text-teal-400"
+                  viewBox="0 0 120 8"
+                  fill="none"
+                  preserveAspectRatio="none"
+                  aria-hidden
+                >
+                  <path
+                    d="M2 6 C 30 2, 62 7, 118 3"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </span>
             </h2>
-            <p className="text-sm text-gray-500 dark:text-gray-400 max-w-sm leading-relaxed mt-1">
+            <p className="text-base text-gray-600 dark:text-gray-300 leading-[1.85] max-w-md">
               Production work — real users, real problems, real constraints.
             </p>
           </motion.div>
@@ -70,31 +88,37 @@ export default function Projects({ projects }: { projects: ProjectDTO[] }) {
             viewport={{ once: true, margin: "-40px", amount: 0.1 }}
             className="space-y-6"
           >
-            {projects.map((project) => (
+            {projects.map((project, i) => {
+              const flipped = i % 2 === 1;
+              return (
               <motion.div
                 key={project.id}
                 variants={fadeUp}
-                className="group grid lg:grid-cols-[2fr_3fr] rounded-xl overflow-hidden
+                className={`group grid ${flipped ? "lg:grid-cols-[3fr_2fr]" : "lg:grid-cols-[2fr_3fr]"} rounded-xl overflow-hidden
                           border border-gray-200/60 dark:border-white/[0.06]
                           bg-white/75 dark:bg-zinc-900/60
                           transition-[border-color] duration-300
-                          hover:border-teal-300/40 dark:hover:border-teal-800/30"
+                          hover:border-teal-300/40 dark:hover:border-teal-800/30`}
               >
-                {/* Image Pane */}
-                <div className="relative overflow-hidden bg-gray-100 dark:bg-white/[0.02] aspect-video lg:aspect-auto lg:min-h-[240px]">
+                {/* Image Pane — alternates sides per card on desktop */}
+                <div
+                  className={`relative overflow-hidden bg-gray-100 dark:bg-white/[0.02] aspect-video lg:aspect-auto lg:min-h-[240px] ${flipped ? "lg:order-2" : ""}`}
+                >
                   <Image
                     src={project.images[0]}
                     alt={project.title}
                     fill
                     priority={false}
                     sizes="(max-width: 1024px) 100vw, 40vw"
-                    className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.02]"
+                    className="object-cover object-top transition-transform duration-700 group-hover:scale-[1.04]"
                   />
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/[0.03] transition-colors duration-300" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-teal-900/15 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 </div>
 
                 {/* Content Pane */}
-                <div className="flex flex-col p-5 sm:p-7">
+                <div
+                  className={`flex flex-col p-5 sm:p-7 ${flipped ? "lg:order-1" : ""}`}
+                >
                   <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1.5 mb-3">
                     <span className="text-[10px] font-mono tracking-[.15em] uppercase text-teal-600 dark:text-teal-400">
                       {project.label}
@@ -106,7 +130,7 @@ export default function Projects({ projects }: { projects: ProjectDTO[] }) {
                           target="_blank"
                           rel="noopener noreferrer"
                           aria-label="GitHub"
-                          className="soc !w-8 !h-8"
+                          className="w-8 h-8 rounded-lg border border-black/[0.08] bg-white/60 text-gray-500 hover:text-teal-700 hover:border-teal-700/40 dark:border-white/[0.08] dark:bg-white/[0.04] dark:text-gray-400 dark:hover:text-teal-400 dark:hover:border-teal-400/40 flex items-center justify-center transition-colors duration-200"
                         >
                           <Github size={14} />
                         </a>
@@ -117,7 +141,7 @@ export default function Projects({ projects }: { projects: ProjectDTO[] }) {
                           target="_blank"
                           rel="noopener noreferrer"
                           aria-label="Live site"
-                          className="soc !w-8 !h-8"
+                          className="w-8 h-8 rounded-lg border border-black/[0.08] bg-white/60 text-gray-500 hover:text-teal-700 hover:border-teal-700/40 dark:border-white/[0.08] dark:bg-white/[0.04] dark:text-gray-400 dark:hover:text-teal-400 dark:hover:border-teal-400/40 flex items-center justify-center transition-colors duration-200"
                         >
                           <ExternalLink size={14} />
                         </a>
@@ -147,13 +171,7 @@ export default function Projects({ projects }: { projects: ProjectDTO[] }) {
 
                   <div className="flex flex-wrap gap-1.5 mb-6">
                     {project.stack.map((tech) => (
-                      <span
-                        key={tech}
-                        className="px-2.5 py-1 rounded-md text-[11px] font-medium
-                                 bg-gray-100/90 dark:bg-white/[0.04]
-                                 text-gray-600 dark:text-gray-400
-                                 border border-gray-200/60 dark:border-white/[0.06]"
-                      >
+                      <span key={tech} className="tech-pill">
                         {tech}
                       </span>
                     ))}
@@ -169,7 +187,8 @@ export default function Projects({ projects }: { projects: ProjectDTO[] }) {
                   </div>
                 </div>
               </motion.div>
-            ))}
+              );
+            })}
           </motion.div>
 
           {/* ── Bottom CTA ── */}
