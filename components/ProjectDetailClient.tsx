@@ -18,6 +18,7 @@ import {
 import type { ProjectDTO } from "@/lib/content";
 import ImageCarousel from "@/components/custom/ImageCarosel";
 import Container from "@/components/Container";
+import Button from "@/components/Button";
 
 // ─── Variants ─────────────────────────────────────────────────────────────────
 
@@ -146,13 +147,13 @@ export default function ProjectDetailClient({
                 <Calendar size={13} />
                 {project.completedDate
                   ? new Date(project.completedDate).toLocaleDateString(
-                      "en-GB",
+                      "en-US",
                       {
                         month: "short",
                         year: "numeric",
                       },
                     )
-                  : "In Progress"}
+                  : "Ongoing"}
               </span>
               <span className="flex items-center gap-1.5">
                 <Layers size={13} />
@@ -160,48 +161,66 @@ export default function ProjectDetailClient({
               </span>
             </motion.div>
 
-            <motion.div variants={fadeUp} className="flex items-center gap-3">
-              {project.github && (
-                <a
-                  href={project.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-gray-100/80 dark:bg-white/[0.05] text-gray-600 dark:text-gray-300 border border-gray-200/60 dark:border-white/[0.08] hover:border-teal-300/50 dark:hover:border-teal-800/40 transition-all duration-200"
-                >
-                  <Github size={15} />
-                  View Code
-                </a>
-              )}
+            <motion.div
+              variants={fadeUp}
+              className="flex flex-wrap items-center gap-3"
+            >
               {project.live && (
-                <a
+                <Button
                   href={project.live}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-teal-600 hover:bg-teal-700 text-white transition-all duration-200"
                 >
                   <ExternalLink size={15} />
-                  Live Site
+                  Live site
                   <ArrowUpRight size={13} />
-                </a>
+                </Button>
+              )}
+              {project.github && (
+                <Button
+                  variant="ghost"
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Github size={15} />
+                  View code
+                </Button>
               )}
             </motion.div>
           </motion.div>
 
-          {/* ── Full-width carousel ── */}
+          {/* ── Full-width carousel — browser-frame window ── */}
           <motion.div
             animate={inView ? "show" : "hidden"}
             variants={fadeUp}
             initial="hidden"
             transition={{ delay: 0.1 }}
-            className="mb-16 rounded-xl overflow-hidden border border-gray-200/60 dark:border-white/[0.07]"
-            style={{ aspectRatio: "16/9" }}
+            className="relative mb-16"
           >
-            <ImageCarousel
-              images={project.images}
-              title={project.title}
-              index={0}
-              className="w-full h-full"
-            />
+            {/* soft glow behind the window */}
+            <div className="absolute inset-10 rounded-full bg-teal-500/15 dark:bg-teal-400/15 blur-3xl pointer-events-none" />
+            <div className="relative rounded-xl overflow-hidden border border-gray-200/70 dark:border-white/10 shadow-xl bg-white dark:bg-gray-900">
+              {/* browser chrome */}
+              <div className="flex items-center gap-1.5 px-3 py-2 bg-gray-100/90 dark:bg-white/[0.06] border-b border-gray-200/70 dark:border-white/[0.06]">
+                <span className="w-2 h-2 rounded-full bg-[#ff5f57]" />
+                <span className="w-2 h-2 rounded-full bg-[#febc2e]" />
+                <span className="w-2 h-2 rounded-full bg-[#28c840]" />
+                <span className="ml-2 flex-1 truncate rounded bg-white/80 dark:bg-white/[0.06] px-2 py-0.5 text-[9px] font-mono text-gray-400 dark:text-gray-500">
+                  {project.live
+                    ? project.live
+                        .replace(/^https?:\/\//, "")
+                        .replace(/\/.*$/, "")
+                    : project.slug}
+                </span>
+              </div>
+              <ImageCarousel
+                images={project.images}
+                title={project.title}
+                index={0}
+                className="w-full !aspect-[16/9]"
+              />
+            </div>
           </motion.div>
 
           {/* ── Content grid ── */}
@@ -229,9 +248,9 @@ export default function ProjectDetailClient({
                     {project.features.map((f) => (
                       <li
                         key={f}
-                        className="flex items-start gap-3 text-sm text-gray-600 dark:text-gray-300"
+                        className="flex items-start gap-2.5 text-sm text-gray-600 dark:text-gray-300"
                       >
-                        <span className="mt-2 w-1 h-1 rounded-full bg-teal-400/70 flex-shrink-0" />
+                        <span className="mt-[9px] w-3 h-px bg-teal-500/70 flex-shrink-0" />
                         {f}
                       </li>
                     ))}
@@ -309,7 +328,7 @@ export default function ProjectDetailClient({
                         key={h}
                         className="flex items-start gap-2.5 text-sm text-gray-600 dark:text-gray-300"
                       >
-                        <span className="mt-2 w-1 h-1 rounded-full bg-teal-400/70 flex-shrink-0" />
+                        <span className="mt-[9px] w-3 h-px bg-teal-500/70 flex-shrink-0" />
                         {h}
                       </li>
                     ))}
@@ -328,7 +347,7 @@ export default function ProjectDetailClient({
                         label: "Completed",
                         value: project.completedDate
                           ? new Date(project.completedDate).toLocaleDateString(
-                              "en-GB",
+                              "en-US",
                               {
                                 month: "long",
                                 year: "numeric",
@@ -360,10 +379,10 @@ export default function ProjectDetailClient({
                       href={project.live}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="mt-5 w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-xs font-medium bg-teal-600 hover:bg-teal-700 text-white transition-all duration-200"
+                      className="mt-5 w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-xs font-medium bg-teal-700 hover:bg-teal-800 dark:hover:bg-teal-600 text-white transition-colors duration-200"
                     >
                       <ExternalLink size={13} />
-                      Visit Live Site
+                      Visit live site
                       <ArrowUpRight size={12} />
                     </a>
                   )}
@@ -372,32 +391,6 @@ export default function ProjectDetailClient({
             </div>
           </motion.div>
 
-          {/* ── Footer ── */}
-          <motion.div
-            animate={inView ? "show" : "hidden"}
-            variants={fadeUp}
-            initial="hidden"
-            transition={{ delay: 0.4 }}
-            className="mt-20 pt-10 border-t border-gray-200/40 dark:border-white/[0.06] flex items-center justify-between"
-          >
-            <Link
-              href="/projects"
-              className="inline-flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 hover:text-teal-600 dark:hover:text-teal-400 transition-colors duration-200"
-            >
-              <ArrowLeft size={15} />
-              All projects
-            </Link>
-            {project.live && (
-              <a
-                href={project.live}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="cta-link text-sm"
-              >
-                Live site <ArrowUpRight size={13} />
-              </a>
-            )}
-          </motion.div>
         </Container>
       </div>
     </div>

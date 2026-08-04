@@ -1,9 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, Calendar, Clock, Heart, MessageCircle } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, Calendar, Clock } from "lucide-react";
 import ShareButton from "@/components/ShareButton";
 import type { Metadata, ResolvingMetadata } from "next";
 import Container from "@/components/Container";
+import Button from "@/components/Button";
 import { getPostBySlug, getRelatedPosts } from "@/lib/content";
 
 export const revalidate = 300;
@@ -12,6 +13,14 @@ type Props = {
   params: Promise<{ slug: string }>;
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
+
+function formatDate(dateStr: string) {
+  return new Date(dateStr).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
+}
 
 export async function generateMetadata(
   { params, searchParams }: Props,
@@ -74,14 +83,11 @@ export default async function BlogPost({
       <div className="pf-mesh pf-noise relative min-h-screen overflow-hidden pt-20 flex items-center justify-center">
         <div className="pf-grid absolute inset-0 z-0" />
         <div className="relative z-10 text-center">
-          <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-            Post Not Found
+          <h1 className="pf-serif text-4xl md:text-5xl font-normal text-gray-900 dark:text-white mb-5">
+            Post not found
           </h1>
-          <Link
-            href="/blog"
-            className="inline-flex items-center gap-2 text-sm text-teal-600 hover:text-teal-400 transition-colors"
-          >
-            <ArrowLeft size={15} /> Back to Blog
+          <Link href="/blog" className="cta-link justify-center">
+            <ArrowLeft size={13} /> Back to blog
           </Link>
         </div>
       </div>
@@ -90,7 +96,7 @@ export default async function BlogPost({
   const related = await getRelatedPosts(slug);
 
   return (
-    <div className="pf-mesh pf-noise relative min-h-screen overflow-hidden pt-20">
+    <div className="pf-mesh pf-noise relative min-h-screen overflow-hidden py-24">
       {/* Grid overlay */}
       <div className="pf-grid absolute inset-0 z-0" />
 
@@ -123,20 +129,20 @@ export default async function BlogPost({
       />
 
       <div className="relative z-10">
-        <Container className="py-12">
+        <Container>
           {/* ── Back link ── */}
           <Link
             href="/blog"
-            className="inline-flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 hover:text-teal-600 dark:hover:text-teal-400 transition-colors duration-200 mb-14"
+            className="inline-flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 hover:text-teal-600 dark:hover:text-teal-400 transition-colors duration-200 mb-10"
           >
-            <ArrowLeft size={15} /> Back to Blog
+            <ArrowLeft size={15} /> Back to blog
           </Link>
 
           {/* ── Header ── */}
           <header className="mb-10">
             {/* Category + Tags */}
-            <div className="flex flex-wrap items-center gap-2 mb-5">
-              <span className="px-3 py-1 bg-teal-700 text-white text-[11px] font-mono tracking-wide rounded-md">
+            <div className="flex flex-wrap items-center gap-1.5 mb-6">
+              <span className="px-2.5 py-1 rounded-lg bg-teal-700 text-white text-[10px] font-mono tracking-[.12em] uppercase">
                 {post.category}
               </span>
               {post.tags.map((tag) => (
@@ -149,8 +155,8 @@ export default async function BlogPost({
               ))}
             </div>
 
-            {/* Title */}
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-5 leading-tight">
+            {/* Title — serif display, matching the site's heading language */}
+            <h1 className="pf-serif text-4xl md:text-6xl font-normal text-gray-900 dark:text-white mb-5 leading-[1.1]">
               {post.title}
             </h1>
 
@@ -164,7 +170,7 @@ export default async function BlogPost({
               <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs font-mono text-gray-400 dark:text-gray-500">
                 <div className="flex items-center gap-1.5">
                   <Calendar size={12} />
-                  <span>{new Date(post.date).toLocaleDateString()}</span>
+                  <span>{formatDate(post.date)}</span>
                 </div>
                 <div className="flex items-center gap-1.5">
                   <Clock size={12} />
@@ -173,44 +179,25 @@ export default async function BlogPost({
                 <span>By {post.author}</span>
               </div>
 
-              {/* Actions */}
-              <div className="flex items-center gap-2">
-                {/* <button
-                  className="h-8 px-3 rounded-lg border border-gray-200/70 dark:border-white/[0.08]
-                             bg-white/70 dark:bg-white/[0.04] text-xs font-mono
-                             text-gray-500 dark:text-gray-400
-                             hover:border-teal-400/60 hover:text-teal-700 dark:hover:text-teal-400
-                             flex items-center gap-1.5 transition-colors duration-200"
-                >
-                  <Heart size={12} /> 24
-                </button>
-                <button
-                  className="h-8 px-3 rounded-lg border border-gray-200/70 dark:border-white/[0.08]
-                             bg-white/70 dark:bg-white/[0.04] text-xs font-mono
-                             text-gray-500 dark:text-gray-400
-                             hover:border-teal-400/60 hover:text-teal-700 dark:hover:text-teal-400
-                             flex items-center gap-1.5 transition-colors duration-200"
-                >
-                  <MessageCircle size={12} /> 8
-                </button> */}
-                <ShareButton
-                  title={post.title}
-                  url={`/blog/${slug}`}
-                  description={post.excerpt}
-                />
-              </div>
+              <ShareButton
+                title={post.title}
+                url={`/blog/${slug}`}
+                description={post.excerpt}
+              />
             </div>
           </header>
 
-          {/* ── Hero image ── */}
-          <div className="relative rounded-xl overflow-hidden mb-10 border border-gray-200/60 dark:border-white/[0.07]">
+          {/* ── Hero image — framed, site image language ── */}
+          <div className="relative rounded-xl overflow-hidden mb-10 border border-gray-200/70 dark:border-white/10 shadow-xl bg-gray-100 dark:bg-gray-800/50">
             <Image
               src={post.image || "/placeholder.svg"}
               alt={post.title}
-              width={800}
-              height={400}
+              width={1200}
+              height={675}
+              priority
               className="w-full h-64 md:h-96 object-cover"
             />
+            <div className="absolute inset-0 bg-gradient-to-t from-teal-900/10 to-transparent pointer-events-none" />
           </div>
 
           {/* ── Article content ── */}
@@ -251,7 +238,7 @@ export default async function BlogPost({
               <p className="text-[10px] font-mono tracking-[.15em] uppercase text-teal-600 dark:text-teal-400 mb-1">
                 Author
               </p>
-              <h3 className="text-base font-bold text-gray-900 dark:text-white mb-1">
+              <h3 className="pf-serif text-lg font-normal text-gray-900 dark:text-white mb-1">
                 {post.author}
               </h3>
               <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
@@ -274,21 +261,27 @@ export default async function BlogPost({
                     <Link
                       key={rel.id}
                       href={`/blog/${rel.slug}`}
-                      className="group rounded-xl border border-gray-200/60 dark:border-white/[0.07] bg-white/60 dark:bg-white/[0.03] backdrop-blur-sm p-6 hover:border-teal-300/50 dark:hover:border-teal-800/40 transition-colors duration-300"
+                      className="group rounded-xl border border-gray-200/60 dark:border-white/[0.07] bg-white/60 dark:bg-white/[0.03] backdrop-blur-sm p-6 hover:border-teal-300/50 dark:hover:border-teal-800/40 transition-[border-color] duration-300"
                     >
-                      <span className="inline-block px-2.5 py-1 bg-teal-700 text-white text-[10px] font-mono tracking-wide rounded-md mb-3">
+                      <span className="inline-block px-2.5 py-1 rounded-lg bg-teal-700 text-white text-[10px] font-mono tracking-[.12em] uppercase mb-3">
                         {rel.category}
                       </span>
-                      <h4 className="text-base font-bold text-gray-900 dark:text-white mb-2 group-hover:text-teal-700 dark:group-hover:text-teal-400 transition-colors leading-snug">
-                        {rel.title}
-                      </h4>
+                      <div className="flex items-start gap-2 mb-2">
+                        <h4 className="pf-serif text-lg font-normal text-gray-900 dark:text-white leading-snug group-hover:text-teal-700 dark:group-hover:text-teal-300 transition-colors duration-200">
+                          {rel.title}
+                        </h4>
+                        <ArrowUpRight
+                          size={15}
+                          className="mt-1 flex-shrink-0 text-gray-400 group-hover:text-teal-600 dark:group-hover:text-teal-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-200"
+                        />
+                      </div>
                       <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed line-clamp-2">
                         {rel.excerpt}
                       </p>
-                      <div className="mt-4 flex items-center gap-3 text-[11px] font-mono text-gray-400 dark:text-gray-500">
+                      <div className="mt-4 pt-4 border-t border-gray-200/60 dark:border-white/[0.06] flex items-center gap-3 text-[11px] font-mono text-gray-400 dark:text-gray-500">
                         <div className="flex items-center gap-1">
                           <Calendar size={10} />
-                          {new Date(rel.date).toLocaleDateString()}
+                          {formatDate(rel.date)}
                         </div>
                         <div className="flex items-center gap-1">
                           <Clock size={10} />
@@ -303,13 +296,11 @@ export default async function BlogPost({
           )}
 
           {/* ── Bottom back link ── */}
-          <div className="mt-20 pt-10 border-t border-gray-200/40 dark:border-white/[0.06]">
-            <Link
-              href="/blog"
-              className="inline-flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 hover:text-teal-600 dark:hover:text-teal-400 transition-colors duration-200"
-            >
-              <ArrowLeft size={15} /> Back to Blog
-            </Link>
+          <div className="mt-16 flex flex-col items-center gap-5">
+            <div className="hl w-full" />
+            <Button variant="ghost" href="/blog">
+              <ArrowLeft size={14} /> Back to blog
+            </Button>
           </div>
         </Container>
       </div>

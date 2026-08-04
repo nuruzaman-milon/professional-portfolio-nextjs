@@ -1,5 +1,5 @@
 import BlogListClient from "@/components/BlogListClient";
-import { getAllPosts } from "@/lib/content";
+import { getPostsPage, getPostFilterOptions } from "@/lib/content";
 
 export const revalidate = 300;
 
@@ -10,6 +10,19 @@ export const metadata = {
 };
 
 export default async function BlogPage() {
-  const posts = await getAllPosts();
-  return <BlogListClient posts={posts} />;
+  // First page only — the client fetches the rest from /api/blog on scroll.
+  // limit matches POSTS_PER_PAGE in BlogListClient.
+  const [page, filters] = await Promise.all([
+    getPostsPage({ limit: 6 }),
+    getPostFilterOptions(),
+  ]);
+  return (
+    <BlogListClient
+      initialPosts={page.posts}
+      initialTotal={page.total}
+      initialHasMore={page.hasMore}
+      categories={filters.categories}
+      allTags={filters.tags}
+    />
+  );
 }
